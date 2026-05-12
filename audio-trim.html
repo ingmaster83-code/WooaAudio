@@ -202,19 +202,24 @@
   </div>
 </footer>
 
-<script src="https://unpkg.com/@ffmpeg/ffmpeg@0.11.6/dist/ffmpeg.min.js"></script>
-<script src="js/pwa-install.js"></script>
-<script>
-const { createFFmpeg, fetchFile } = FFmpeg;
-const ffmpeg = createFFmpeg({ log: false, corePath: 'https://unpkg.com/@ffmpeg/core@0.11.0/dist/ffmpeg-core.js' });
+<script type="module">
+import { FFmpeg } from 'https://unpkg.com/@ffmpeg/ffmpeg@0.12.10/dist/esm/index.js';
+import { fetchFile, toBlobURL } from 'https://unpkg.com/@ffmpeg/util@0.12.1/dist/esm/index.js';
+
+const ffmpeg = new FFmpeg();
 let currentFile = null, audioCtx = null, audioBuffer = null;
 
 (async () => {
   try {
-    await ffmpeg.load();
+    const baseURL = 'https://unpkg.com/@ffmpeg/core@0.12.6/dist/esm';
+    await ffmpeg.load({
+      coreURL: await toBlobURL(`${baseURL}/ffmpeg-core.js`, 'text/javascript'),
+      wasmURL: await toBlobURL(`${baseURL}/ffmpeg-core.wasm`, 'application/wasm'),
+    });
     document.getElementById('ffmpegLoading').style.display = 'none';
     document.getElementById('mainUI').style.display = 'block';
   } catch(e) {
+    console.error(e);
     document.getElementById('ffmpegLoading').textContent = '❌ 엔진 로드 실패.';
     document.getElementById('ffmpegLoading').className = 'alert alert-error';
   }
@@ -306,13 +311,13 @@ async function trimAudio() {
   const ext = currentFile.name.split('.').pop();
   const inName = 'trim_in.'+ext;
   const outName = 'trim_out.'+fmt;
-  ffmpeg.FS('writeFile', inName, await fetchFile(currentFile));
+  await ffmpeg.writeFile(inName, await fetchFile(currentFile));
 
   document.getElementById('progressFill').style.width = '60%';
-  await ffmpeg.run('-i',inName,'-ss',String(start),'-to',String(end),'-c','copy', outName);
+  await ffmpeg.exec(['-i',inName,'-ss',String(start),'-to',String(end),'-c','copy', outName]);
 
   document.getElementById('progressFill').style.width = '90%';
-  const data = ffmpeg.FS('readFile', outName);
+  const data = await ffmpeg.readFile(outName);
   const blob = new Blob([data.buffer],{type:'audio/'+fmt});
   const url = URL.createObjectURL(blob);
   const baseName = currentFile.name.replace(/\.[^.]+$/,'');
@@ -326,7 +331,7 @@ async function trimAudio() {
   document.getElementById('resultPanel').style.display = 'block';
   document.getElementById('trimBtn').disabled = false;
 
-  ffmpeg.FS('unlink',inName); ffmpeg.FS('unlink',outName);
+  await ffmpeg.deleteFile(inName); await ffmpeg.deleteFile(outName);
 }
 </script>
 <script>

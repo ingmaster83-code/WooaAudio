@@ -186,19 +186,24 @@
   </div>
 </footer>
 
-<script src="https://unpkg.com/@ffmpeg/ffmpeg@0.11.6/dist/ffmpeg.min.js"></script>
-<script src="js/pwa-install.js"></script>
-<script>
-const { createFFmpeg, fetchFile } = FFmpeg;
-const ffmpeg = createFFmpeg({ log: false, corePath: 'https://unpkg.com/@ffmpeg/core@0.11.0/dist/ffmpeg-core.js' });
+<script type="module">
+import { FFmpeg } from 'https://unpkg.com/@ffmpeg/ffmpeg@0.12.10/dist/esm/index.js';
+import { fetchFile, toBlobURL } from 'https://unpkg.com/@ffmpeg/util@0.12.1/dist/esm/index.js';
+
+const ffmpeg = new FFmpeg();
 let files = [];
 
 (async () => {
   try {
-    await ffmpeg.load();
+    const baseURL = 'https://unpkg.com/@ffmpeg/core@0.12.6/dist/esm';
+    await ffmpeg.load({
+      coreURL: await toBlobURL(`${baseURL}/ffmpeg-core.js`, 'text/javascript'),
+      wasmURL: await toBlobURL(`${baseURL}/ffmpeg-core.wasm`, 'application/wasm'),
+    });
     document.getElementById('ffmpegLoading').style.display = 'none';
     document.getElementById('mainUI').style.display = 'block';
   } catch(e) {
+    console.error(e);
     document.getElementById('ffmpegLoading').textContent = '❌ 엔진 로드 실패.';
     document.getElementById('ffmpegLoading').className = 'alert alert-error';
   }
@@ -273,10 +278,10 @@ async function mergeAudio() {
     const ext = files[i].name.split('.').pop();
     const inName = `merge_in_${i}.${ext}`;
     const outName = `merge_conv_${i}.${fmt}`;
-    ffmpeg.FS('writeFile', inName, await fetchFile(files[i]));
-    await ffmpeg.run('-i',inName,'-ar','44100','-ac','2', outName);
+    await ffmpeg.writeFile(inName, await fetchFile(files[i]));
+    await ffmpeg.exec(['-i',inName,'-ar','44100','-ac','2', outName]);
     fileList.push(outName);
-    ffmpeg.FS('unlink', inName);
+    await ffmpeg.deleteFile(inName);
   }
 
   // concat 리스트 파일 생성
@@ -288,7 +293,7 @@ async function mergeAudio() {
   if(gap > 0) {
     // silence 파일 생성
     const silenceName = 'silence.'+fmt;
-    await ffmpeg.run('-f','lavfi','-i',`anullsrc=r=44100:cl=stereo`,'-t',String(gap),'-ar','44100', silenceName);
+    await ffmpeg.exec(['-f','lavfi','-i',`anullsrc=r=44100:cl=stereo`,'-t',String(gap),'-ar','44100', silenceName]);
     fileList.forEach((f,i) => {
       concatContent += `file '${f}'\n`;
       if(i < fileList.length-1) concatContent += `file '${silenceName}'\n`;
@@ -298,13 +303,13 @@ async function mergeAudio() {
   }
 
   const enc = new TextEncoder();
-  ffmpeg.FS('writeFile', 'concat_list.txt', enc.encode(concatContent));
+  await ffmpeg.writeFile('concat_list.txt', enc.encode(concatContent));
 
   const outName = 'merged_output.'+fmt;
-  await ffmpeg.run('-f','concat','-safe','0','-i','concat_list.txt','-c','copy', outName);
+  await ffmpeg.exec(['-f','concat','-safe','0','-i','concat_list.txt','-c','copy', outName]);
 
   document.getElementById('progressFill').style.width = '95%';
-  const data = ffmpeg.FS('readFile', outName);
+  const data = await ffmpeg.readFile(outName);
   const blob = new Blob([data.buffer],{type:'audio/'+fmt});
   const url = URL.createObjectURL(blob);
 
@@ -319,9 +324,9 @@ async function mergeAudio() {
   document.getElementById('mergeBtn').disabled = false;
 
   // 정리
-  fileList.forEach(f => { try{ffmpeg.FS('unlink',f);}catch(e){} });
-  try{ffmpeg.FS('unlink','concat_list.txt');}catch(e){}
-  try{ffmpeg.FS('unlink',outName);}catch(e){}
+  for(const f of fileList) { try{ await ffmpeg.deleteFile(f); }catch(e){} }
+  try{ await ffmpeg.deleteFile('concat_list.txt'); }catch(e){}
+  try{ await ffmpeg.deleteFile(outName); }catch(e){}
 }
 </script>
 <script>
