@@ -174,20 +174,16 @@
   </div>
 </footer>
 
-<script type="module">
-import { FFmpeg } from 'https://unpkg.com/@ffmpeg/ffmpeg@0.12.10/dist/esm/index.js';
-import { fetchFile, toBlobURL } from 'https://unpkg.com/@ffmpeg/util@0.12.1/dist/esm/index.js';
-
-const ffmpeg = new FFmpeg();
+<script src="/coi-serviceworker.min.js"></script>
+<script src="https://unpkg.com/@ffmpeg/ffmpeg@0.11.6/dist/ffmpeg.min.js"></script>
+<script>
+const { createFFmpeg, fetchFile } = FFmpeg;
+const ffmpeg = createFFmpeg({ log: false, corePath: 'https://unpkg.com/@ffmpeg/core@0.11.0/dist/ffmpeg-core.js' });
 let files = [];
 
 (async () => {
   try {
-    const baseURL = 'https://unpkg.com/@ffmpeg/core@0.12.6/dist/esm';
-    await ffmpeg.load({
-      coreURL: await toBlobURL(`${baseURL}/ffmpeg-core.js`, 'text/javascript'),
-      wasmURL: await toBlobURL(`${baseURL}/ffmpeg-core.wasm`, 'application/wasm'),
-    });
+    await ffmpeg.load();
     document.getElementById('ffmpegLoading').style.display = 'none';
     document.getElementById('mainUI').style.display = 'block';
   } catch(e) {
@@ -246,18 +242,18 @@ async function extractAudio() {
     const ext = f.name.split('.').pop();
     const inName = 'vin_'+i+'.'+ext;
     const outName = 'vout_'+i+'.'+fmt;
-    await ffmpeg.writeFile(inName, await fetchFile(f));
+    ffmpeg.FS('writeFile', inName, await fetchFile(f));
     const args = ['-i', inName, '-vn'];
     if(!['wav','flac'].includes(fmt)) args.push('-b:a', bitrate);
     args.push(outName);
     try {
-      await ffmpeg.exec(args);
-      const data = await ffmpeg.readFile(outName);
+      await ffmpeg.run(...args);
+      const data = ffmpeg.FS('readFile', outName);
       const blob = new Blob([data.buffer], {type:'audio/'+fmt});
       const url = URL.createObjectURL(blob);
       const baseName = f.name.replace(/\.[^.]+$/,'');
       results.push({url, name: baseName+'.'+fmt, size: blob.size});
-      await ffmpeg.deleteFile(inName); await ffmpeg.deleteFile(outName);
+      ffmpeg.FS('unlink', inName); ffmpeg.FS('unlink', outName);
     } catch(e) { results.push({error:true, name:f.name}); }
   }
 
