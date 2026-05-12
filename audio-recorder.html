@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-XXXXXXXXXX');</script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>브라우저 녹음기 - 마이크 녹음 무료 | WooaAudio</title>
+  <meta name="description" content="마이크로 바로 녹음하고 MP3·WAV로 다운로드. 브라우저에서 무료로 사용, 서버 전송 없음. 파형 실시간 시각화 지원.">
+  <link rel="stylesheet" href="css/style.css">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png">
+  <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
+  <link rel="manifest" href="/manifest.json"><meta name="theme-color" content="#7C3AED">
+<script>
+(function() {
+  var s = document.createElement('script');
+  s.src = 'https://ads-partners.coupang.com/g.js';
+  s.onload = function() {
+    (window.coupangWidgets || []).forEach(function(cfg) {
+      try { new PartnersCoupang.G(cfg); } catch(e) {}
+    });
+  };
+  document.head.appendChild(s);
+})();
+</script>
+<style>
+.recorder-panel {
+  background:#fff; border-radius:var(--radius); box-shadow:var(--shadow);
+  padding:32px 24px; text-align:center; margin-top:20px;
+}
+.live-canvas {
+  width:100%; height:80px; background:#1A1A2E;
+  border-radius:8px; display:block; margin:16px 0;
+}
+.recording-list { margin-top:24px; }
+.recording-item {
+  background:#F9FAFB; border-radius:8px; padding:14px 16px;
+  margin-bottom:10px; display:flex; align-items:center; gap:12px;
+  border:1px solid var(--border);
+}
+.recording-num {
+  width:28px; height:28px; border-radius:50%; background:var(--primary);
+  color:#fff; display:flex; align-items:center; justify-content:center;
+  font-size:0.78rem; font-weight:700; flex-shrink:0;
+}
+.rec-controls { display:flex; gap:8px; align-items:center; justify-content:center; margin-top:20px; }
+</style>
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a href="index.html" class="logo">WooaAudio</a>
+    <nav>
+      <a href="audio-convert.html">포맷 변환</a>
+      <a href="audio-trim.html">자르기</a>
+      <a href="audio-merge.html">합치기</a>
+      <a href="audio-recorder.html">녹음</a>
+      <a href="audio-waveform.html">파형 시각화</a>
+    </nav>
+    <div class="header-right"><a href="about.html" style="color:rgba(255,255,255,0.85);font-size:0.85rem;text-decoration:none;">소개</a></div>
+  </div>
+</header>
+<div class="our-sites-bar">
+  <span class="our-sites-label">WooaHouse Services</span>
+  <div class="our-sites-links">
+    <a href="https://wooahouse.com/" target="_blank" rel="noopener">🔗 WooaHouse</a>
+    <a href="https://pdfkit.wooahouse.com/" target="_blank" rel="noopener">📄 WooaPDF</a>
+    <a href="https://audiokit.wooahouse.com/" target="_blank" rel="noopener" class="active">🎵 WooaAudio</a>
+  </div>
+</div>
+<div class="mobile-top-ad">
+  <ins class="adsbygoogle" style="display:block;width:100%;height:80px" data-ad-client="ca-pub-XXXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins>
+  <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+
+<div class="page-with-sidebar">
+<div class="tool-page">
+  <div class="breadcrumb"><a href="index.html">홈</a><span>›</span><span>브라우저 녹음기</span></div>
+  <div class="tool-header">
+    <span class="tool-header-icon">🎙️</span>
+    <h1>브라우저 녹음기</h1>
+    <p>마이크로 바로 녹음하고 다운로드 — 파일이 서버에 저장되지 않습니다</p>
+  </div>
+
+  <div class="recorder-panel">
+    <!-- 실시간 파형 -->
+    <canvas class="live-canvas" id="liveCanvas"></canvas>
+
+    <!-- 타이머 -->
+    <div class="recorder-timer" id="timerDisplay">00:00</div>
+    <div class="recorder-status" id="statusText">녹음 준비 완료</div>
+
+    <!-- 컨트롤 -->
+    <div class="rec-controls">
+      <button class="recorder-btn" id="recBtn" onclick="toggleRecord()">🎙️</button>
+      <button onclick="pauseRecord()" id="pauseBtn" disabled
+        style="background:#F3F4F6;color:var(--text);border:none;padding:10px 20px;border-radius:24px;font-size:0.9rem;font-weight:600;cursor:pointer;font-family:inherit;">
+        ⏸ 일시정지
+      </button>
+    </div>
+
+    <!-- 설정 -->
+    <div style="margin-top:20px;display:flex;gap:12px;flex-wrap:wrap;justify-content:center;align-items:center;">
+      <label style="font-size:0.85rem;color:var(--text-light);display:flex;align-items:center;gap:6px;">
+        <span>최대 녹음:</span>
+        <select id="maxDuration" style="padding:5px 10px;border:1px solid var(--border);border-radius:6px;font-size:0.85rem;font-family:inherit;">
+          <option value="0">무제한</option>
+          <option value="60">1분</option>
+          <option value="180">3분</option>
+          <option value="300">5분</option>
+          <option value="600">10분</option>
+        </select>
+      </label>
+      <label style="font-size:0.85rem;color:var(--text-light);display:flex;align-items:center;gap:6px;">
+        <span>저장 형식:</span>
+        <select id="saveFormat" style="padding:5px 10px;border:1px solid var(--border);border-radius:6px;font-size:0.85rem;font-family:inherit;">
+          <option value="webm">WebM</option>
+          <option value="mp4">MP4 (AAC)</option>
+        </select>
+      </label>
+    </div>
+
+    <div class="alert alert-info" style="margin-top:16px;text-align:left;">
+      🔒 녹음된 오디오는 서버에 전송되지 않으며 브라우저 내에서만 처리됩니다.
+    </div>
+  </div>
+
+  <!-- 녹음 목록 -->
+  <div class="recording-list" id="recordingList" style="display:none;">
+    <div class="file-list-title" style="margin-bottom:12px;">📼 녹음 목록</div>
+    <div id="recordings"></div>
+    <button onclick="clearAll()"
+      style="margin-top:8px;background:none;border:1px dashed #EF4444;color:#EF4444;width:100%;padding:8px;border-radius:8px;cursor:pointer;font-size:0.85rem;font-family:inherit;">
+      🗑 전체 삭제
+    </button>
+  </div>
+
+  <div class="cross-link-tip" style="margin-top:16px;">
+    💡 화면 오디오도 캡처하고 싶다면? <a href="screen-audio.html">화면 오디오 캡처</a> 도구를 이용해보세요.
+  </div>
+</div>
+
+<aside class="tool-sidebar">
+  <div class="ad-card">
+    <span class="ad-card-label">광고</span>
+    <ins class="adsbygoogle" style="display:block;width:100%;min-height:250px" data-ad-client="ca-pub-XXXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+  <div class="ad-card">
+    <span class="ad-card-label">쿠팡 파트너스</span>
+    <script>window.coupangWidgets = window.coupangWidgets || []; window.coupangWidgets.push({"id":986943,"template":"carousel","trackingCode":"AF5600192","width":"260","height":"300","tsource":""});</script>
+  </div>
+</aside>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand"><span class="logo-footer">WooaAudio</span><p>무료 온라인 오디오 도구 모음.</p></div>
+      <div class="footer-links">
+        <h4>녹음 도구</h4>
+        <a href="audio-recorder.html">브라우저 녹음기</a>
+        <a href="screen-audio.html">화면 오디오 캡처</a>
+      </div>
+      <div class="footer-links"><h4>정보</h4><a href="about.html">소개</a><a href="privacy.html">개인정보처리방침</a></div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 WooaAudio. 모든 권리 보유.</p>
+      <div class="footer-bottom-links"><a href="privacy.html">개인정보처리방침</a><a href="about.html">소개</a></div>
+    </div>
+    <p class="coupang-notice">이 포스팅은 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다.</p>
+  </div>
+</footer>
+<script src="js/pwa-install.js"></script>
+<script>
+let mediaRecorder = null, audioChunks = [], isRecording = false, isPaused = false;
+let timerInterval = null, seconds = 0, maxTimer = null;
+let audioCtx = null, analyser = null, animFrame = null;
+let recordings = [];
+let recCount = 0;
+
+// ── 실시간 파형 ──
+const canvas = document.getElementById('liveCanvas');
+const canvasCtx = canvas.getContext('2d');
+
+function drawIdle() {
+  canvas.width = canvas.offsetWidth;
+  canvasCtx.fillStyle = '#1A1A2E';
+  canvasCtx.fillRect(0, 0, canvas.width, 80);
+  canvasCtx.strokeStyle = '#374151';
+  canvasCtx.lineWidth = 1;
+  canvasCtx.beginPath();
+  canvasCtx.moveTo(0, 40); canvasCtx.lineTo(canvas.width, 40);
+  canvasCtx.stroke();
+}
+drawIdle();
+
+function drawLive() {
+  if(!analyser) return;
+  animFrame = requestAnimationFrame(drawLive);
+  const W = canvas.width, H = 80;
+  const data = new Uint8Array(analyser.frequencyBinCount);
+  analyser.getByteTimeDomainData(data);
+  canvasCtx.fillStyle = '#1A1A2E';
+  canvasCtx.fillRect(0, 0, W, H);
+  canvasCtx.lineWidth = 2;
+  canvasCtx.strokeStyle = isRecording && !isPaused ? '#EF4444' : '#A78BFA';
+  canvasCtx.beginPath();
+  const sliceW = W / data.length;
+  let x = 0;
+  for(let i = 0; i < data.length; i++) {
+    const v = data[i] / 128.0;
+    const y = v * H / 2;
+    i === 0 ? canvasCtx.moveTo(x, y) : canvasCtx.lineTo(x, y);
+    x += sliceW;
+  }
+  canvasCtx.lineTo(W, H / 2);
+  canvasCtx.stroke();
+}
+
+// ── 녹음 토글 ──
+async function toggleRecord() {
+  if(!isRecording) {
+    await startRecord();
+  } else {
+    stopRecord();
+  }
+}
+
+async function startRecord() {
+  try {
+    const stream = await navigator.mediaDevices.getUserMedia({ audio: true, video: false });
+
+    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    const source = audioCtx.createMediaStreamSource(stream);
+    analyser = audioCtx.createAnalyser();
+    analyser.fftSize = 1024;
+    source.connect(analyser);
+
+    // 지원 포맷 확인
+    const mimeType = MediaRecorder.isTypeSupported('audio/webm;codecs=opus')
+      ? 'audio/webm;codecs=opus'
+      : MediaRecorder.isTypeSupported('audio/mp4') ? 'audio/mp4' : 'audio/webm';
+
+    mediaRecorder = new MediaRecorder(stream, { mimeType });
+    audioChunks = [];
+    mediaRecorder.ondataavailable = e => { if(e.data.size > 0) audioChunks.push(e.data); };
+    mediaRecorder.onstop = saveRecording;
+    mediaRecorder.start(100);
+
+    isRecording = true; isPaused = false;
+    seconds = 0;
+    document.getElementById('recBtn').className = 'recorder-btn recording';
+    document.getElementById('recBtn').textContent = '⏹';
+    document.getElementById('statusText').textContent = '🔴 녹음 중...';
+    document.getElementById('pauseBtn').disabled = false;
+
+    timerInterval = setInterval(() => {
+      seconds++;
+      updateTimer();
+      const maxSec = parseInt(document.getElementById('maxDuration').value);
+      if(maxSec > 0 && seconds >= maxSec) stopRecord();
+    }, 1000);
+
+    canvas.width = canvas.offsetWidth;
+    drawLive();
+  } catch(e) {
+    alert('마이크 접근 권한이 필요합니다.\n브라우저 설정에서 마이크 권한을 허용해주세요.');
+  }
+}
+
+function stopRecord() {
+  if(!mediaRecorder) return;
+  mediaRecorder.stop();
+  mediaRecorder.stream.getTracks().forEach(t => t.stop());
+  isRecording = false; isPaused = false;
+  clearInterval(timerInterval);
+  if(animFrame) cancelAnimationFrame(animFrame);
+  document.getElementById('recBtn').className = 'recorder-btn';
+  document.getElementById('recBtn').textContent = '🎙️';
+  document.getElementById('statusText').textContent = '녹음 완료!';
+  document.getElementById('pauseBtn').disabled = true;
+  drawIdle();
+}
+
+function pauseRecord() {
+  if(!mediaRecorder) return;
+  if(!isPaused) {
+    mediaRecorder.pause();
+    clearInterval(timerInterval);
+    isPaused = true;
+    document.getElementById('pauseBtn').textContent = '▶ 재개';
+    document.getElementById('statusText').textContent = '⏸ 일시정지됨';
+  } else {
+    mediaRecorder.resume();
+    timerInterval = setInterval(() => { seconds++; updateTimer(); }, 1000);
+    isPaused = false;
+    document.getElementById('pauseBtn').textContent = '⏸ 일시정지';
+    document.getElementById('statusText').textContent = '🔴 녹음 중...';
+  }
+}
+
+function updateTimer() {
+  const m = Math.floor(seconds / 60);
+  const s = seconds % 60;
+  document.getElementById('timerDisplay').textContent =
+    String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0');
+}
+
+function saveRecording() {
+  const blob = new Blob(audioChunks, { type: audioChunks[0]?.type || 'audio/webm' });
+  const url = URL.createObjectURL(blob);
+  const ext = blob.type.includes('mp4') ? 'mp4' : 'webm';
+  const now = new Date();
+  const ts = `${now.getFullYear()}${String(now.getMonth()+1).padStart(2,'0')}${String(now.getDate()).padStart(2,'0')}_${String(now.getHours()).padStart(2,'0')}${String(now.getMinutes()).padStart(2,'0')}${String(now.getSeconds()).padStart(2,'0')}`;
+  const filename = `recording_${ts}.${ext}`;
+  const dur = seconds;
+
+  recCount++;
+  recordings.push({ url, filename, dur, size: blob.size, num: recCount });
+  renderRecordings();
+}
+
+function renderRecordings() {
+  const list = document.getElementById('recordings');
+  list.innerHTML = '';
+  recordings.slice().reverse().forEach(r => {
+    const m = Math.floor(r.dur/60), s = r.dur%60;
+    const durStr = `${m}:${String(s).padStart(2,'0')}`;
+    const sizeStr = r.size >= 1024*1024 ? (r.size/1024/1024).toFixed(1)+' MB' : (r.size/1024).toFixed(0)+' KB';
+    const div = document.createElement('div');
+    div.className = 'recording-item';
+    div.innerHTML = `
+      <div class="recording-num">${r.num}</div>
+      <div style="flex:1;min-width:0;">
+        <div style="font-size:0.85rem;font-weight:500;margin-bottom:4px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${r.filename}</div>
+        <audio controls style="width:100%;height:32px;" src="${r.url}"></audio>
+        <div style="font-size:0.75rem;color:var(--text-light);margin-top:4px;">재생시간: ${durStr} · ${sizeStr}</div>
+      </div>
+      <a href="${r.url}" download="${r.filename}" class="btn-download" style="padding:8px 14px;font-size:0.82rem;white-space:nowrap;" id="downloadBtn">⬇</a>
+    `;
+    list.appendChild(div);
+  });
+  document.getElementById('recordingList').style.display = recordings.length > 0 ? 'block' : 'none';
+}
+
+function clearAll() {
+  if(!confirm('모든 녹음을 삭제할까요?')) return;
+  recordings = []; recCount = 0;
+  renderRecordings();
+  document.getElementById('timerDisplay').textContent = '00:00';
+  document.getElementById('statusText').textContent = '녹음 준비 완료';
+}
+
+window.addEventListener('resize', () => { canvas.width = canvas.offsetWidth; drawIdle(); });
+</script>
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/sw.js').catch(() => {});
+    });
+  }
+</script>
+</body>
+</html>

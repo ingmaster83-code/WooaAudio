@@ -1,0 +1,26 @@
+{
+  "name": "WooaAudio",
+  "short_name": "WooaAudio",
+  "description": "무료 온라인 오디오 도구 모음 - 변환, 자르기, 합치기, 녹음",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#7C3AED",
+  "theme_color": "#7C3AED",
+  "orientation": "any",
+  "categories": ["utilities", "productivity", "music"],
+  "lang": "ko",
+  "icons": [
+    { "src": "icons/favicon-16x16.png", "sizes": "16x16", "type": "image/png" },
+    { "src": "icons/favicon-32x32.png", "sizes": "32x32", "type": "image/png" },
+    { "src": "icons/apple-touch-icon.png", "sizes": "180x180", "type": "image/png" },
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ],
+  "shortcuts": [
+    { "name": "포맷 변환", "short_name": "변환", "url": "/audio-convert.html", "description": "오디오 포맷 변환" },
+    { "name": "오디오 자르기", "short_name": "자르기", "url": "/audio-trim.html", "description": "오디오 트리밍" },
+    { "name": "녹음기", "short_name": "녹음", "url": "/audio-recorder.html", "description": "마이크 녹음" }
+  ],
+  "screenshots": [],
+  "related_applications": []
+}

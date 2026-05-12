@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-XXXXXXXXXX');</script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>오디오 파형 시각화 - Waveform 이미지 저장 무료 | WooaAudio</title>
+  <meta name="description" content="오디오 파일의 파형(Waveform)을 시각화하고 이미지로 저장하는 무료 온라인 도구. 색상·크기·스타일 커스터마이징 지원.">
+  <link rel="stylesheet" href="css/style.css">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png">
+  <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
+  <link rel="manifest" href="/manifest.json"><meta name="theme-color" content="#7C3AED">
+<script>
+(function() {
+  var s = document.createElement('script');
+  s.src = 'https://ads-partners.coupang.com/g.js';
+  s.onload = function() {
+    (window.coupangWidgets || []).forEach(function(cfg) {
+      try { new PartnersCoupang.G(cfg); } catch(e) {}
+    });
+  };
+  document.head.appendChild(s);
+})();
+</script>
+<style>
+.waveform-wrap { background:#1A1A2E; border-radius:12px; padding:16px; margin:16px 0; position:relative; }
+#mainCanvas { width:100%; display:block; border-radius:8px; }
+.playhead { position:absolute; top:16px; bottom:16px; width:2px; background:#EF4444; pointer-events:none; transition:left 0.1s linear; }
+.time-display { display:flex; justify-content:space-between; color:rgba(255,255,255,0.5); font-size:0.75rem; margin-top:6px; font-variant-numeric:tabular-nums; }
+.color-swatch { display:flex; gap:8px; flex-wrap:wrap; }
+.swatch { width:28px; height:28px; border-radius:50%; cursor:pointer; border:2px solid transparent; transition:border 0.15s; }
+.swatch.active { border-color:#fff; box-shadow:0 0 0 2px var(--primary); }
+</style>
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a href="index.html" class="logo">WooaAudio</a>
+    <nav>
+      <a href="audio-convert.html">포맷 변환</a>
+      <a href="audio-trim.html">자르기</a>
+      <a href="audio-merge.html">합치기</a>
+      <a href="audio-recorder.html">녹음</a>
+      <a href="audio-waveform.html">파형 시각화</a>
+    </nav>
+    <div class="header-right"><a href="about.html" style="color:rgba(255,255,255,0.85);font-size:0.85rem;text-decoration:none;">소개</a></div>
+  </div>
+</header>
+<div class="our-sites-bar">
+  <span class="our-sites-label">WooaHouse Services</span>
+  <div class="our-sites-links">
+    <a href="https://wooahouse.com/" target="_blank" rel="noopener">🔗 WooaHouse</a>
+    <a href="https://pdfkit.wooahouse.com/" target="_blank" rel="noopener">📄 WooaPDF</a>
+    <a href="https://audiokit.wooahouse.com/" target="_blank" rel="noopener" class="active">🎵 WooaAudio</a>
+  </div>
+</div>
+<div class="mobile-top-ad">
+  <ins class="adsbygoogle" style="display:block;width:100%;height:80px" data-ad-client="ca-pub-XXXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins>
+  <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+
+<div class="page-with-sidebar">
+<div class="tool-page">
+  <div class="breadcrumb"><a href="index.html">홈</a><span>›</span><span>파형 시각화</span></div>
+  <div class="tool-header">
+    <span class="tool-header-icon">📊</span>
+    <h1>오디오 파형 시각화</h1>
+    <p>오디오 파형을 시각화하고 PNG 이미지로 저장</p>
+  </div>
+
+  <div class="drop-zone" id="dropZone">
+    <span class="drop-zone-icon">📊</span>
+    <h3>오디오 파일을 드래그하거나 클릭해서 선택</h3>
+    <p>MP3, WAV, OGG, FLAC, AAC, M4A 지원</p>
+    <button class="btn-select" onclick="document.getElementById('fileInput').click()">파일 선택</button>
+    <input type="file" id="fileInput" accept="audio/*" style="display:none;">
+  </div>
+
+  <div id="editorPanel" style="display:none;">
+    <div class="file-list-panel">
+      <div class="file-list-title">파일 정보</div>
+      <div class="file-item">
+        <span class="file-item-icon">🎵</span>
+        <div class="file-item-info">
+          <div class="file-item-name" id="fileName"></div>
+          <div class="file-item-size" id="fileInfo"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 파형 캔버스 -->
+    <div class="waveform-wrap" id="waveformWrap">
+      <canvas id="mainCanvas" height="160"></canvas>
+      <div class="playhead" id="playhead" style="display:none;"></div>
+      <div class="time-display">
+        <span id="timeStart">0:00</span>
+        <span id="timeCurrent">0:00</span>
+        <span id="timeEnd">0:00</span>
+      </div>
+    </div>
+
+    <!-- 재생 컨트롤 -->
+    <div style="text-align:center;margin-bottom:16px;">
+      <button id="playBtn" onclick="togglePlay()"
+        style="background:var(--primary);color:#fff;border:none;padding:10px 28px;border-radius:24px;font-size:1rem;font-weight:700;cursor:pointer;font-family:inherit;">
+        ▶ 재생
+      </button>
+    </div>
+
+    <div class="options-panel">
+      <div class="options-title">시각화 설정</div>
+      <div class="option-row">
+        <span class="option-label">파형 색상</span>
+        <div class="option-control">
+          <div class="color-swatch" id="colorSwatches">
+            <div class="swatch active" style="background:#A78BFA;" data-color="#A78BFA" onclick="setColor(this)"></div>
+            <div class="swatch" style="background:#60A5FA;" data-color="#60A5FA" onclick="setColor(this)"></div>
+            <div class="swatch" style="background:#34D399;" data-color="#34D399" onclick="setColor(this)"></div>
+            <div class="swatch" style="background:#F87171;" data-color="#F87171" onclick="setColor(this)"></div>
+            <div class="swatch" style="background:#FBBF24;" data-color="#FBBF24" onclick="setColor(this)"></div>
+            <div class="swatch" style="background:#FFFFFF;" data-color="#FFFFFF" onclick="setColor(this)"></div>
+            <input type="color" id="customColor" value="#A78BFA" oninput="setCustomColor(this.value)"
+              style="width:28px;height:28px;border-radius:50%;border:2px solid var(--border);cursor:pointer;padding:0;">
+          </div>
+        </div>
+      </div>
+      <div class="option-row">
+        <span class="option-label">배경 색상</span>
+        <div class="option-control">
+          <div class="color-swatch">
+            <div class="swatch active" style="background:#1A1A2E;" data-bg="#1A1A2E" onclick="setBg(this)"></div>
+            <div class="swatch" style="background:#000000;" data-bg="#000000" onclick="setBg(this)"></div>
+            <div class="swatch" style="background:#FFFFFF;border:1px solid #ddd;" data-bg="#FFFFFF" onclick="setBg(this)"></div>
+            <div class="swatch" style="background:#0F172A;" data-bg="#0F172A" onclick="setBg(this)"></div>
+            <div class="swatch" style="background:transparent;background-image:repeating-conic-gradient(#ccc 0% 25%, #fff 0% 50%);background-size:10px 10px;" data-bg="transparent" onclick="setBg(this)"></div>
+          </div>
+        </div>
+      </div>
+      <div class="option-row">
+        <span class="option-label">스타일</span>
+        <div class="option-control">
+          <select id="waveStyle" onchange="redraw()">
+            <option value="bar">막대형 (Bar)</option>
+            <option value="line">선형 (Line)</option>
+            <option value="mirror">대칭 (Mirror)</option>
+            <option value="fill">채움 (Fill)</option>
+          </select>
+        </div>
+      </div>
+      <div class="option-row">
+        <span class="option-label">이미지 크기</span>
+        <div class="option-control">
+          <select id="exportSize">
+            <option value="1200x300">1200×300 (가로형)</option>
+            <option value="1920x400" selected>1920×400 (풀HD)</option>
+            <option value="800x400">800×400 (정방형)</option>
+            <option value="3000x600">3000×600 (초고해상도)</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="download-group" style="margin-top:20px;">
+      <button class="btn-download" onclick="exportImage()">🖼️ PNG로 저장</button>
+      <button class="btn-reset" onclick="resetAll()">↩ 다른 파일</button>
+    </div>
+
+    <div class="cross-link-tip">
+      💡 BPM도 분석하고 싶다면? <a href="audio-bpm.html">BPM 감지 도구</a>를 이용해보세요.
+    </div>
+  </div>
+</div>
+
+<aside class="tool-sidebar">
+  <div class="ad-card">
+    <span class="ad-card-label">광고</span>
+    <ins class="adsbygoogle" style="display:block;width:100%;min-height:250px" data-ad-client="ca-pub-XXXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+  <div class="ad-card">
+    <span class="ad-card-label">쿠팡 파트너스</span>
+    <script>window.coupangWidgets = window.coupangWidgets || []; window.coupangWidgets.push({"id":986943,"template":"carousel","trackingCode":"AF5600192","width":"260","height":"300","tsource":""});</script>
+  </div>
+</aside>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand"><span class="logo-footer">WooaAudio</span><p>무료 온라인 오디오 도구 모음.</p></div>
+      <div class="footer-links">
+        <h4>분석 도구</h4>
+        <a href="audio-waveform.html">파형 시각화</a>
+        <a href="audio-bpm.html">BPM 감지</a>
+        <a href="audio-info.html">오디오 정보</a>
+      </div>
+      <div class="footer-links"><h4>정보</h4><a href="about.html">소개</a><a href="privacy.html">개인정보처리방침</a></div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 WooaAudio. 모든 권리 보유.</p>
+      <div class="footer-bottom-links"><a href="privacy.html">개인정보처리방침</a><a href="about.html">소개</a></div>
+    </div>
+    <p class="coupang-notice">이 포스팅은 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다.</p>
+  </div>
+</footer>
+<script src="js/pwa-install.js"></script>
+<script>
+let audioBuffer=null, currentFile=null, audioCtx=null, sourceNode=null;
+let isPlaying=false, startTime=0, pauseOffset=0;
+let waveColor='#A78BFA', bgColor='#1A1A2E';
+
+const dropZone=document.getElementById('dropZone');
+dropZone.addEventListener('dragover',e=>{e.preventDefault();dropZone.classList.add('drag-over');});
+dropZone.addEventListener('dragleave',()=>dropZone.classList.remove('drag-over'));
+dropZone.addEventListener('drop',e=>{e.preventDefault();dropZone.classList.remove('drag-over');loadFile(e.dataTransfer.files[0]);});
+dropZone.addEventListener('click',e=>{if(e.target.tagName!=='BUTTON')document.getElementById('fileInput').click();});
+document.getElementById('fileInput').addEventListener('change',e=>loadFile(e.target.files[0]));
+
+async function loadFile(file) {
+  if(!file) return;
+  currentFile=file;
+  document.getElementById('fileName').textContent=file.name;
+  const dur_s = file.size; // placeholder
+  document.getElementById('fileInfo').textContent=(file.size/1024/1024).toFixed(2)+' MB';
+  audioCtx=new (window.AudioContext||window.webkitAudioContext)();
+  audioBuffer=await audioCtx.decodeAudioData(await file.arrayBuffer());
+  const dur=audioBuffer.duration;
+  document.getElementById('timeEnd').textContent=fmtTime(dur);
+  document.getElementById('editorPanel').style.display='block';
+  redraw();
+}
+
+function fmtTime(s){const m=Math.floor(s/60);return`${m}:${String(Math.floor(s%60)).padStart(2,'0')}`;}
+
+function redraw() {
+  if(!audioBuffer) return;
+  const canvas=document.getElementById('mainCanvas');
+  const W=canvas.offsetWidth||800, H=160;
+  canvas.width=W; canvas.height=H;
+  const ctx=canvas.getContext('2d');
+  const style=document.getElementById('waveStyle').value;
+  const data=audioBuffer.getChannelData(0);
+  const step=Math.ceil(data.length/W);
+
+  // 배경
+  if(bgColor==='transparent'){ctx.clearRect(0,0,W,H);}
+  else{ctx.fillStyle=bgColor;ctx.fillRect(0,0,W,H);}
+
+  ctx.strokeStyle=waveColor;
+  ctx.fillStyle=waveColor;
+
+  if(style==='bar') {
+    const barW=Math.max(1,W/data.length*step*0.8);
+    for(let i=0;i<W;i++){
+      let max=0;
+      for(let j=0;j<step;j++){const v=Math.abs(data[i*step+j]||0);if(v>max)max=v;}
+      const bh=max*H;
+      ctx.fillRect(i,H/2-bh/2,Math.max(1,barW),bh);
+    }
+  } else if(style==='line') {
+    ctx.lineWidth=1.5;
+    ctx.beginPath();
+    for(let i=0;i<W;i++){
+      let sum=0;
+      for(let j=0;j<step;j++)sum+=(data[i*step+j]||0);
+      const v=sum/step;
+      if(i===0)ctx.moveTo(i,H/2+v*H/2);
+      else ctx.lineTo(i,H/2+v*H/2);
+    }
+    ctx.stroke();
+  } else if(style==='mirror') {
+    for(let i=0;i<W;i++){
+      let max=0;
+      for(let j=0;j<step;j++){const v=Math.abs(data[i*step+j]||0);if(v>max)max=v;}
+      const bh=max*H/2;
+      ctx.fillRect(i,H/2-bh,1,bh*2);
+    }
+  } else if(style==='fill') {
+    ctx.lineWidth=1;
+    ctx.beginPath();
+    ctx.moveTo(0,H/2);
+    for(let i=0;i<W;i++){
+      let max=0;
+      for(let j=0;j<step;j++){const v=Math.abs(data[i*step+j]||0);if(v>max)max=v;}
+      ctx.lineTo(i,H/2-max*H/2);
+    }
+    for(let i=W-1;i>=0;i--){
+      let max=0;
+      for(let j=0;j<step;j++){const v=Math.abs(data[i*step+j]||0);if(v>max)max=v;}
+      ctx.lineTo(i,H/2+max*H/2);
+    }
+    ctx.closePath();
+    ctx.fill();
+  }
+}
+
+function setColor(el) {
+  document.querySelectorAll('#colorSwatches .swatch').forEach(s=>s.classList.remove('active'));
+  el.classList.add('active');
+  waveColor=el.dataset.color;
+  redraw();
+}
+function setCustomColor(v){waveColor=v;document.querySelectorAll('#colorSwatches .swatch').forEach(s=>s.classList.remove('active'));redraw();}
+function setBg(el){
+  document.querySelectorAll('[data-bg]').forEach(s=>s.classList.remove('active'));
+  el.classList.add('active');
+  bgColor=el.dataset.bg;
+  document.getElementById('waveformWrap').style.background=bgColor==='transparent'?'repeating-conic-gradient(#ccc 0% 25%, #fff 0% 50%)':bgColor;
+  redraw();
+}
+
+function togglePlay(){
+  if(!audioBuffer) return;
+  if(isPlaying){
+    sourceNode&&sourceNode.stop();
+    pauseOffset+=audioCtx.currentTime-startTime;
+    isPlaying=false;
+    document.getElementById('playBtn').textContent='▶ 재생';
+    return;
+  }
+  sourceNode=audioCtx.createBufferSource();
+  sourceNode.buffer=audioBuffer;
+  sourceNode.connect(audioCtx.destination);
+  startTime=audioCtx.currentTime-pauseOffset;
+  sourceNode.start(0,pauseOffset);
+  isPlaying=true;
+  document.getElementById('playBtn').textContent='⏸ 일시정지';
+  document.getElementById('playhead').style.display='block';
+  sourceNode.onended=()=>{isPlaying=false;pauseOffset=0;document.getElementById('playBtn').textContent='▶ 재생';};
+  animatePlayhead();
+}
+
+function animatePlayhead(){
+  if(!isPlaying) return;
+  const cur=audioCtx.currentTime-startTime;
+  const pct=cur/audioBuffer.duration;
+  const wrap=document.getElementById('waveformWrap');
+  document.getElementById('playhead').style.left=(pct*wrap.offsetWidth+16)+'px';
+  document.getElementById('timeCurrent').textContent=fmtTime(cur);
+  requestAnimationFrame(animatePlayhead);
+}
+
+function exportImage(){
+  const size=document.getElementById('exportSize').value.split('x');
+  const W=parseInt(size[0]),H=parseInt(size[1]);
+  const offCanvas=document.createElement('canvas');
+  offCanvas.width=W; offCanvas.height=H;
+  const ctx=offCanvas.getContext('2d');
+  const style=document.getElementById('waveStyle').value;
+  const data=audioBuffer.getChannelData(0);
+  const step=Math.ceil(data.length/W);
+  if(bgColor==='transparent')ctx.clearRect(0,0,W,H);
+  else{ctx.fillStyle=bgColor;ctx.fillRect(0,0,W,H);}
+  ctx.fillStyle=waveColor; ctx.strokeStyle=waveColor;
+  if(style==='bar'||style==='mirror'){
+    for(let i=0;i<W;i++){
+      let max=0;
+      for(let j=0;j<step;j++){const v=Math.abs(data[i*step+j]||0);if(v>max)max=v;}
+      const bh=max*H*(style==='mirror'?0.5:1);
+      if(style==='mirror')ctx.fillRect(i,H/2-bh,1,bh*2);
+      else ctx.fillRect(i,H/2-bh/2,1,bh);
+    }
+  } else if(style==='line'){
+    ctx.lineWidth=2;ctx.beginPath();
+    for(let i=0;i<W;i++){let s=0;for(let j=0;j<step;j++)s+=(data[i*step+j]||0);const v=s/step;i===0?ctx.moveTo(i,H/2+v*H/2):ctx.lineTo(i,H/2+v*H/2);}
+    ctx.stroke();
+  } else {
+    ctx.beginPath();ctx.moveTo(0,H/2);
+    for(let i=0;i<W;i++){let mx=0;for(let j=0;j<step;j++){const v=Math.abs(data[i*step+j]||0);if(v>mx)mx=v;}ctx.lineTo(i,H/2-mx*H/2);}
+    for(let i=W-1;i>=0;i--){let mx=0;for(let j=0;j<step;j++){const v=Math.abs(data[i*step+j]||0);if(v>mx)mx=v;}ctx.lineTo(i,H/2+mx*H/2);}
+    ctx.closePath();ctx.fill();
+  }
+  const a=document.createElement('a');
+  a.href=offCanvas.toDataURL('image/png');
+  const baseName=currentFile.name.replace(/\.[^.]+$/,'');
+  a.download=baseName+'_waveform.png';
+  a.click();
+}
+
+function resetAll(){
+  audioBuffer=null;currentFile=null;isPlaying=false;pauseOffset=0;
+  document.getElementById('fileInput').value='';
+  document.getElementById('editorPanel').style.display='none';
+}
+
+window.addEventListener('resize',()=>{if(audioBuffer)redraw();});
+</script>
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/sw.js').catch(() => {});
+    });
+  }
+</script>
+</body>
+</html>

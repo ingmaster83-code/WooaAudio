@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-XXXXXXXXXX');</script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>오디오 자르기 - 구간 트리밍 무료 | WooaAudio</title>
+  <meta name="description" content="오디오 파일의 원하는 구간만 잘라내는 무료 온라인 트리밍 도구. 파형을 보며 시작·끝 지점을 직접 설정하세요.">
+  <link rel="stylesheet" href="css/style.css">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png">
+  <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
+  <link rel="manifest" href="/manifest.json"><meta name="theme-color" content="#7C3AED">
+<script>
+(function() {
+  var s = document.createElement('script');
+  s.src = 'https://ads-partners.coupang.com/g.js';
+  s.onload = function() {
+    (window.coupangWidgets || []).forEach(function(cfg) {
+      try { new PartnersCoupang.G(cfg); } catch(e) {}
+    });
+  };
+  document.head.appendChild(s);
+})();
+</script>
+<style>
+.trim-timeline { position:relative; margin:16px 0; user-select:none; }
+.trim-canvas { width:100%; height:100px; background:#1A1A2E; border-radius:8px; display:block; cursor:pointer; }
+.trim-controls { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:12px; }
+.trim-input-group { display:flex; flex-direction:column; gap:4px; }
+.trim-input-group label { font-size:0.8rem; color:var(--text-light); font-weight:500; }
+.trim-input-group input { padding:8px 12px; border:1px solid var(--border); border-radius:8px; font-size:0.9rem; font-family:inherit; }
+.trim-duration-badge { text-align:center; padding:8px; background:var(--primary-light); border-radius:8px; font-weight:700; color:var(--primary); font-size:0.95rem; }
+</style>
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a href="index.html" class="logo">WooaAudio</a>
+    <nav>
+      <a href="audio-convert.html">포맷 변환</a>
+      <a href="audio-trim.html">자르기</a>
+      <a href="audio-merge.html">합치기</a>
+      <a href="audio-recorder.html">녹음</a>
+      <a href="audio-waveform.html">파형 시각화</a>
+    </nav>
+    <div class="header-right"><a href="about.html" style="color:rgba(255,255,255,0.85);font-size:0.85rem;text-decoration:none;">소개</a></div>
+  </div>
+</header>
+<div class="our-sites-bar">
+  <span class="our-sites-label">WooaHouse Services</span>
+  <div class="our-sites-links">
+    <a href="https://wooahouse.com/" target="_blank" rel="noopener">🔗 WooaHouse</a>
+    <a href="https://pdfkit.wooahouse.com/" target="_blank" rel="noopener">📄 WooaPDF</a>
+    <a href="https://imagekit.wooahouse.com/" target="_blank" rel="noopener">🖼️ WooaImage</a>
+    <a href="https://audiokit.wooahouse.com/" target="_blank" rel="noopener" class="active">🎵 WooaAudio</a>
+  </div>
+</div>
+<div class="mobile-top-ad">
+  <ins class="adsbygoogle" style="display:block;width:100%;height:80px" data-ad-client="ca-pub-XXXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins>
+  <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+
+<div class="page-with-sidebar">
+<div class="tool-page">
+  <div class="breadcrumb"><a href="index.html">홈</a><span>›</span><span>오디오 자르기</span></div>
+  <div class="tool-header">
+    <span class="tool-header-icon">✂️</span>
+    <h1>오디오 자르기</h1>
+    <p>파형을 보며 원하는 구간만 정확하게 트리밍</p>
+  </div>
+
+  <div id="ffmpegLoading" class="alert alert-info" style="text-align:center;">
+    ⏳ FFmpeg 엔진 로딩 중...
+  </div>
+
+  <div id="mainUI" style="display:none;">
+    <div class="drop-zone" id="dropZone">
+      <span class="drop-zone-icon">✂️</span>
+      <h3>오디오 파일을 드래그하거나 클릭해서 선택</h3>
+      <p>MP3, WAV, OGG, FLAC, AAC, M4A 지원</p>
+      <button class="btn-select" onclick="document.getElementById('fileInput').click()">파일 선택</button>
+      <input type="file" id="fileInput" accept="audio/*" style="display:none;">
+    </div>
+
+    <div id="editorPanel" style="display:none;">
+      <div class="file-list-panel">
+        <div class="file-list-title">파일 정보</div>
+        <div class="file-item">
+          <span class="file-item-icon">🎵</span>
+          <div class="file-item-info">
+            <div class="file-item-name" id="fileName"></div>
+            <div class="file-item-size" id="fileSize"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="options-panel">
+        <div class="options-title">트리밍 구간 설정</div>
+
+        <div class="trim-timeline">
+          <canvas class="trim-canvas" id="waveCanvas"></canvas>
+        </div>
+
+        <div class="trim-controls">
+          <div class="trim-input-group">
+            <label>시작 시간 (초)</label>
+            <input type="number" id="startTime" value="0" min="0" step="0.1" oninput="updateDuration()">
+          </div>
+          <div class="trim-input-group">
+            <label>종료 시간 (초)</label>
+            <input type="number" id="endTime" value="0" min="0" step="0.1" oninput="updateDuration()">
+          </div>
+        </div>
+
+        <div class="trim-duration-badge" id="durationBadge">선택 구간: 0.0초</div>
+
+        <div class="option-row" style="margin-top:16px;">
+          <span class="option-label">미리 듣기</span>
+          <div class="option-control">
+            <audio id="audioPreview" controls style="width:100%;"></audio>
+          </div>
+        </div>
+
+        <div class="option-row">
+          <span class="option-label">출력 포맷</span>
+          <div class="option-control">
+            <select id="outputFormat">
+              <option value="mp3">MP3</option>
+              <option value="wav">WAV</option>
+              <option value="ogg">OGG</option>
+              <option value="flac">FLAC</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <button class="btn-convert" id="trimBtn" onclick="trimAudio()">✂️ 자르기 실행</button>
+
+      <div class="progress-wrap" id="progressWrap">
+        <div class="progress-label"><span>처리 중...</span><span id="progressPct">0%</span></div>
+        <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+      </div>
+
+      <div class="result-panel" id="resultPanel">
+        <div class="result-header">
+          <span class="result-icon">✅</span>
+          <div>
+            <div class="result-title">트리밍 완료!</div>
+            <div class="result-subtitle" id="resultSubtitle"></div>
+          </div>
+        </div>
+        <div class="audio-player-wrap">
+          <audio id="resultAudio" controls style="width:100%;"></audio>
+        </div>
+        <div class="download-group">
+          <a id="downloadBtn" class="btn-download">⬇ 다운로드</a>
+          <button class="btn-reset" onclick="resetAll()">↩ 다시 자르기</button>
+        </div>
+      </div>
+
+      <div class="cross-link-tip">
+        💡 자른 오디오에 페이드 효과를 추가하고 싶다면? <a href="audio-fade.html">페이드 인/아웃 도구</a>를 이용해보세요.
+      </div>
+    </div>
+  </div>
+</div>
+
+<aside class="tool-sidebar">
+  <div class="ad-card">
+    <span class="ad-card-label">광고</span>
+    <ins class="adsbygoogle" style="display:block;width:100%;min-height:250px" data-ad-client="ca-pub-XXXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+  <div class="ad-card">
+    <span class="ad-card-label">쿠팡 파트너스</span>
+    <script>window.coupangWidgets = window.coupangWidgets || []; window.coupangWidgets.push({"id":986943,"template":"carousel","trackingCode":"AF5600192","width":"260","height":"300","tsource":""});</script>
+  </div>
+</aside>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand"><span class="logo-footer">WooaAudio</span><p>무료 온라인 오디오 도구 모음.</p></div>
+      <div class="footer-links">
+        <h4>오디오 도구</h4>
+        <a href="audio-convert.html">포맷 변환</a><a href="audio-trim.html">자르기</a>
+        <a href="audio-merge.html">합치기</a><a href="audio-volume.html">음량 조절</a>
+        <a href="audio-recorder.html">녹음기</a>
+      </div>
+      <div class="footer-links"><h4>정보</h4><a href="about.html">서비스 소개</a><a href="privacy.html">개인정보처리방침</a></div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 WooaAudio. 모든 권리 보유.</p>
+      <div class="footer-bottom-links"><a href="privacy.html">개인정보처리방침</a><a href="about.html">소개</a></div>
+    </div>
+    <p class="coupang-notice">이 포스팅은 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다.</p>
+  </div>
+</footer>
+
+<script src="https://unpkg.com/@ffmpeg/ffmpeg@0.11.6/dist/ffmpeg.min.js"></script>
+<script src="js/pwa-install.js"></script>
+<script>
+const { createFFmpeg, fetchFile } = FFmpeg;
+const ffmpeg = createFFmpeg({ log: false, corePath: 'https://unpkg.com/@ffmpeg/core@0.11.0/dist/ffmpeg-core.js' });
+let currentFile = null, audioCtx = null, audioBuffer = null;
+
+(async () => {
+  try {
+    await ffmpeg.load();
+    document.getElementById('ffmpegLoading').style.display = 'none';
+    document.getElementById('mainUI').style.display = 'block';
+  } catch(e) {
+    document.getElementById('ffmpegLoading').textContent = '❌ 엔진 로드 실패.';
+    document.getElementById('ffmpegLoading').className = 'alert alert-error';
+  }
+})();
+
+const dropZone = document.getElementById('dropZone');
+dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('drag-over'); });
+dropZone.addEventListener('dragleave', () => dropZone.classList.remove('drag-over'));
+dropZone.addEventListener('drop', e => { e.preventDefault(); dropZone.classList.remove('drag-over'); loadFile(e.dataTransfer.files[0]); });
+dropZone.addEventListener('click', e => { if(e.target.tagName!=='BUTTON') document.getElementById('fileInput').click(); });
+document.getElementById('fileInput').addEventListener('change', e => loadFile(e.target.files[0]));
+
+async function loadFile(file) {
+  if(!file) return;
+  currentFile = file;
+  document.getElementById('fileName').textContent = file.name;
+  document.getElementById('fileSize').textContent = (file.size/1024/1024).toFixed(2) + ' MB';
+
+  const url = URL.createObjectURL(file);
+  document.getElementById('audioPreview').src = url;
+
+  // 파형 그리기
+  audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  const arrayBuf = await file.arrayBuffer();
+  audioBuffer = await audioCtx.decodeAudioData(arrayBuf);
+  const dur = audioBuffer.duration;
+
+  document.getElementById('endTime').value = dur.toFixed(1);
+  document.getElementById('endTime').max = dur.toFixed(1);
+  document.getElementById('startTime').max = dur.toFixed(1);
+  updateDuration();
+  drawWaveform(audioBuffer);
+
+  document.getElementById('editorPanel').style.display = 'block';
+}
+
+function drawWaveform(buf) {
+  const canvas = document.getElementById('waveCanvas');
+  const ctx = canvas.getContext('2d');
+  canvas.width = canvas.offsetWidth * window.devicePixelRatio;
+  canvas.height = 100 * window.devicePixelRatio;
+  ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
+  const W = canvas.offsetWidth, H = 100;
+  const data = buf.getChannelData(0);
+  const step = Math.ceil(data.length / W);
+  ctx.fillStyle = '#1A1A2E';
+  ctx.fillRect(0,0,W,H);
+  ctx.strokeStyle = '#A78BFA';
+  ctx.lineWidth = 1;
+  for(let i=0;i<W;i++){
+    let min=1, max=-1;
+    for(let j=0;j<step;j++){
+      const d = data[i*step+j]||0;
+      if(d<min) min=d;
+      if(d>max) max=d;
+    }
+    ctx.beginPath();
+    ctx.moveTo(i, (1+min)*H/2);
+    ctx.lineTo(i, (1+max)*H/2);
+    ctx.stroke();
+  }
+}
+
+function updateDuration() {
+  const s = parseFloat(document.getElementById('startTime').value)||0;
+  const e = parseFloat(document.getElementById('endTime').value)||0;
+  const dur = Math.max(0, e-s);
+  document.getElementById('durationBadge').textContent = `선택 구간: ${dur.toFixed(1)}초`;
+}
+
+function resetAll() {
+  currentFile=null; audioBuffer=null;
+  document.getElementById('fileInput').value='';
+  document.getElementById('editorPanel').style.display='none';
+  document.getElementById('resultPanel').style.display='none';
+  document.getElementById('progressWrap').style.display='none';
+}
+
+async function trimAudio() {
+  const start = parseFloat(document.getElementById('startTime').value)||0;
+  const end = parseFloat(document.getElementById('endTime').value)||0;
+  const fmt = document.getElementById('outputFormat').value;
+  if(end<=start){ alert('종료 시간이 시작 시간보다 커야 합니다.'); return; }
+
+  document.getElementById('trimBtn').disabled = true;
+  document.getElementById('progressWrap').style.display = 'block';
+  document.getElementById('progressFill').style.width = '30%';
+
+  const ext = currentFile.name.split('.').pop();
+  const inName = 'trim_in.'+ext;
+  const outName = 'trim_out.'+fmt;
+  ffmpeg.FS('writeFile', inName, await fetchFile(currentFile));
+
+  document.getElementById('progressFill').style.width = '60%';
+  await ffmpeg.run('-i',inName,'-ss',String(start),'-to',String(end),'-c','copy', outName);
+
+  document.getElementById('progressFill').style.width = '90%';
+  const data = ffmpeg.FS('readFile', outName);
+  const blob = new Blob([data.buffer],{type:'audio/'+fmt});
+  const url = URL.createObjectURL(blob);
+  const baseName = currentFile.name.replace(/\.[^.]+$/,'');
+
+  document.getElementById('resultAudio').src = url;
+  const dl = document.getElementById('downloadBtn');
+  dl.href = url; dl.download = baseName+'_trimmed.'+fmt;
+
+  document.getElementById('progressFill').style.width = '100%';
+  document.getElementById('resultSubtitle').textContent = `${(end-start).toFixed(1)}초 구간 → ${(blob.size/1024).toFixed(0)} KB`;
+  document.getElementById('resultPanel').style.display = 'block';
+  document.getElementById('trimBtn').disabled = false;
+
+  ffmpeg.FS('unlink',inName); ffmpeg.FS('unlink',outName);
+}
+</script>
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/sw.js').catch(() => {});
+    });
+  }
+</script>
+</body>
+</html>
