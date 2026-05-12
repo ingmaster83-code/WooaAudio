@@ -1,5 +1,5 @@
 const CACHE_NAME = 'wooa-audio-v1';
-const ASSETS = [
+const STATIC_ASSETS = [
   '/',
   '/index.html',
   '/css/style.css',
@@ -14,15 +14,13 @@ const ASSETS = [
   '/audio-waveform.html',
   '/audio-bpm.html',
   '/audio-info.html',
-  '/audio-recorder.html',
-  '/screen-audio.html',
   '/about.html',
   '/privacy.html',
 ];
 
 self.addEventListener('install', e => {
   e.waitUntil(
-    caches.open(CACHE_NAME).then(cache => cache.addAll(ASSETS)).then(() => self.skipWaiting())
+    caches.open(CACHE_NAME).then(cache => cache.addAll(STATIC_ASSETS)).then(() => self.skipWaiting())
   );
 });
 
@@ -39,12 +37,11 @@ self.addEventListener('fetch', e => {
   e.respondWith(
     caches.match(e.request).then(cached => {
       if (cached) return cached;
-      return fetch(e.request).then(res => {
-        if (res && res.status === 200 && res.type === 'basic') {
-          const clone = res.clone();
-          caches.open(CACHE_NAME).then(cache => cache.put(e.request, clone));
-        }
-        return res;
+      return fetch(e.request).then(resp => {
+        if (!resp || resp.status !== 200 || resp.type === 'opaque') return resp;
+        const clone = resp.clone();
+        caches.open(CACHE_NAME).then(cache => cache.put(e.request, clone));
+        return resp;
       }).catch(() => caches.match('/index.html'));
     })
   );

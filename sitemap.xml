@@ -11,8 +11,6 @@
   <url><loc>https://audiokit.wooahouse.com/audio-waveform.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://audiokit.wooahouse.com/audio-bpm.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://audiokit.wooahouse.com/audio-info.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://audiokit.wooahouse.com/audio-recorder.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://audiokit.wooahouse.com/screen-audio.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://audiokit.wooahouse.com/about.html</loc><changefreq>yearly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://audiokit.wooahouse.com/privacy.html</loc><changefreq>yearly</changefreq><priority>0.4</priority></url>
+  <url><loc>https://audiokit.wooahouse.com/about.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://audiokit.wooahouse.com/privacy.html</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
 </urlset>
