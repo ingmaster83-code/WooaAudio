@@ -186,11 +186,10 @@
   </div>
 </footer>
 
-<script src="https://unpkg.com/@ffmpeg/ffmpeg@0.11.6/dist/ffmpeg.min.js"></script>
-<script src="js/pwa-install.js"></script>
+<script src="/ffmpeg-local/ffmpeg.min.js"></script>
 <script>
 const { createFFmpeg, fetchFile } = FFmpeg;
-const ffmpeg = createFFmpeg({ log: false, corePath: 'https://unpkg.com/@ffmpeg/core@0.11.0/dist/ffmpeg-core.js' });
+const ffmpeg = createFFmpeg({ log: false, mainName: 'main', corePath: `${location.origin}/ffmpeg-local/ffmpeg-core.js` });
 let files = [];
 
 (async () => {
@@ -199,6 +198,7 @@ let files = [];
     document.getElementById('ffmpegLoading').style.display = 'none';
     document.getElementById('mainUI').style.display = 'block';
   } catch(e) {
+    console.error(e);
     document.getElementById('ffmpegLoading').textContent = '❌ 엔진 로드 실패.';
     document.getElementById('ffmpegLoading').className = 'alert alert-error';
   }
@@ -288,7 +288,7 @@ async function mergeAudio() {
   if(gap > 0) {
     // silence 파일 생성
     const silenceName = 'silence.'+fmt;
-    await ffmpeg.run('-f','lavfi','-i',`anullsrc=r=44100:cl=stereo`,'-t',String(gap),'-ar','44100', silenceName);
+    await ffmpeg.run('-f','lavfi','-i',`anullsrc=r=44100:cl=stereo`,'-t',String(gap),'-ar','44100', silenceName]);
     fileList.forEach((f,i) => {
       concatContent += `file '${f}'\n`;
       if(i < fileList.length-1) concatContent += `file '${silenceName}'\n`;
@@ -301,7 +301,7 @@ async function mergeAudio() {
   ffmpeg.FS('writeFile', 'concat_list.txt', enc.encode(concatContent));
 
   const outName = 'merged_output.'+fmt;
-  await ffmpeg.run('-f','concat','-safe','0','-i','concat_list.txt','-c','copy', outName);
+  await ffmpeg.run('-f','concat','-safe','0','-i','concat_list.txt','-c','copy', outName]);
 
   document.getElementById('progressFill').style.width = '95%';
   const data = ffmpeg.FS('readFile', outName);

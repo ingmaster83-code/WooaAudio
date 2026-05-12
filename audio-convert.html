@@ -242,6 +242,7 @@
   </div>
 </footer>
 
+<<<<<<< HEAD
 <script src="js/pwa-install.js"></script>
 <script>
 // ── FFmpeg 로드 ──
@@ -257,6 +258,13 @@ const FFMPEG_LOAD_TIMEOUT_MS = 30000;
 
 let ffmpeg = null;
 let fetchFile = null;
+=======
+<script src="/ffmpeg-local/ffmpeg.min.js"></script>
+<script>
+const { createFFmpeg, fetchFile } = FFmpeg;
+const ffmpeg = createFFmpeg({ log: false, mainName: 'main',
+  corePath: `${location.origin}/ffmpeg-local/ffmpeg-core.js` });
+>>>>>>> 6fdcf2d453b75afbab09b1428975c2a096990883
 
 let files = [];
 
@@ -362,7 +370,12 @@ const ffmpegReady = (async () => {
     document.getElementById('mainUI').style.display = 'block';
   } catch(e) {
     console.error(e);
+<<<<<<< HEAD
     setLoaderMessage('Engine load failed. Please refresh the page or check your network connection.', true);
+=======
+    document.getElementById('ffmpegLoading').textContent = '❌ 엔진 로드 실패. 페이지를 새로고침 해주세요.';
+    document.getElementById('ffmpegLoading').className = 'alert alert-error';
+>>>>>>> 6fdcf2d453b75afbab09b1428975c2a096990883
   }
 })();
 

@@ -1,4 +1,4 @@
-const CACHE_NAME = 'wooa-audio-v1';
+const CACHE_NAME = 'wooa-audio-v2';
 const STATIC_ASSETS = [
   '/',
   '/index.html',
@@ -32,17 +32,25 @@ self.addEventListener('activate', e => {
   );
 });
 
+// COOP/COEP 헤더 주입 - FFmpeg.wasm SharedArrayBuffer 활성화
 self.addEventListener('fetch', e => {
   if (e.request.method !== 'GET') return;
+
   e.respondWith(
-    caches.match(e.request).then(cached => {
-      if (cached) return cached;
-      return fetch(e.request).then(resp => {
-        if (!resp || resp.status !== 200 || resp.type === 'opaque') return resp;
-        const clone = resp.clone();
-        caches.open(CACHE_NAME).then(cache => cache.put(e.request, clone));
-        return resp;
-      }).catch(() => caches.match('/index.html'));
+    fetch(e.request).then(resp => {
+      // 헤더 추가가 필요한 응답에만 적용
+      const newHeaders = new Headers(resp.headers);
+      newHeaders.set('Cross-Origin-Opener-Policy', 'same-origin');
+      newHeaders.set('Cross-Origin-Embedder-Policy', 'require-corp');
+
+      return new Response(resp.body, {
+        status: resp.status,
+        statusText: resp.statusText,
+        headers: newHeaders,
+      });
+    }).catch(() => {
+      // 네트워크 실패 시 캐시에서
+      return caches.match(e.request).then(cached => cached || caches.match('/index.html'));
     })
   );
 });

@@ -174,11 +174,10 @@
   </div>
 </footer>
 
-<script src="https://unpkg.com/@ffmpeg/ffmpeg@0.11.6/dist/ffmpeg.min.js"></script>
-<script src="js/pwa-install.js"></script>
+<script src="/ffmpeg-local/ffmpeg.min.js"></script>
 <script>
 const { createFFmpeg, fetchFile } = FFmpeg;
-const ffmpeg = createFFmpeg({ log: false, corePath: 'https://unpkg.com/@ffmpeg/core@0.11.0/dist/ffmpeg-core.js' });
+const ffmpeg = createFFmpeg({ log: false, mainName: 'main', corePath: `${location.origin}/ffmpeg-local/ffmpeg-core.js` });
 let files = [];
 
 (async () => {
@@ -187,6 +186,7 @@ let files = [];
     document.getElementById('ffmpegLoading').style.display = 'none';
     document.getElementById('mainUI').style.display = 'block';
   } catch(e) {
+    console.error(e);
     document.getElementById('ffmpegLoading').textContent = '❌ 엔진 로드 실패. 페이지를 새로고침 해주세요.';
     document.getElementById('ffmpegLoading').className = 'alert alert-error';
   }
