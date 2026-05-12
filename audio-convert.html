@@ -242,24 +242,127 @@
   </div>
 </footer>
 
-<script src="https://unpkg.com/@ffmpeg/ffmpeg@0.11.6/dist/ffmpeg.min.js"></script>
 <script src="js/pwa-install.js"></script>
 <script>
 // ── FFmpeg 로드 ──
-const { createFFmpeg, fetchFile } = FFmpeg;
-const ffmpeg = createFFmpeg({ log: false,
-  corePath: 'https://unpkg.com/@ffmpeg/core@0.11.0/dist/ffmpeg-core.js' });
+const FFMPEG_SCRIPT_URLS = [
+  'https://cdn.jsdelivr.net/npm/@ffmpeg/ffmpeg@0.11.6/dist/ffmpeg.min.js',
+  'https://unpkg.com/@ffmpeg/ffmpeg@0.11.6/dist/ffmpeg.min.js'
+];
+const FFMPEG_CORE_URLS = [
+  'https://cdn.jsdelivr.net/npm/@ffmpeg/core@0.11.0/dist/ffmpeg-core.js',
+  'https://unpkg.com/@ffmpeg/core@0.11.0/dist/ffmpeg-core.js'
+];
+const FFMPEG_LOAD_TIMEOUT_MS = 30000;
+
+let ffmpeg = null;
+let fetchFile = null;
 
 let files = [];
 
-(async () => {
+function setLoaderMessage(message, isError = false) {
+  const loader = document.getElementById('ffmpegLoading');
+  loader.textContent = message;
+  loader.className = isError ? 'alert alert-error' : 'alert alert-info';
+}
+
+function loadScript(src) {
+  return new Promise((resolve, reject) => {
+    const script = document.createElement('script');
+    const timer = setTimeout(() => {
+      script.remove();
+      reject(new Error('Script load timed out: ' + src));
+    }, FFMPEG_LOAD_TIMEOUT_MS);
+    script.src = src;
+    script.async = true;
+    script.onload = () => {
+      clearTimeout(timer);
+      resolve();
+    };
+    script.onerror = () => {
+      clearTimeout(timer);
+      reject(new Error('Script load failed: ' + src));
+    };
+    document.head.appendChild(script);
+  });
+}
+
+async function fetchBlobUrl(url, mimeType) {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), FFMPEG_LOAD_TIMEOUT_MS);
+  const response = await fetch(url, { cache: 'force-cache', signal: controller.signal })
+    .finally(() => clearTimeout(timer));
+  if (!response.ok) throw new Error('Core fetch failed: ' + response.status);
+  const blob = await response.blob();
+  return URL.createObjectURL(new Blob([blob], { type: mimeType }));
+}
+
+function withTimeout(promise, message) {
+  let timer;
+  const timeout = new Promise((_, reject) => {
+    timer = setTimeout(() => reject(new Error(message)), FFMPEG_LOAD_TIMEOUT_MS);
+  });
+  return Promise.race([promise, timeout]).finally(() => clearTimeout(timer));
+}
+
+async function ensureFFmpegScript() {
+  if (window.FFmpeg) return;
+
+  let lastError = null;
+  for (const url of FFMPEG_SCRIPT_URLS) {
+    try {
+      await loadScript(url);
+      if (window.FFmpeg) return;
+    } catch (error) {
+      lastError = error;
+    }
+  }
+  throw lastError || new Error('FFmpeg script is unavailable.');
+}
+
+async function createAndLoadFFmpeg() {
+  await ensureFFmpegScript();
+
+  const { createFFmpeg, fetchFile: ffmpegFetchFile } = window.FFmpeg;
+  fetchFile = ffmpegFetchFile;
+
+  const coreCandidates = [
+    ...FFMPEG_CORE_URLS.map(url => ({ url, useBlob: false })),
+    ...FFMPEG_CORE_URLS.map(url => ({ url, useBlob: true }))
+  ];
+
+  let lastError = null;
+  for (const candidate of coreCandidates) {
+    let corePath = candidate.url;
+    try {
+      setLoaderMessage('FFmpeg engine loading... This can take 10-20 seconds the first time.');
+      if (candidate.useBlob) {
+        corePath = await fetchBlobUrl(candidate.url, 'text/javascript');
+      }
+
+      const instance = createFFmpeg({ log: false, corePath });
+      await withTimeout(instance.load(), 'FFmpeg core load timed out.');
+      ffmpeg = instance;
+      return;
+    } catch (error) {
+      lastError = error;
+      if (candidate.useBlob && corePath.startsWith('blob:')) {
+        URL.revokeObjectURL(corePath);
+      }
+    }
+  }
+
+  throw lastError || new Error('FFmpeg core is unavailable.');
+}
+
+const ffmpegReady = (async () => {
   try {
-    await ffmpeg.load();
+    await createAndLoadFFmpeg();
     document.getElementById('ffmpegLoading').style.display = 'none';
     document.getElementById('mainUI').style.display = 'block';
   } catch(e) {
-    document.getElementById('ffmpegLoading').textContent = '❌ 엔진 로드 실패. 페이지를 새로고침 해주세요.';
-    document.getElementById('ffmpegLoading').className = 'alert alert-error';
+    console.error(e);
+    setLoaderMessage('Engine load failed. Please refresh the page or check your network connection.', true);
   }
 })();
 
@@ -319,6 +422,12 @@ function resetAll() {
 }
 
 async function convertFiles() {
+  await ffmpegReady;
+  if (!ffmpeg || !fetchFile) {
+    alert('Engine is not ready yet. Please refresh the page and try again.');
+    return;
+  }
+
   const fmt = document.getElementById('outputFormat').value;
   const bitrate = document.getElementById('bitrate').value;
   const sr = document.getElementById('sampleRate').value;
