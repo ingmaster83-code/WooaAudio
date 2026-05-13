@@ -11,10 +11,34 @@
 </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>광고 테스트 | WooaAudio</title>
-  <meta name="robots" content="noindex">
+  <title>도구명 - WooaAudio</title>
+  <meta name="description" content="페이지 설명 120~160자">
+  <meta name="keywords" content="키워드1, 키워드2">
+  <link rel="canonical" href="https://wooaaudio.wooahouse.com/페이지명.html">
+  <meta name="naver-site-verification" content="7396a327607b884b9bef1283dfd3a5c6115a2b50">
+  <meta name="google-site-verification" content="tNM8tmr_6DFold03YSScWz4KEtu5Zo0Fsqc03u5Afms">
+  <meta property="og:title" content="도구명 - WooaAudio">
+  <meta property="og:description" content="페이지 설명">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://wooaaudio.wooahouse.com/페이지명.html">
+  <meta property="og:locale" content="ko_KR">
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#059669">
   <link rel="stylesheet" href="css/style.css">
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6464921081676309" crossorigin="anonymous"></script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6464921081676309" crossorigin="anonymous"></script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "도구명",
+    "url": "https://wooaaudio.wooahouse.com/페이지명.html",
+    "applicationCategory": "MultimediaApplication",
+    "operatingSystem": "Web",
+    "inLanguage": "ko",
+    "isAccessibleForFree": true,
+    "offers": {"@type":"Offer","price":"0","priceCurrency":"KRW"}
+  }
+  </script>
 </head>
 <body>
 
@@ -23,6 +47,9 @@
     <a href="index.html" class="logo">WooaAudio</a>
     <nav>
       <a href="audio-convert.html">포맷 변환</a>
+      <a href="audio-convert.html?format=mp3">MP3 변환</a>
+      <a href="audio-convert.html?format=wav">WAV 변환</a>
+      <a href="audio-convert.html?format=flac">FLAC 변환</a>
       <a href="index.html">전체 도구 ›</a>
     </nav>
   </div>
@@ -54,134 +81,24 @@
 
 <div class="page-with-sidebar">
 <main class="tool-page">
+
+  <!-- ========== 여기부터 도구별 콘텐츠 ========== -->
+
   <div class="breadcrumb">
     <a href="index.html">홈</a>
     <span>›</span>
-    <span>오디오 포맷 변환</span>
+    <span>도구명</span>
   </div>
 
   <div class="tool-header">
     <span class="tool-header-icon">🎵</span>
-    <h1>오디오 포맷 변환 무료 온라인</h1>
-    <p>MP3, WAV, OGG, FLAC, AAC, M4A 파일을 브라우저에서 변환합니다. 파일은 서버에 저장되지 않습니다.</p>
+    <h1>도구 제목</h1>
+    <p>도구 설명</p>
   </div>
 
-  <div id="engineBanner" class="engine-banner" style="display:none"></div>
+  <!-- 도구 UI 여기에 추가 -->
 
-  <div class="drop-zone" id="dropZone">
-    <span class="drop-zone-icon">📂</span>
-    <h3>오디오 파일을 여기에 끌어다 놓으세요</h3>
-    <p>MP3, WAV, OGG, FLAC, AAC, M4A, OPUS 지원 · 여러 파일 동시 선택 가능</p>
-    <label for="fileInput" class="btn-select">오디오 파일 선택</label>
-    <input type="file" id="fileInput" accept="audio/*,.mp3,.wav,.ogg,.flac,.aac,.m4a,.opus,.aiff" style="display:none" multiple>
-  </div>
-
-  <div id="fileListPanel" class="file-list-panel" style="display:none">
-    <div class="file-list-title">선택된 파일</div>
-    <div id="fileList"></div>
-  </div>
-
-  <div id="optionsPanel" class="options-panel">
-    <div class="options-title">변환 설정</div>
-    <div class="option-row">
-      <span class="option-label">출력 포맷</span>
-      <div class="option-control">
-        <select id="outputFormat">
-          <option value="mp3">MP3 - 범용 호환</option>
-          <option value="wav">WAV - 고품질 무압축</option>
-          <option value="ogg">OGG - 웹 친화 포맷</option>
-          <option value="flac">FLAC - 무손실 압축</option>
-          <option value="aac">AAC - 모바일 친화</option>
-          <option value="m4a">M4A - Apple 호환</option>
-          <option value="opus">OPUS - 고효율 압축</option>
-        </select>
-      </div>
-    </div>
-    <div class="option-row" id="bitrateRow">
-      <span class="option-label">비트레이트</span>
-      <div class="option-control">
-        <select id="bitrate">
-          <option value="96k">96 kbps</option>
-          <option value="128k" selected>128 kbps - 표준</option>
-          <option value="192k">192 kbps</option>
-          <option value="256k">256 kbps</option>
-          <option value="320k">320 kbps</option>
-        </select>
-      </div>
-    </div>
-    <div class="option-row">
-      <span class="option-label">샘플레이트</span>
-      <div class="option-control">
-        <select id="sampleRate">
-          <option value="">원본 유지</option>
-          <option value="44100">44,100 Hz</option>
-          <option value="48000">48,000 Hz</option>
-        </select>
-      </div>
-    </div>
-    <div class="option-row">
-      <span class="option-label">채널</span>
-      <div class="option-control">
-        <select id="channels">
-          <option value="">원본 유지</option>
-          <option value="1">모노</option>
-          <option value="2">스테레오</option>
-        </select>
-      </div>
-    </div>
-    <button class="btn-convert" id="convertBtn" disabled>변환 시작</button>
-  </div>
-
-  <div id="processingAd" style="display:none;text-align:center;margin:16px auto;max-width:728px;padding:0 8px">
-    <p style="font-size:0.85rem;color:#6b7280;margin-bottom:8px;">⏳ 변환 중입니다. 완료되면 자동으로 닫힙니다.</p>
-  </div>
-
-  <div class="progress-wrap" id="progressWrap" style="display:none">
-    <div class="progress-label">
-      <span id="progressText">변환 중...</span>
-      <span id="progressPct">0%</span>
-    </div>
-    <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
-  </div>
-
-  <div id="errorMsg" class="alert alert-error" style="display:none"></div>
-
-  <div class="result-panel" id="resultPanel">
-    <div class="result-header">
-      <span class="result-icon">✅</span>
-      <div>
-        <div class="result-title">변환 완료!</div>
-        <div class="result-subtitle" id="resultSubtitle"></div>
-      </div>
-    </div>
-    <div id="downloadList"></div>
-    <div style="margin-top:16px">
-      <button class="btn-reset" id="resetBtn">다시 변환</button>
-    </div>
-  </div>
-
-  <div class="cross-link-banner" style="max-width:800px;margin:2rem auto;padding:1rem 1.5rem;background:linear-gradient(135deg,#f5f3ff,#ede9fe);border-radius:12px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.8rem;">
-    <span style="font-size:0.95rem;color:#444;">이미지나 PDF 파일 작업도 필요하신가요?</span>
-    <a href="https://imagekit.wooahouse.com/" target="_blank" rel="noopener" style="background:#059669;color:#fff;padding:0.5rem 1rem;border-radius:8px;text-decoration:none;font-size:0.9rem;white-space:nowrap;">🖼️ WooaImage 이미지 도구 →</a>
-  </div>
-
-  <section class="faq-section" style="max-width:800px;margin:3rem auto;padding:0 1rem;">
-    <h2 style="font-size:1.4rem;margin-bottom:1.5rem;">자주 묻는 질문</h2>
-    <div class="faq-list">
-      <div class="faq-item" style="margin-bottom:1.2rem;padding:1rem;background:#f8f9fa;border-radius:8px;">
-        <h3 style="font-size:1rem;font-weight:600;margin-bottom:0.5rem;">Q. 어떤 오디오 포맷을 지원하나요?</h3>
-        <p style="color:#555;margin:0;">MP3, WAV, OGG, FLAC, AAC, M4A, OPUS, AIFF 등 주요 오디오 포맷 간 상호 변환을 지원합니다.</p>
-      </div>
-      <div class="faq-item" style="margin-bottom:1.2rem;padding:1rem;background:#f8f9fa;border-radius:8px;">
-        <h3 style="font-size:1rem;font-weight:600;margin-bottom:0.5rem;">Q. 파일이 서버에 저장되나요?</h3>
-        <p style="color:#555;margin:0;">아니요. 모든 변환 작업은 브라우저 안에서만 이루어지며, 파일은 외부 서버로 전송되지 않습니다.</p>
-      </div>
-      <div class="faq-item" style="padding:1rem;background:#f8f9fa;border-radius:8px;">
-        <h3 style="font-size:1rem;font-weight:600;margin-bottom:0.5rem;">Q. 처음 변환 시 시간이 걸리는 이유가 뭔가요?</h3>
-        <p style="color:#555;margin:0;">브라우저에서 직접 오디오를 처리하기 위해 FFmpeg 변환 엔진(약 30MB)을 최초 1회 다운로드합니다.</p>
-      </div>
-    </div>
-  </section>
+  <!-- ========== 여기까지 도구별 콘텐츠 ========== -->
 
 </main>
 
@@ -195,323 +112,60 @@
          data-full-width-responsive="true"></ins>
     <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
   </div>
-
-  <div class="ad-card" style="margin-top:16px;overflow:hidden;">
+  <div style="margin-top:16px;overflow:hidden;border-radius:14px;">
     <script src="https://ads-partners.coupang.com/g.js"></script>
-    <script>
-      new PartnersCoupang.G({"id":974224,"trackingCode":"AF5600192","subId":null,"template":"carousel","width":"300","height":"250"});
-    </script>
+    <script>new PartnersCoupang.G({"id":974224,"trackingCode":"AF5600192","subId":null,"template":"carousel","width":"300","height":"250"});</script>
   </div>
 </aside>
 </div>
 
 <div class="features" style="margin-top:60px">
   <div class="features-inner">
-    <div>
-      <div class="feature-icon">🔒</div>
-      <div class="feature-title">100% 안전</div>
-      <div class="feature-desc">파일이 서버로 전송되지 않습니다</div>
-    </div>
-    <div>
-      <div class="feature-icon">⚡</div>
-      <div class="feature-title">빠른 처리</div>
-      <div class="feature-desc">브라우저에서 직접 처리</div>
-    </div>
-    <div>
-      <div class="feature-icon">💸</div>
-      <div class="feature-title">완전 무료</div>
-      <div class="feature-desc">회원가입 없이 무제한 사용</div>
-    </div>
-    <div>
-      <div class="feature-icon">📱</div>
-      <div class="feature-title">모든 기기</div>
-      <div class="feature-desc">PC, 모바일 모두 지원</div>
-    </div>
+    <div><div class="feature-icon">🔒</div><div class="feature-title">100% 안전</div><div class="feature-desc">파일이 서버로 전송되지 않습니다. 모든 처리가 브라우저 안에서 이루어집니다.</div></div>
+    <div><div class="feature-icon">⚡</div><div class="feature-title">빠른 처리</div><div class="feature-desc">업로드 대기 없이 로컬에서 처리하므로 반복 작업이 간편합니다.</div></div>
+    <div><div class="feature-icon">💸</div><div class="feature-title">완전 무료</div><div class="feature-desc">회원가입 없이 주요 오디오 기능을 무료로 사용할 수 있습니다.</div></div>
+    <div><div class="feature-icon">📱</div><div class="feature-title">모든 기기 지원</div><div class="feature-desc">PC, 태블릿, 스마트폰 어디서나 사용 가능한 반응형 디자인.</div></div>
   </div>
 </div>
 
 <footer>
   <div class="footer-inner">
     <div class="footer-top">
-      <div>
-        <div class="footer-brand">🎵 WooaAudio</div>
-        <p class="footer-desc">브라우저에서 바로 사용하는 무료 오디오 도구</p>
+      <div class="footer-brand">
+        <span class="logo-footer">WooaAudio</span>
+        <p>무료 온라인 오디오 도구 모음. 변환, 편집, 분석 작업을 브라우저에서 안전하게 처리하세요.</p>
+      </div>
+      <div class="footer-links">
+        <h4>오디오 변환</h4>
+        <a href="audio-convert.html">오디오 포맷 변환</a>
+        <a href="audio-convert.html?format=mp3">MP3 변환</a>
+        <a href="audio-convert.html?format=wav">WAV 변환</a>
+        <a href="audio-convert.html?format=flac">FLAC 변환</a>
+      </div>
+      <div class="footer-links">
+        <h4>WooaHouse 서비스</h4>
+        <a href="https://pdfkit.wooahouse.com/" target="_blank" rel="noopener">WooaPDF</a>
+        <a href="https://imagekit.wooahouse.com/" target="_blank" rel="noopener">WooaImage</a>
+        <a href="https://fontkit.wooahouse.com/" target="_blank" rel="noopener">WooaFont</a>
       </div>
     </div>
     <div class="footer-bottom">
-      <p>© 2025 WooaAudio. 모든 권리 보유.</p>
+      <p>© 2026 WooaAudio. 모든 권리 보유.</p>
+      <div class="footer-bottom-links">
+        <a href="privacy.html">개인정보처리방침</a>
+        <a href="about.html">소개</a>
+      </div>
     </div>
+    <p class="coupang-notice">이 포스팅은 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다.</p>
   </div>
 </footer>
 
+<!-- ========== 도구별 JS 여기에 추가 ========== -->
 <script>
-const CDN = ['https://cdn.jsdelivr.net/npm', 'https://unpkg.com'];
-const LOAD_TIMEOUT = 60000;
-let selectedFiles = [];
-let ffmpeg = null;
-let engineReady = false;
-
-async function fetchFileUtil(input) {
-  if (input instanceof File || input instanceof Blob)
-    return new Uint8Array(await input.arrayBuffer());
-  return new Uint8Array(await (await fetch(input)).arrayBuffer());
-}
-async function toBlobURL(url, mimeType, onProgress) {
-  const resp = await fetch(url);
-  const total = parseInt(resp.headers.get('content-length') || '0');
-  const reader = resp.body.getReader();
-  const chunks = [];
-  let loaded = 0;
-  while (true) {
-    const { done, value } = await reader.read();
-    if (done) break;
-    chunks.push(value);
-    loaded += value.length;
-    if (total && onProgress) onProgress(loaded / total);
-  }
-  return URL.createObjectURL(new Blob(chunks, { type: mimeType }));
-}
-
-const dropZone = document.getElementById('dropZone');
-const fileInput = document.getElementById('fileInput');
-const outputFormat = document.getElementById('outputFormat');
-const convertBtn = document.getElementById('convertBtn');
-const urlFormat = new URLSearchParams(location.search).get('format');
-if (urlFormat && outputFormat.querySelector(`option[value="${urlFormat}"]`)) outputFormat.value = urlFormat;
-toggleBitrate();
-
-dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('drag-over'); });
-dropZone.addEventListener('dragleave', () => dropZone.classList.remove('drag-over'));
-dropZone.addEventListener('drop', e => { e.preventDefault(); dropZone.classList.remove('drag-over'); addFiles([...e.dataTransfer.files]); });
-dropZone.addEventListener('click', e => { if (e.target.tagName !== 'LABEL') fileInput.click(); });
-fileInput.addEventListener('change', e => addFiles([...e.target.files]));
-outputFormat.addEventListener('change', toggleBitrate);
-convertBtn.addEventListener('click', convertFiles);
-document.getElementById('resetBtn').addEventListener('click', resetAll);
-
-function setBanner(state, text) {
-  const b = document.getElementById('engineBanner');
-  b.className = 'engine-banner engine-banner--' + state;
-  b.innerHTML = text;
-  b.style.display = 'flex';
-}
-function hideBanner() { document.getElementById('engineBanner').style.display = 'none'; }
-
-let engineLoading = false;
-function ensureEngine() {
-  if (engineReady || engineLoading) return;
-  engineLoading = true;
-  startEngineLoad();
-}
-
-async function startEngineLoad() {
-  setBanner('loading', '<span class="banner-spinner"></span> 변환 엔진 준비 중...');
-  const progressWrap = document.getElementById('progressWrap');
-  const progressBar = progressWrap.querySelector('.progress-bar');
-  progressWrap.style.display = 'block';
-  progressBar.classList.add('progress-bar--indeterminate');
-  document.getElementById('progressText').textContent = '엔진 다운로드 중...';
-  document.getElementById('progressPct').textContent = '';
-  try {
-    await loadFFmpeg();
-    progressBar.classList.remove('progress-bar--indeterminate');
-    updateProgress(100, '엔진 준비 완료!');
-    setTimeout(() => { progressWrap.style.display = 'none'; }, 800);
-    engineReady = true;
-    setBanner('ready', '✅ 변환 준비 완료');
-    setTimeout(() => hideBanner(), 3000);
-  } catch (err) {
-    progressBar.classList.remove('progress-bar--indeterminate');
-    progressWrap.style.display = 'none';
-    setBanner('error', '⚠️ 엔진 로드 실패. 페이지를 새로고침하거나 광고 차단 확장 프로그램을 비활성화 후 다시 시도해주세요.');
-  }
-}
-
-function loadScript(src) {
-  return new Promise((resolve, reject) => {
-    const s = document.createElement('script');
-    const t = setTimeout(() => { s.remove(); reject(new Error('timeout')); }, LOAD_TIMEOUT);
-    s.src = src; s.async = true;
-    s.onload = () => { clearTimeout(t); resolve(); };
-    s.onerror = () => { clearTimeout(t); reject(new Error('load error')); };
-    document.head.appendChild(s);
-  });
-}
-async function tryLoadScript(paths, check) {
-  for (const url of paths) {
-    try { await loadScript(url); if (check()) return; } catch(e) {}
-  }
-  if (!check()) throw new Error('스크립트 로드 실패');
-}
-
-async function loadFFmpeg() {
-  updateProgress(5, '라이브러리 로드 중...');
-  await tryLoadScript(['js/ffmpeg.js'], () => !!(window.FFmpegWASM));
-  if (!window.FFmpegWASM) throw new Error('FFmpeg 라이브러리 로드 실패');
-  const { FFmpeg } = window.FFmpegWASM;
-  let lastErr;
-  for (const base of CDN) {
-    try {
-      const coreURL = await toBlobURL(
-        `${base}/@ffmpeg/core@0.12.6/dist/umd/ffmpeg-core.js`,
-        'text/javascript',
-        p => updateProgress(10 + Math.round(p * 45), '코어 JS 다운로드 중...')
-      );
-      const wasmURL = await toBlobURL(
-        `${base}/@ffmpeg/core@0.12.6/dist/umd/ffmpeg-core.wasm`,
-        'application/wasm',
-        p => updateProgress(55 + Math.round(p * 37), 'WASM 다운로드 중...')
-      );
-      updateProgress(93, '엔진 초기화 중...');
-      const instance = new FFmpeg();
-      instance.on('progress', ({ progress }) => {
-        if (engineReady && progress > 0) updateProgress(Math.round(progress * 100), '변환 중...');
-      });
-      await instance.load({ coreURL, wasmURL });
-      ffmpeg = instance;
-      return;
-    } catch(e) { lastErr = e; }
-  }
-  throw lastErr || new Error('엔진 초기화 실패');
-}
-
-function addFiles(files) {
-  selectedFiles.push(...files.filter(f => f.type.startsWith('audio/') || /\.(mp3|wav|ogg|flac|aac|m4a|opus|aiff|wma)$/i.test(f.name)));
-  ensureEngine();
-  renderFileList();
-}
-
-function renderFileList() {
-  const list = document.getElementById('fileList');
-  list.innerHTML = '';
-  selectedFiles.forEach((file, i) => {
-    const item = document.createElement('div');
-    item.className = 'file-item';
-    item.innerHTML = `<span class="file-item-icon">🎵</span><div class="file-item-info"><div class="file-item-name"></div><div class="file-item-size">${formatSize(file.size)}</div></div><button type="button" class="file-item-remove" aria-label="파일 삭제">×</button>`;
-    item.querySelector('.file-item-name').textContent = file.name;
-    item.querySelector('button').addEventListener('click', () => { selectedFiles.splice(i, 1); renderFileList(); });
-    list.appendChild(item);
-  });
-  const has = selectedFiles.length > 0;
-  document.getElementById('fileListPanel').style.display = has ? 'block' : 'none';
-  document.getElementById('resultPanel').style.display = 'none';
-  convertBtn.disabled = !(has && engineReady);
-  hideError();
-}
-
-function toggleBitrate() {
-  document.getElementById('bitrateRow').style.display = ['wav','flac'].includes(outputFormat.value) ? 'none' : 'flex';
-}
-
-async function convertFiles() {
-  if (!selectedFiles.length || !engineReady) return;
-  const fmt = outputFormat.value;
-  const bitrate = document.getElementById('bitrate').value;
-  const sampleRate = document.getElementById('sampleRate').value;
-  const channels = document.getElementById('channels').value;
-  const results = [];
-  convertBtn.disabled = true;
-  hideError();
-  document.getElementById('resultPanel').style.display = 'none';
-  const progressWrap = document.getElementById('progressWrap');
-  progressWrap.querySelector('.progress-bar').classList.remove('progress-bar--indeterminate');
-  progressWrap.style.display = 'block';
-  updateProgress(0, '변환 준비 중...');
-  const processingAd = document.getElementById('processingAd');
-  processingAd.style.display = 'block';
-  if (!processingAd.dataset.adLoaded) {
-    const ins = document.createElement('ins');
-    ins.className = 'adsbygoogle';
-    ins.style.cssText = 'display:block';
-    ins.setAttribute('data-ad-client', 'ca-pub-6464921081676309');
-    ins.setAttribute('data-ad-slot', '1419180025');
-    ins.setAttribute('data-ad-format', 'auto');
-    ins.setAttribute('data-full-width-responsive', 'true');
-    processingAd.appendChild(ins);
-    (window.adsbygoogle = window.adsbygoogle || []).push({});
-    processingAd.dataset.adLoaded = '1';
-  }
-  try {
-    for (let i = 0; i < selectedFiles.length; i++) {
-      const file = selectedFiles[i];
-      updateProgress(Math.round((i / selectedFiles.length) * 95) + 2, `${file.name} 변환 중... (${i+1}/${selectedFiles.length})`);
-      const ext = (file.name.split('.').pop() || 'audio').replace(/[^a-z0-9]/gi,'').toLowerCase();
-      const inputName = `in_${Date.now()}_${i}.${ext}`;
-      const outputName = `out_${Date.now()}_${i}.${fmt}`;
-      await ffmpeg.writeFile(inputName, await fetchFileUtil(file));
-      const args = ['-i', inputName];
-      if (sampleRate) args.push('-ar', sampleRate);
-      if (channels) args.push('-ac', channels);
-      if (!['wav','flac'].includes(fmt)) args.push('-b:a', bitrate);
-      args.push('-y', outputName);
-      try {
-        await ffmpeg.exec(args);
-        const data = await ffmpeg.readFile(outputName);
-        const blob = new Blob([data.buffer], { type: `audio/${fmt}` });
-        results.push({ name: `${file.name.replace(/\.[^.]+$/, '')}.${fmt}`, size: blob.size, url: URL.createObjectURL(blob) });
-      } finally {
-        safeUnlink(inputName); safeUnlink(outputName);
-      }
-    }
-    updateProgress(100, '완료!');
-    processingAd.style.display = 'none';
-    progressWrap.style.display = 'none';
-    renderResults(results);
-  } catch (err) {
-    console.error(err);
-    processingAd.style.display = 'none';
-    showError('변환에 실패했습니다. 파일 형식을 확인하거나 다시 시도해주세요. (' + err.message + ')');
-  } finally {
-    convertBtn.disabled = false;
-  }
-}
-
-function renderResults(results) {
-  const list = document.getElementById('downloadList');
-  list.innerHTML = '';
-  results.forEach((r, i) => {
-    const item = document.createElement('div');
-    item.className = 'file-item';
-    item.style.marginBottom = '8px';
-    item.innerHTML = `<span class="file-item-icon">✅</span><div class="file-item-info"><div class="file-item-name"></div><div class="file-item-size">${formatSize(r.size)}</div></div><a class="btn-download" style="padding:8px 16px;font-size:0.85rem">다운로드</a>`;
-    item.querySelector('.file-item-name').textContent = r.name;
-    const link = item.querySelector('a');
-    link.href = r.url; link.download = r.name;
-    if (i === 0) link.id = 'downloadBtn';
-    list.appendChild(item);
-  });
-  document.getElementById('resultSubtitle').textContent = `${results.length}개 파일 변환 완료`;
-  const rp = document.getElementById('resultPanel');
-  rp.style.display = 'block';
-  const rpIns = rp.querySelector('ins.adsbygoogle');
-  if (rpIns && !rpIns.dataset.adsbygoogleStatus) {
-    (window.adsbygoogle = window.adsbygoogle || []).push({});
-  }
-  rp.scrollIntoView({ behavior: 'smooth' });
-}
-
-function resetAll() {
-  selectedFiles = []; fileInput.value = '';
-  renderFileList();
-  document.getElementById('progressWrap').style.display = 'none';
-  document.getElementById('resultPanel').style.display = 'none';
-}
-
-function safeUnlink(name) { try { ffmpeg.deleteFile(name); } catch(e) {} }
-function updateProgress(pct, text) {
-  const p = Math.max(0, Math.min(100, pct));
-  document.getElementById('progressFill').style.width = p + '%';
-  document.getElementById('progressPct').textContent = p + '%';
-  document.getElementById('progressText').textContent = text;
-}
-function showError(msg) { const el = document.getElementById('errorMsg'); el.textContent = msg; el.style.display = 'block'; }
-function hideError() { document.getElementById('errorMsg').style.display = 'none'; }
-function formatSize(b) {
-  if (b < 1024) return b + ' B';
-  if (b < 1048576) return (b/1024).toFixed(1) + ' KB';
-  return (b/1048576).toFixed(1) + ' MB';
-}
+// 도구별 JavaScript
 </script>
+<!-- ========================================== -->
+
 <script src="js/pwa-install.js"></script>
 </body>
 </html>
