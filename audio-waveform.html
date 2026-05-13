@@ -40,9 +40,18 @@
   }
   </script>
   <style>
-    #waveCanvas {
-      width: 100%;
+    #canvasWrapper {
+      overflow-x: auto;
+      overflow-y: hidden;
       border-radius: 12px;
+      background: #0f172a;
+      cursor: pointer;
+      -webkit-overflow-scrolling: touch;
+    }
+    #canvasWrapper::-webkit-scrollbar { height: 6px; }
+    #canvasWrapper::-webkit-scrollbar-track { background: #1e293b; }
+    #canvasWrapper::-webkit-scrollbar-thumb { background: #059669; border-radius: 3px; }
+    #waveCanvas {
       display: block;
       background: #0f172a;
     }
@@ -59,6 +68,7 @@
       accent-color: #059669;
       cursor: pointer;
     }
+    #zoomSlider { accent-color: #059669; cursor: pointer; }
   </style>
 </head>
 <body>
@@ -141,8 +151,16 @@
           <button class="color-btn" data-color="#ffffff" style="background:#ffffff;border:1px solid #ccc;" title="흰색"></button>
         </div>
       </div>
-      <canvas id="waveCanvas" height="160"></canvas>
-      <div style="margin-top:12px;display:flex;align-items:center;gap:10px;">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;flex-wrap:wrap;">
+        <span style="font-size:0.8rem;color:#6b7280;">🔍 확대:</span>
+        <input type="range" id="zoomSlider" min="50" max="600" value="150" step="10" style="width:120px;">
+        <span id="zoomDisplay" style="font-size:0.82rem;color:#059669;font-weight:600;min-width:56px;">150px/s</span>
+        <span style="font-size:0.78rem;color:#9ca3af;">← 가로 스크롤로 전체 파형 확인</span>
+      </div>
+      <div id="canvasWrapper">
+        <canvas id="waveCanvas" height="200"></canvas>
+      </div>
+      <div style="margin-top:10px;display:flex;align-items:center;gap:10px;">
         <button id="playBtn" style="padding:6px 16px;background:#059669;color:#fff;border:none;border-radius:8px;cursor:pointer;font-size:0.9rem;">▶ 재생</button>
         <input type="range" id="playbar" value="0" min="0" max="100" step="0.1" style="flex:1;">
         <span id="timeDisplay" style="font-size:0.82rem;color:#6b7280;min-width:90px;text-align:right;">0:00 / 0:00</span>
@@ -252,11 +270,14 @@ let pauseOffset = 0;
 let waveColor = '#34D399';
 let rafId = null;
 let currentFile = null;
+let pxPerSec = 150;
 
 const dropZone = document.getElementById('dropZone');
 const fileInput = document.getElementById('fileInput');
 const canvas = document.getElementById('waveCanvas');
 const ctx = canvas.getContext('2d');
+const wrapper = document.getElementById('canvasWrapper');
+const zoomSlider = document.getElementById('zoomSlider');
 
 dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('drag-over'); });
 dropZone.addEventListener('dragleave', () => dropZone.classList.remove('drag-over'));
@@ -269,8 +290,14 @@ document.querySelectorAll('.color-btn').forEach(btn => {
     document.querySelectorAll('.color-btn').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
     waveColor = btn.dataset.color;
-    if (audioBuffer) drawWaveform();
+    if (audioBuffer) drawWaveform(isPlaying ? (pauseOffset / audioBuffer.duration) : undefined);
   });
+});
+
+zoomSlider.addEventListener('input', () => {
+  pxPerSec = parseInt(zoomSlider.value);
+  document.getElementById('zoomDisplay').textContent = pxPerSec + 'px/s';
+  if (audioBuffer) { resizeCanvas(); drawWaveform(isPlaying ? (pauseOffset / audioBuffer.duration) : undefined); }
 });
 
 document.getElementById('playBtn').addEventListener('click', togglePlay);
@@ -278,8 +305,21 @@ document.getElementById('playbar').addEventListener('input', e => {
   if (!audioBuffer) return;
   pauseOffset = (parseFloat(e.target.value) / 100) * audioBuffer.duration;
   if (isPlaying) { stopAudio(); startAudio(); }
+  else drawWaveform(pauseOffset / audioBuffer.duration);
   updateTimeDisplay();
 });
+
+canvas.addEventListener('click', e => {
+  if (!audioBuffer) return;
+  const rect = canvas.getBoundingClientRect();
+  const x = e.clientX - rect.left;
+  pauseOffset = (x / canvas.width) * audioBuffer.duration;
+  if (isPlaying) { stopAudio(); startAudio(); }
+  else drawWaveform(pauseOffset / audioBuffer.duration);
+  document.getElementById('playbar').value = (pauseOffset / audioBuffer.duration) * 100;
+  updateTimeDisplay();
+});
+
 document.getElementById('downloadBtn').addEventListener('click', downloadPNG);
 document.getElementById('resetBtn').addEventListener('click', resetAll);
 
@@ -299,6 +339,7 @@ async function loadFile(file) {
     resizeCanvas();
     drawWaveform();
     updateTimeDisplay();
+    wrapper.scrollLeft = 0;
     document.getElementById('loadingMsg').style.display = 'none';
     document.getElementById('resultSection').style.display = 'block';
   } catch(err) {
@@ -308,9 +349,10 @@ async function loadFile(file) {
 }
 
 function resizeCanvas() {
-  const rect = canvas.parentElement.getBoundingClientRect();
-  canvas.width = Math.max(rect.width - 32, 300);
-  canvas.height = 160;
+  const wrapperW = wrapper.getBoundingClientRect().width;
+  const totalW = Math.max(Math.round(audioBuffer.duration * pxPerSec), wrapperW);
+  canvas.width = totalW;
+  canvas.height = 200;
 }
 
 function drawWaveform(playProgress) {
@@ -318,36 +360,60 @@ function drawWaveform(playProgress) {
   const w = canvas.width, h = canvas.height;
   ctx.fillStyle = '#0f172a';
   ctx.fillRect(0, 0, w, h);
+
+  // 시간축 눈금
+  const secStep = pickTickStep(audioBuffer.duration, w);
+  ctx.strokeStyle = 'rgba(255,255,255,0.08)';
+  ctx.lineWidth = 1;
+  ctx.fillStyle = 'rgba(255,255,255,0.3)';
+  ctx.font = '10px sans-serif';
+  ctx.textAlign = 'center';
+  for (let s = 0; s <= audioBuffer.duration; s += secStep) {
+    const x = Math.round((s / audioBuffer.duration) * w);
+    ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, h); ctx.stroke();
+    ctx.fillText(formatTime(s), x, h - 3);
+  }
+
+  // 파형
   const data = audioBuffer.getChannelData(0);
-  const step = Math.ceil(data.length / w);
-  const amp = h / 2;
+  const samplesPerPx = data.length / w;
+  const amp = h / 2 - 14;
   ctx.lineWidth = 1;
   ctx.strokeStyle = waveColor;
-  ctx.globalAlpha = 0.85;
+  ctx.globalAlpha = 0.9;
   ctx.beginPath();
   for (let i = 0; i < w; i++) {
+    const start = Math.floor(i * samplesPerPx);
+    const end = Math.floor((i + 1) * samplesPerPx);
     let min = 1, max = -1;
-    for (let j = 0; j < step; j++) {
-      const d = data[i * step + j] || 0;
+    for (let j = start; j < end; j++) {
+      const d = data[j] || 0;
       if (d < min) min = d;
       if (d > max) max = d;
     }
-    ctx.moveTo(i, (1 + min) * amp);
-    ctx.lineTo(i, (1 + max) * amp);
+    ctx.moveTo(i, amp - max * amp);
+    ctx.lineTo(i, amp - min * amp);
   }
   ctx.stroke();
   ctx.globalAlpha = 1;
+
+  // 플레이헤드
   if (playProgress !== undefined) {
-    const x = playProgress * w;
+    const x = Math.round(playProgress * w);
     ctx.strokeStyle = '#ffffff';
-    ctx.lineWidth = 1.5;
-    ctx.globalAlpha = 0.7;
-    ctx.beginPath();
-    ctx.moveTo(x, 0);
-    ctx.lineTo(x, h);
-    ctx.stroke();
+    ctx.lineWidth = 2;
+    ctx.globalAlpha = 0.85;
+    ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, h); ctx.stroke();
     ctx.globalAlpha = 1;
   }
+}
+
+function pickTickStep(dur, w) {
+  const candidates = [1, 2, 5, 10, 15, 30, 60, 120, 300];
+  for (const s of candidates) {
+    if (w / (dur / s) >= 40) return s;
+  }
+  return 300;
 }
 
 function startAudio() {
@@ -361,7 +427,7 @@ function startAudio() {
   document.getElementById('playBtn').textContent = '⏸ 일시정지';
   animatePlayhead();
   sourceNode.onended = () => {
-    if (isPlaying) { stopAudio(); pauseOffset = 0; drawWaveform(); updateTimeDisplay(); }
+    if (isPlaying) { stopAudio(); pauseOffset = 0; drawWaveform(); document.getElementById('playbar').value = 0; updateTimeDisplay(); }
   };
 }
 
@@ -386,17 +452,21 @@ function animatePlayhead() {
   document.getElementById('playbar').value = progress * 100;
   pauseOffset = elapsed;
   updateTimeDisplay();
+  // 플레이헤드가 wrapper 가운데에 오도록 자동 스크롤
+  const headX = progress * canvas.width;
+  const half = wrapper.clientWidth / 2;
+  if (headX > half) wrapper.scrollLeft = headX - half;
   if (progress < 1) rafId = requestAnimationFrame(animatePlayhead);
 }
 
 function updateTimeDisplay() {
   if (!audioBuffer) return;
-  const cur = pauseOffset, total = audioBuffer.duration;
+  const cur = Math.min(pauseOffset, audioBuffer.duration), total = audioBuffer.duration;
   document.getElementById('timeDisplay').textContent = `${formatTime(cur)} / ${formatTime(total)}`;
 }
 
 function downloadPNG() {
-  drawWaveform(isPlaying ? (pauseOffset / audioBuffer.duration) : undefined);
+  drawWaveform(audioBuffer ? (pauseOffset / audioBuffer.duration) : undefined);
   const link = document.createElement('a');
   link.download = (currentFile ? currentFile.name.replace(/\.[^.]+$/, '') : 'waveform') + '_waveform.png';
   link.href = canvas.toDataURL('image/png');
