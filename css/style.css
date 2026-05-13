@@ -1,16 +1,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&display=swap');
 
 :root {
-  --primary: #7C3AED;
-  --primary-dark: #5B21B6;
-  --primary-light: #F5F3FF;
+  --primary: #059669;
+  --primary-dark: #047857;
+  --primary-light: #ECFDF5;
   --bg: #F7F8FA;
   --white: #FFFFFF;
   --text: #1A1A2E;
   --text-light: #6B7280;
   --border: #E5E7EB;
   --shadow: 0 2px 12px rgba(0,0,0,0.08);
-  --shadow-hover: 0 8px 30px rgba(124,58,237,0.18);
+  --shadow-hover: 0 8px 30px rgba(5,150,105,0.18);
   --radius: 14px;
   --radius-sm: 8px;
 }
@@ -29,7 +29,7 @@ header {
   position: sticky;
   top: 0;
   z-index: 100;
-  box-shadow: 0 2px 8px rgba(124,58,237,0.3);
+  box-shadow: 0 2px 8px rgba(5,150,105,0.3);
 }
 
 .header-inner {
@@ -107,10 +107,10 @@ nav a:hover { background: rgba(255,255,255,0.18); color: white; }
   transition: background 0.15s, color 0.15s;
 }
 .our-sites-links a:hover { background: rgba(255,255,255,0.12); color: white; }
-.our-sites-links a.active { background: rgba(124,58,237,0.5); color: white; }
+.our-sites-links a.active { background: rgba(5,150,105,0.5); color: white; }
 
 .hero {
-  background: linear-gradient(135deg, #7C3AED 0%, #A78BFA 100%);
+  background: linear-gradient(135deg, #059669 0%, #34D399 100%);
   padding: 56px 20px 80px;
   text-align: center;
 }
@@ -241,7 +241,7 @@ nav a:hover { background: rgba(255,255,255,0.18); color: white; }
 .tool-card:hover {
   transform: translateY(-5px);
   box-shadow: var(--shadow-hover);
-  border-color: rgba(124,58,237,0.15);
+  border-color: rgba(5,150,105,0.15);
 }
 .tool-icon { font-size: 2.8rem; margin-bottom: 14px; display: block; }
 .tool-name { font-weight: 700; font-size: 0.92rem; margin-bottom: 7px; color: var(--text); }
