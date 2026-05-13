@@ -111,7 +111,7 @@
     <div id="fileList"></div>
   </div>
 
-  <div id="optionsPanel" class="options-panel" style="display:none">
+  <div id="optionsPanel" class="options-panel">
     <div class="options-title">변환 설정</div>
     <div class="option-row">
       <span class="option-label">출력 포맷</span>
@@ -161,16 +161,6 @@
       </div>
     </div>
     <button class="btn-convert" id="convertBtn" disabled>변환 시작</button>
-  </div>
-
-  <div style="text-align:center;margin:16px auto;max-width:728px;padding:0 8px">
-    <ins class="adsbygoogle"
-         style="display:block"
-         data-ad-client="ca-pub-6464921081676309"
-         data-ad-slot="1419180025"
-         data-ad-format="auto"
-         data-full-width-responsive="true"></ins>
-    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
   </div>
 
   <div id="processingAd" style="display:none;text-align:center;margin:16px auto;max-width:728px;padding:0 8px">
@@ -391,8 +381,8 @@ function renderFileList() {
   });
   const has = selectedFiles.length > 0;
   document.getElementById('fileListPanel').style.display = has ? 'block' : 'none';
-  document.getElementById('optionsPanel').style.display = has ? 'block' : 'none';
   document.getElementById('resultPanel').style.display = 'none';
+  convertBtn.disabled = !(has && engineReady);
   hideError();
 }
 
