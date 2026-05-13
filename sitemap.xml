@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://wooaaudio.wooahouse.com/</loc>
@@ -7,5 +7,41 @@
   <url>
     <loc>https://wooaaudio.wooahouse.com/audio-convert.html</loc>
     <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://wooaaudio.wooahouse.com/audio-mp3.html</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://wooaaudio.wooahouse.com/audio-wav.html</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://wooaaudio.wooahouse.com/audio-flac.html</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://wooaaudio.wooahouse.com/audio-cut.html</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://wooaaudio.wooahouse.com/audio-merge.html</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://wooaaudio.wooahouse.com/audio-volume.html</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://wooaaudio.wooahouse.com/audio-speed.html</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://wooaaudio.wooahouse.com/audio-waveform.html</loc>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://wooaaudio.wooahouse.com/audio-info.html</loc>
+    <priority>0.7</priority>
   </url>
 </urlset>
