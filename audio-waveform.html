@@ -47,6 +47,9 @@
       background: #0f172a;
       cursor: pointer;
       -webkit-overflow-scrolling: touch;
+      width: 100%;
+      min-width: 0;
+      box-sizing: border-box;
     }
     #canvasWrapper::-webkit-scrollbar { height: 6px; }
     #canvasWrapper::-webkit-scrollbar-track { background: #1e293b; }
@@ -349,8 +352,8 @@ async function loadFile(file) {
 }
 
 function resizeCanvas() {
-  const wrapperW = wrapper.getBoundingClientRect().width;
-  const totalW = Math.max(Math.round(audioBuffer.duration * pxPerSec), wrapperW);
+  const containerW = wrapper.parentElement ? wrapper.parentElement.clientWidth : wrapper.clientWidth;
+  const totalW = Math.max(Math.round(audioBuffer.duration * pxPerSec), containerW);
   canvas.width = totalW;
   canvas.height = 200;
 }
