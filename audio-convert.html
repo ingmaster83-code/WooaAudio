@@ -1,19 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<script>
-  window.__needsReload = false;
-  if (!crossOriginIsolated) {
-    if (!sessionStorage.getItem('coi-tried')) {
-      sessionStorage.setItem('coi-tried', '1');
-      window.__needsReload = true;
-      navigator.serviceWorker.register('/coi-serviceworker.js')
-        .then(() => setTimeout(() => location.reload(), 2000))
-        .catch(() => { window.__needsReload = false; });
-    }
-    // 재시도 후에도 안 되면 그냥 진행 (FFmpeg 로드 시 에러 안내)
-  }
-</script>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-9ZGENFSXWC"></script>
 <script>
@@ -236,18 +223,15 @@
 </footer>
 
 <script>
-const FFMPEG_SCRIPT_URLS = [
-  'https://cdn.jsdelivr.net/npm/@ffmpeg/ffmpeg@0.11.6/dist/ffmpeg.min.js',
-  'https://unpkg.com/@ffmpeg/ffmpeg@0.11.6/dist/ffmpeg.min.js'
+// FFmpeg.wasm 0.12.x — SharedArrayBuffer 불필요 (싱글스레드)
+const CDN = [
+  'https://cdn.jsdelivr.net/npm',
+  'https://unpkg.com'
 ];
-const FFMPEG_CORE_URLS = [
-  'https://cdn.jsdelivr.net/npm/@ffmpeg/core@0.11.0/dist/ffmpeg-core.js',
-  'https://unpkg.com/@ffmpeg/core@0.11.0/dist/ffmpeg-core.js'
-];
-const LOAD_TIMEOUT = 30000;
+const LOAD_TIMEOUT = 60000;
 let selectedFiles = [];
 let ffmpeg = null;
-let fetchFile = null;
+let ffmpegUtil = null;
 let engineReady = false;
 
 const dropZone = document.getElementById('dropZone');
@@ -276,14 +260,7 @@ function setBanner(state, text) {
 }
 function hideBanner() { document.getElementById('engineBanner').style.display = 'none'; }
 
-// 페이지 진입 시 자동 실행
-window.addEventListener('DOMContentLoaded', () => {
-  if (window.__needsReload) {
-    setBanner('setting', '🔒 변환 엔진 보안 설정 적용 중입니다. 잠시 후 자동으로 새로고침됩니다...');
-    return;
-  }
-  startEngineLoad();
-});
+window.addEventListener('DOMContentLoaded', () => startEngineLoad());
 
 async function startEngineLoad() {
   setBanner('loading', '<span class="banner-spinner"></span> 변환 엔진 준비 중...');
@@ -311,43 +288,66 @@ async function startEngineLoad() {
 
 function loadScript(src) {
   return new Promise((resolve, reject) => {
-    const script = document.createElement('script');
-    const timer = setTimeout(() => { script.remove(); reject(new Error('timeout')); }, LOAD_TIMEOUT);
-    script.src = src; script.async = true;
-    script.onload = () => { clearTimeout(timer); resolve(); };
-    script.onerror = () => { clearTimeout(timer); reject(new Error('load error')); };
-    document.head.appendChild(script);
+    const s = document.createElement('script');
+    const t = setTimeout(() => { s.remove(); reject(new Error('timeout')); }, LOAD_TIMEOUT);
+    s.src = src; s.async = true;
+    s.onload = () => { clearTimeout(t); resolve(); };
+    s.onerror = () => { clearTimeout(t); reject(new Error('load error')); };
+    document.head.appendChild(s);
   });
 }
 
-async function loadFFmpeg() {
-  if (!window.FFmpeg) {
-    let err;
-    for (const url of FFMPEG_SCRIPT_URLS) {
-      try { await loadScript(url); if (window.FFmpeg) break; } catch(e) { err = e; }
-    }
-    if (!window.FFmpeg) throw err || new Error('FFmpeg 라이브러리 로드 실패');
+async function tryLoadScript(paths, check) {
+  for (const url of paths) {
+    try { await loadScript(url); if (check()) return; } catch(e) {}
   }
-  fetchFile = window.FFmpeg.fetchFile;
-  let lastErr;
-  for (const coreUrl of FFMPEG_CORE_URLS) {
+  if (!check()) throw new Error('스크립트 로드 실패');
+}
+
+async function loadFFmpeg() {
+  // 1단계: 라이브러리 스크립트 로드 (작은 파일, 빠름)
+  updateProgress(5, '라이브러리 로드 중...');
+  await tryLoadScript(
+    CDN.map(c => `${c}/@ffmpeg/ffmpeg@0.12.10/dist/umd/ffmpeg.js`),
+    () => !!(window.FFmpegWASM)
+  );
+  await tryLoadScript(
+    CDN.map(c => `${c}/@ffmpeg/util@0.12.1/dist/umd/index.js`),
+    () => !!(window.FFmpegUtil)
+  );
+  ffmpegUtil = window.FFmpegUtil;
+  const { FFmpeg } = window.FFmpegWASM;
+  const { toBlobURL } = ffmpegUtil;
+
+  // 2단계: 코어 JS 다운로드 (진행률 표시)
+  updateProgress(10, '코어 다운로드 중...');
+  let coreURL, wasmURL, lastErr;
+  for (const base of CDN) {
     try {
-      const instance = window.FFmpeg.createFFmpeg({
-        log: false,
-        corePath: coreUrl,
-        progress: ({ ratio }) => {
-          if (ratio > 0 && ratio <= 1) updateProgress(Math.round(ratio * 100), '변환 중...');
-        }
-      });
-      await Promise.race([
-        instance.load(),
-        new Promise((_, r) => setTimeout(() => r(new Error('timeout')), LOAD_TIMEOUT))
-      ]);
-      ffmpeg = instance;
-      return;
+      coreURL = await toBlobURL(
+        `${base}/@ffmpeg/core@0.12.6/dist/umd/ffmpeg-core.js`,
+        'text/javascript',
+        (p) => updateProgress(10 + Math.round(p * 40), '코어 JS 다운로드 중...')
+      );
+      // 3단계: WASM 파일 다운로드 (가장 큰 파일 ~30MB)
+      wasmURL = await toBlobURL(
+        `${base}/@ffmpeg/core@0.12.6/dist/umd/ffmpeg-core.wasm`,
+        'application/wasm',
+        (p) => updateProgress(50 + Math.round(p * 40), 'WASM 다운로드 중...')
+      );
+      break;
     } catch(e) { lastErr = e; }
   }
-  throw lastErr || new Error('FFmpeg 코어 초기화 실패');
+  if (!coreURL || !wasmURL) throw lastErr || new Error('코어 파일 다운로드 실패');
+
+  // 4단계: 초기화
+  updateProgress(92, '엔진 초기화 중...');
+  const instance = new FFmpeg();
+  instance.on('progress', ({ progress }) => {
+    if (engineReady && progress > 0) updateProgress(Math.round(progress * 100), '변환 중...');
+  });
+  await instance.load({ coreURL, wasmURL });
+  ffmpeg = instance;
 }
 
 function addFiles(files) {
@@ -404,15 +404,15 @@ async function convertFiles() {
       const ext = (file.name.split('.').pop() || 'audio').replace(/[^a-z0-9]/gi,'').toLowerCase();
       const inputName = `in_${Date.now()}_${i}.${ext}`;
       const outputName = `out_${Date.now()}_${i}.${fmt}`;
-      ffmpeg.FS('writeFile', inputName, await fetchFile(file));
+      await ffmpeg.writeFile(inputName, await ffmpegUtil.fetchFile(file));
       const args = ['-i', inputName];
       if (sampleRate) args.push('-ar', sampleRate);
       if (channels) args.push('-ac', channels);
       if (!['wav','flac'].includes(fmt)) args.push('-b:a', bitrate);
       args.push('-y', outputName);
       try {
-        await ffmpeg.run(...args);
-        const data = ffmpeg.FS('readFile', outputName);
+        await ffmpeg.exec(args);
+        const data = await ffmpeg.readFile(outputName);
         const blob = new Blob([data.buffer], { type: `audio/${fmt}` });
         results.push({ name: `${file.name.replace(/\.[^.]+$/, '')}.${fmt}`, size: blob.size, url: URL.createObjectURL(blob) });
       } finally {
@@ -458,7 +458,7 @@ function resetAll() {
   document.getElementById('resultPanel').style.display = 'none';
 }
 
-function safeUnlink(name) { try { ffmpeg.FS('unlink', name); } catch(e) {} }
+function safeUnlink(name) { try { ffmpeg.deleteFile(name); } catch(e) {} }
 function updateProgress(pct, text) {
   const p = Math.max(0, Math.min(100, pct));
   document.getElementById('progressFill').style.width = p + '%';
