@@ -167,6 +167,16 @@
     <button class="btn-convert" id="convertBtn" disabled>변환 시작</button>
   </div>
 
+  <div id="processingAd" style="display:none;text-align:center;margin:16px auto;max-width:728px;padding:0 8px">
+    <p style="font-size:0.85rem;color:#6b7280;margin-bottom:8px;">⏳ 변환 중입니다. 잠시만 기다려 주세요...</p>
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-6464921081676309"
+         data-ad-slot="1419180025"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
+  </div>
+
   <div id="errorMsg" class="alert alert-error" style="display:none"></div>
 
   <div class="progress-wrap" id="progressWrap">
@@ -357,6 +367,13 @@ async function convertFiles() {
   hideError();
   document.getElementById('resultPanel').style.display = 'none';
   document.getElementById('progressWrap').style.display = 'block';
+  const processingAd = document.getElementById('processingAd');
+  processingAd.style.display = 'block';
+  if (!processingAd.dataset.adLoaded) {
+    (adsbygoogle = window.adsbygoogle || []).push({});
+    processingAd.dataset.adLoaded = '1';
+  }
+  const adStartTime = Date.now();
   try {
     for (let i = 0; i < selectedFiles.length; i++) {
       const file = selectedFiles[i];
@@ -380,10 +397,17 @@ async function convertFiles() {
       }
     }
     updateProgress(100, '완료!');
-    renderResults(results);
+    const elapsed = Date.now() - adStartTime;
+    setTimeout(() => {
+      processingAd.style.display = 'none';
+      document.getElementById('progressWrap').style.display = 'none';
+      renderResults(results);
+    }, Math.max(0, 5000 - elapsed));
   } catch (err) {
     console.error(err);
     showError('변환에 실패했습니다. 파일 형식을 확인하거나 다시 시도해주세요. (' + err.message + ')');
+    const elapsed = Date.now() - adStartTime;
+    setTimeout(() => { processingAd.style.display = 'none'; }, Math.max(0, 5000 - elapsed));
   } finally {
     convertBtn.disabled = false;
   }
