@@ -1,10 +1,12 @@
-const CACHE_NAME = 'wooaudio-v1';
+const CACHE_NAME = 'wooaudio-v3';
 const APP_SHELL = [
   '/',
   '/index.html',
   '/audio-convert.html',
   '/css/style.css',
   '/js/pwa-install.js',
+  '/js/ffmpeg.js',
+  '/js/814.ffmpeg.js',
   '/manifest.json',
   '/icons/icon.svg'
 ];

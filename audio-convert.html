@@ -331,38 +331,31 @@ async function tryLoadScript(paths, check) {
 }
 
 async function loadFFmpeg() {
+  // ffmpeg.js + 814.ffmpeg.js are same-origin (js/ 디렉터리), Worker 크로스오리진 문제 없음
   updateProgress(5, '라이브러리 로드 중...');
-  await tryLoadScript(
-    CDN.map(c => `${c}/@ffmpeg/ffmpeg@0.12.10/dist/umd/ffmpeg.js`),
-    () => !!(window.FFmpegWASM)
-  );
+  await tryLoadScript(['js/ffmpeg.js'], () => !!(window.FFmpegWASM));
   if (!window.FFmpegWASM) throw new Error('FFmpeg 라이브러리 로드 실패');
   const { FFmpeg } = window.FFmpegWASM;
 
   let lastErr;
   for (const base of CDN) {
     try {
-      const classWorkerURL = await toBlobURL(
-        `${base}/@ffmpeg/ffmpeg@0.12.10/dist/umd/814.ffmpeg.js`,
-        'text/javascript',
-        p => updateProgress(10 + Math.round(p * 15), '워커 다운로드 중...')
-      );
       const coreURL = await toBlobURL(
         `${base}/@ffmpeg/core@0.12.6/dist/umd/ffmpeg-core.js`,
         'text/javascript',
-        p => updateProgress(25 + Math.round(p * 30), '코어 JS 다운로드 중...')
+        p => updateProgress(10 + Math.round(p * 45), '코어 JS 다운로드 중...')
       );
       const wasmURL = await toBlobURL(
         `${base}/@ffmpeg/core@0.12.6/dist/umd/ffmpeg-core.wasm`,
         'application/wasm',
         p => updateProgress(55 + Math.round(p * 37), 'WASM 다운로드 중...')
       );
-      updateProgress(92, '엔진 초기화 중...');
+      updateProgress(93, '엔진 초기화 중...');
       const instance = new FFmpeg();
       instance.on('progress', ({ progress }) => {
         if (engineReady && progress > 0) updateProgress(Math.round(progress * 100), '변환 중...');
       });
-      await instance.load({ classWorkerURL, coreURL, wasmURL });
+      await instance.load({ coreURL, wasmURL });
       ffmpeg = instance;
       return;
     } catch(e) { lastErr = e; }
