@@ -16,20 +16,25 @@
 </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>오디오 변환 무료 - MP3 WAV OGG FLAC AAC 변환 | WooaAudio</title>
+  <title>오디오 변환 무료 - MP3 WAV OGG FLAC AAC 변환 온라인 | WooaAudio</title>
   <meta name="description" content="MP3, WAV, OGG, FLAC, AAC, M4A 오디오 파일을 브라우저에서 무료로 변환하세요. 파일은 서버로 업로드되지 않습니다.">
-  <meta name="keywords" content="오디오변환, MP3변환, WAV변환, FLAC변환, AAC변환, M4A변환, 온라인오디오변환, 무료오디오변환">
+  <meta name="keywords" content="오디오변환, MP3변환, WAV변환, FLAC변환, AAC변환, OGG변환, 온라인오디오변환, 무료오디오변환">
   <link rel="canonical" href="https://wooaaudio.wooahouse.com/audio-convert.html">
+  <meta name="naver-site-verification" content="7396a327607b884b9bef1283dfd3a5c6115a2b50">
+  <meta name="google-site-verification" content="tNM8tmr_6DFold03YSScWz4KEtu5Zo0Fsqc03u5Afms">
   <meta property="og:title" content="오디오 변환 무료 - MP3 WAV OGG FLAC AAC 변환 | WooaAudio">
   <meta property="og:description" content="오디오 파일을 브라우저에서 무료로 변환하세요. 파일은 서버에 저장되지 않습니다.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://wooaaudio.wooahouse.com/audio-convert.html">
   <meta property="og:locale" content="ko_KR">
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#7C3AED">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6464921081676309" crossorigin="anonymous"></script>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "WebApplication",
-    "name": "오디오 변환기",
+    "name": "오디오 포맷 변환기",
     "url": "https://wooaaudio.wooahouse.com/audio-convert.html",
     "applicationCategory": "MultimediaApplication",
     "operatingSystem": "Web",
@@ -38,9 +43,17 @@
     "offers": {"@type":"Offer","price":"0","priceCurrency":"KRW"}
   }
   </script>
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6464921081676309" crossorigin="anonymous"></script>
-  <link rel="manifest" href="/manifest.json">
-  <meta name="theme-color" content="#7C3AED">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {"@type":"Question","name":"어떤 오디오 포맷을 지원하나요?","acceptedAnswer":{"@type":"Answer","text":"MP3, WAV, OGG, FLAC, AAC, M4A, OPUS, AIFF 등 주요 오디오 포맷 간 상호 변환을 지원합니다."}},
+      {"@type":"Question","name":"파일이 서버에 저장되나요?","acceptedAnswer":{"@type":"Answer","text":"아니요. 모든 변환 작업은 브라우저 안에서만 이루어지며, 파일은 외부 서버로 전송되지 않습니다."}},
+      {"@type":"Question","name":"처음 변환 시 시간이 걸리는 이유가 뭔가요?","acceptedAnswer":{"@type":"Answer","text":"브라우저에서 직접 오디오를 처리하기 위해 FFmpeg 변환 엔진을 최초 1회 다운로드합니다. 이후에는 캐시되어 빠르게 실행됩니다."}}
+    ]
+  }
+  </script>
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -93,7 +106,7 @@
   <div class="tool-header">
     <span class="tool-header-icon">🎵</span>
     <h1>오디오 포맷 변환 무료 온라인</h1>
-    <p>MP3, WAV, OGG, FLAC, AAC, M4A 파일을 브라우저에서 변환합니다.</p>
+    <p>MP3, WAV, OGG, FLAC, AAC, M4A 파일을 브라우저에서 변환합니다. 파일은 서버에 저장되지 않습니다.</p>
   </div>
 
   <div id="engineBanner" class="engine-banner" style="display:none"></div>
@@ -101,7 +114,7 @@
   <div class="drop-zone" id="dropZone">
     <span class="drop-zone-icon">📂</span>
     <h3>오디오 파일을 여기에 끌어다 놓으세요</h3>
-    <p>MP3, WAV, OGG, FLAC, AAC, M4A, OPUS 지원</p>
+    <p>MP3, WAV, OGG, FLAC, AAC, M4A, OPUS 지원 · 여러 파일 동시 선택 가능</p>
     <label for="fileInput" class="btn-select">오디오 파일 선택</label>
     <input type="file" id="fileInput" accept="audio/*,.mp3,.wav,.ogg,.flac,.aac,.m4a,.opus,.aiff" style="display:none" multiple>
   </div>
@@ -111,7 +124,7 @@
     <div id="fileList"></div>
   </div>
 
-  <div id="optionsPanel" class="options-panel">
+  <div id="optionsPanel" class="options-panel" style="display:none">
     <div class="options-title">변환 설정</div>
     <div class="option-row">
       <span class="option-label">출력 포맷</span>
@@ -173,8 +186,6 @@
          data-full-width-responsive="true"></ins>
   </div>
 
-  <div id="errorMsg" class="alert alert-error" style="display:none"></div>
-
   <div class="progress-wrap" id="progressWrap">
     <div class="progress-label">
       <span id="progressText">변환 중...</span>
@@ -182,6 +193,8 @@
     </div>
     <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
   </div>
+
+  <div id="errorMsg" class="alert alert-error" style="display:none"></div>
 
   <div class="result-panel" id="resultPanel">
     <div class="result-header">
@@ -196,69 +209,99 @@
       <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
     </div>
     <div id="downloadList"></div>
-    <div class="download-group" style="margin-top:16px">
+    <div style="margin-top:16px">
       <button class="btn-reset" id="resetBtn">다시 변환</button>
     </div>
   </div>
 
-  <div class="related-link-card" style="margin-top:24px">
-    <span class="related-link-icon">📄</span>
-    <div class="related-link-text">
-      <strong>오디오 파일을 PDF로 정리하고 싶으신가요?</strong>
-      <span>WooaPDF에서 문서 변환·편집을 무료로 이용하세요.</span>
-    </div>
-    <a href="https://pdfkit.wooahouse.com/" target="_blank" rel="noopener" class="related-link-btn">WooaPDF 바로가기 →</a>
+  <div class="cross-link-banner" style="max-width:800px;margin:2rem auto;padding:1rem 1.5rem;background:linear-gradient(135deg,#f5f3ff,#ede9fe);border-radius:12px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.8rem;">
+    <span style="font-size:0.95rem;color:#444;">이미지나 PDF 파일 작업도 필요하신가요?</span>
+    <a href="https://imagekit.wooahouse.com/" target="_blank" rel="noopener" style="background:#7C3AED;color:#fff;padding:0.5rem 1rem;border-radius:8px;text-decoration:none;font-size:0.9rem;white-space:nowrap;">🖼️ WooaImage 이미지 도구 →</a>
   </div>
 
-  <div class="faq-tool">
-    <h2 class="faq-title" style="margin-top:32px">자주 묻는 질문</h2>
+  <section class="faq-section" style="max-width:800px;margin:3rem auto;padding:0 1rem;">
+    <h2 style="font-size:1.4rem;margin-bottom:1.5rem;">자주 묻는 질문</h2>
+    <div class="faq-list">
+      <div class="faq-item" style="margin-bottom:1.2rem;padding:1rem;background:#f8f9fa;border-radius:8px;">
+        <h3 style="font-size:1rem;font-weight:600;margin-bottom:0.5rem;">Q. 어떤 오디오 포맷을 지원하나요?</h3>
+        <p style="color:#555;margin:0;">MP3, WAV, OGG, FLAC, AAC, M4A, OPUS, AIFF 등 주요 오디오 포맷 간 상호 변환을 지원합니다. 출력 포맷은 MP3, WAV, OGG, FLAC, AAC, M4A, OPUS를 선택할 수 있습니다.</p>
+      </div>
+      <div class="faq-item" style="margin-bottom:1.2rem;padding:1rem;background:#f8f9fa;border-radius:8px;">
+        <h3 style="font-size:1rem;font-weight:600;margin-bottom:0.5rem;">Q. 파일이 서버에 저장되나요?</h3>
+        <p style="color:#555;margin:0;">아니요. 모든 변환 작업은 브라우저 안에서만 이루어지며, 파일은 외부 서버로 전송되지 않습니다. 완전히 안전하게 처리됩니다.</p>
+      </div>
+      <div class="faq-item" style="margin-bottom:1.2rem;padding:1rem;background:#f8f9fa;border-radius:8px;">
+        <h3 style="font-size:1rem;font-weight:600;margin-bottom:0.5rem;">Q. 처음 변환 시 시간이 걸리는 이유가 뭔가요?</h3>
+        <p style="color:#555;margin:0;">브라우저에서 직접 오디오를 처리하기 위해 FFmpeg 변환 엔진(약 30MB)을 최초 1회 다운로드합니다. 이후에는 캐시되어 빠르게 실행됩니다.</p>
+      </div>
+      <div class="faq-item" style="margin-bottom:1.2rem;padding:1rem;background:#f8f9fa;border-radius:8px;">
+        <h3 style="font-size:1rem;font-weight:600;margin-bottom:0.5rem;">Q. MP3와 WAV의 차이는 무엇인가요?</h3>
+        <p style="color:#555;margin:0;">MP3는 손실 압축 방식으로 파일 크기가 작아 스트리밍·공유에 적합합니다. WAV는 무압축 방식으로 음질 손실이 없어 음악 제작·편집 원본 보관에 적합합니다.</p>
+      </div>
+      <div class="faq-item" style="margin-bottom:1.2rem;padding:1rem;background:#f8f9fa;border-radius:8px;">
+        <h3 style="font-size:1rem;font-weight:600;margin-bottom:0.5rem;">Q. 한 번에 여러 파일을 변환할 수 있나요?</h3>
+        <p style="color:#555;margin:0;">네, 여러 파일을 동시에 선택하거나 드래그 앤 드롭하면 한 번에 일괄 변환할 수 있습니다. 각 파일은 개별 다운로드 링크로 제공됩니다.</p>
+      </div>
+      <div class="faq-item" style="padding:1rem;background:#f8f9fa;border-radius:8px;">
+        <h3 style="font-size:1rem;font-weight:600;margin-bottom:0.5rem;">Q. 파일 용량 제한이 있나요?</h3>
+        <p style="color:#555;margin:0;">서버를 사용하지 않기 때문에 공식적인 용량 제한은 없습니다. 다만 매우 큰 파일(1GB 이상)은 브라우저 메모리에 따라 처리 속도가 느려질 수 있습니다.</p>
+      </div>
+    </div>
+  </section>
 
-    <div class="faq-item">
-      <div class="faq-q">Q. 어떤 오디오 포맷을 지원하나요?</div>
-      <div class="faq-a">MP3, WAV, OGG, FLAC, AAC, M4A, OPUS, AIFF 등 주요 오디오 포맷 간 상호 변환을 지원합니다. 출력 포맷은 MP3, WAV, OGG, FLAC, AAC, M4A, OPUS를 선택할 수 있습니다.</div>
-    </div>
-    <div class="faq-item">
-      <div class="faq-q">Q. 파일이 서버에 저장되나요?</div>
-      <div class="faq-a">아니요. 모든 변환 작업은 브라우저 안에서만 이루어지며, 파일은 외부 서버로 전송되지 않습니다. 완전히 안전하게 처리됩니다.</div>
-    </div>
-    <div class="faq-item">
-      <div class="faq-q">Q. 처음 변환 시 시간이 걸리는 이유가 뭔가요?</div>
-      <div class="faq-a">브라우저에서 직접 오디오를 처리하기 위해 FFmpeg 변환 엔진(약 30MB)을 최초 1회 다운로드합니다. 이후에는 캐시되어 빠르게 실행됩니다.</div>
-    </div>
-    <div class="faq-item">
-      <div class="faq-q">Q. MP3와 WAV의 차이는 무엇인가요?</div>
-      <div class="faq-a">MP3는 손실 압축 방식으로 파일 크기가 작아 스트리밍·공유에 적합합니다. WAV는 무압축 방식으로 음질 손실이 없어 음악 제작·편집 원본 보관에 적합합니다.</div>
-    </div>
-    <div class="faq-item">
-      <div class="faq-q">Q. 한 번에 여러 파일을 변환할 수 있나요?</div>
-      <div class="faq-a">네, 여러 파일을 동시에 선택하거나 드래그 앤 드롭하면 한 번에 일괄 변환할 수 있습니다. 각 파일은 개별 다운로드 링크로 제공됩니다.</div>
-    </div>
-    <div class="faq-item">
-      <div class="faq-q">Q. 파일 용량 제한이 있나요?</div>
-      <div class="faq-a">서버를 사용하지 않기 때문에 공식적인 용량 제한은 없습니다. 다만 매우 큰 파일(1GB 이상)은 브라우저 메모리에 따라 처리 속도가 느려질 수 있습니다.</div>
-    </div>
-  </div>
 </main>
 
 <aside class="tool-sidebar">
   <div class="ad-card">
-    <ins class="adsbygoogle" style="display:block;width:100%;min-height:600px" data-ad-client="ca-pub-6464921081676309" data-ad-slot="1419180025" data-ad-format="auto" data-full-width-responsive="true"></ins>
+    <ins class="adsbygoogle"
+         style="display:block;width:100%;min-height:250px"
+         data-ad-client="ca-pub-6464921081676309"
+         data-ad-slot="1419180025"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
     <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
   </div>
-  <div class="ad-card" style="margin-top:16px;overflow:hidden;">
+  <div style="margin-top:16px;overflow:hidden;border-radius:14px;">
     <script src="https://ads-partners.coupang.com/g.js"></script>
     <script>new PartnersCoupang.G({"id":974224,"trackingCode":"AF5600192","subId":null,"template":"carousel","width":"300","height":"250"});</script>
   </div>
 </aside>
 </div>
 
+<div class="features" style="margin-top:60px">
+  <div class="features-inner">
+    <div><div class="feature-icon">🔒</div><div class="feature-title">100% 안전</div><div class="feature-desc">파일이 서버로 전송되지 않습니다. 모든 처리가 브라우저 안에서 이루어집니다.</div></div>
+    <div><div class="feature-icon">⚡</div><div class="feature-title">빠른 처리</div><div class="feature-desc">업로드 대기 없이 로컬에서 처리하므로 반복 작업이 간편합니다.</div></div>
+    <div><div class="feature-icon">💸</div><div class="feature-title">완전 무료</div><div class="feature-desc">회원가입 없이 주요 오디오 기능을 무료로 사용할 수 있습니다.</div></div>
+    <div><div class="feature-icon">📱</div><div class="feature-title">모든 기기 지원</div><div class="feature-desc">PC, 태블릿, 스마트폰 어디서나 사용 가능한 반응형 디자인.</div></div>
+  </div>
+</div>
+
 <footer>
   <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <span class="logo-footer">WooaAudio</span>
+        <p>무료 온라인 오디오 도구 모음. 변환, 편집, 분석 작업을 브라우저에서 안전하게 처리하세요.</p>
+      </div>
+      <div class="footer-links">
+        <h4>오디오 변환</h4>
+        <a href="audio-convert.html">오디오 포맷 변환</a>
+        <a href="audio-convert.html?format=mp3">MP3 변환</a>
+        <a href="audio-convert.html?format=wav">WAV 변환</a>
+      </div>
+      <div class="footer-links">
+        <h4>WooaHouse 서비스</h4>
+        <a href="https://pdfkit.wooahouse.com/" target="_blank" rel="noopener">WooaPDF</a>
+        <a href="https://imagekit.wooahouse.com/" target="_blank" rel="noopener">WooaImage</a>
+        <a href="https://fontkit.wooahouse.com/" target="_blank" rel="noopener">WooaFont</a>
+      </div>
+    </div>
     <div class="footer-bottom">
       <p>© 2026 WooaAudio. 모든 권리 보유.</p>
       <div class="footer-bottom-links">
-        <a href="index.html">개인정보처리방침</a>
-        <a href="index.html">소개</a>
+        <a href="privacy.html">개인정보처리방침</a>
+        <a href="about.html">소개</a>
       </div>
     </div>
     <p class="coupang-notice">이 포스팅은 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다.</p>
@@ -266,17 +309,12 @@
 </footer>
 
 <script>
-// FFmpeg.wasm 0.12.x — SharedArrayBuffer 불필요 (싱글스레드)
-const CDN = [
-  'https://cdn.jsdelivr.net/npm',
-  'https://unpkg.com'
-];
+const CDN = ['https://cdn.jsdelivr.net/npm', 'https://unpkg.com'];
 const LOAD_TIMEOUT = 60000;
 let selectedFiles = [];
 let ffmpeg = null;
 let engineReady = false;
 
-// @ffmpeg/util 없이 직접 구현
 async function fetchFileUtil(input) {
   if (input instanceof File || input instanceof Blob)
     return new Uint8Array(await input.arrayBuffer());
@@ -315,12 +353,11 @@ outputFormat.addEventListener('change', toggleBitrate);
 convertBtn.addEventListener('click', convertFiles);
 document.getElementById('resetBtn').addEventListener('click', resetAll);
 
-// 배너 상태: 'loading' | 'ready' | 'setting' | 'error'
 function setBanner(state, text) {
-  const banner = document.getElementById('engineBanner');
-  banner.className = 'engine-banner engine-banner--' + state;
-  banner.innerHTML = text;
-  banner.style.display = 'flex';
+  const b = document.getElementById('engineBanner');
+  b.className = 'engine-banner engine-banner--' + state;
+  b.innerHTML = text;
+  b.style.display = 'flex';
 }
 function hideBanner() { document.getElementById('engineBanner').style.display = 'none'; }
 
@@ -329,7 +366,7 @@ window.addEventListener('DOMContentLoaded', () => startEngineLoad());
 async function startEngineLoad() {
   setBanner('loading', '<span class="banner-spinner"></span> 변환 엔진 준비 중...');
   const progressWrap = document.getElementById('progressWrap');
-  const progressBar = document.getElementById('progressWrap').querySelector('.progress-bar');
+  const progressBar = progressWrap.querySelector('.progress-bar');
   progressWrap.style.display = 'block';
   progressBar.classList.add('progress-bar--indeterminate');
   document.getElementById('progressText').textContent = '엔진 다운로드 중...';
@@ -341,7 +378,6 @@ async function startEngineLoad() {
     setTimeout(() => { progressWrap.style.display = 'none'; }, 800);
     engineReady = true;
     setBanner('ready', '✅ 변환 준비 완료');
-    convertBtn.disabled = false;
     setTimeout(() => hideBanner(), 3000);
   } catch (err) {
     progressBar.classList.remove('progress-bar--indeterminate');
@@ -360,7 +396,6 @@ function loadScript(src) {
     document.head.appendChild(s);
   });
 }
-
 async function tryLoadScript(paths, check) {
   for (const url of paths) {
     try { await loadScript(url); if (check()) return; } catch(e) {}
@@ -369,12 +404,10 @@ async function tryLoadScript(paths, check) {
 }
 
 async function loadFFmpeg() {
-  // ffmpeg.js + 814.ffmpeg.js are same-origin (js/ 디렉터리), Worker 크로스오리진 문제 없음
   updateProgress(5, '라이브러리 로드 중...');
   await tryLoadScript(['js/ffmpeg.js'], () => !!(window.FFmpegWASM));
   if (!window.FFmpegWASM) throw new Error('FFmpeg 라이브러리 로드 실패');
   const { FFmpeg } = window.FFmpegWASM;
-
   let lastErr;
   for (const base of CDN) {
     try {
@@ -419,6 +452,7 @@ function renderFileList() {
   });
   const has = selectedFiles.length > 0;
   document.getElementById('fileListPanel').style.display = has ? 'block' : 'none';
+  document.getElementById('optionsPanel').style.display = has ? 'block' : 'none';
   document.getElementById('resultPanel').style.display = 'none';
   convertBtn.disabled = !(has && engineReady);
   hideError();
@@ -445,7 +479,7 @@ async function convertFiles() {
   const processingAd = document.getElementById('processingAd');
   processingAd.style.display = 'block';
   if (!processingAd.dataset.adLoaded) {
-    (adsbygoogle = window.adsbygoogle || []).push({});
+    (window.adsbygoogle = window.adsbygoogle || []).push({});
     processingAd.dataset.adLoaded = '1';
   }
   try {
@@ -472,7 +506,7 @@ async function convertFiles() {
     }
     updateProgress(100, '완료!');
     processingAd.style.display = 'none';
-    document.getElementById('progressWrap').style.display = 'none';
+    progressWrap.style.display = 'none';
     renderResults(results);
   } catch (err) {
     console.error(err);
