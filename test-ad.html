@@ -54,6 +54,130 @@
 
 <div class="page-with-sidebar">
 <main class="tool-page">
+  <div class="breadcrumb">
+    <a href="index.html">홈</a>
+    <span>›</span>
+    <span>오디오 포맷 변환</span>
+  </div>
+
+  <div class="tool-header">
+    <span class="tool-header-icon">🎵</span>
+    <h1>오디오 포맷 변환 무료 온라인</h1>
+    <p>MP3, WAV, OGG, FLAC, AAC, M4A 파일을 브라우저에서 변환합니다. 파일은 서버에 저장되지 않습니다.</p>
+  </div>
+
+  <div id="engineBanner" class="engine-banner" style="display:none"></div>
+
+  <div class="drop-zone" id="dropZone">
+    <span class="drop-zone-icon">📂</span>
+    <h3>오디오 파일을 여기에 끌어다 놓으세요</h3>
+    <p>MP3, WAV, OGG, FLAC, AAC, M4A, OPUS 지원 · 여러 파일 동시 선택 가능</p>
+    <label for="fileInput" class="btn-select">오디오 파일 선택</label>
+    <input type="file" id="fileInput" accept="audio/*,.mp3,.wav,.ogg,.flac,.aac,.m4a,.opus,.aiff" style="display:none" multiple>
+  </div>
+
+  <div id="fileListPanel" class="file-list-panel" style="display:none">
+    <div class="file-list-title">선택된 파일</div>
+    <div id="fileList"></div>
+  </div>
+
+  <div id="optionsPanel" class="options-panel">
+    <div class="options-title">변환 설정</div>
+    <div class="option-row">
+      <span class="option-label">출력 포맷</span>
+      <div class="option-control">
+        <select id="outputFormat">
+          <option value="mp3">MP3 - 범용 호환</option>
+          <option value="wav">WAV - 고품질 무압축</option>
+          <option value="ogg">OGG - 웹 친화 포맷</option>
+          <option value="flac">FLAC - 무손실 압축</option>
+          <option value="aac">AAC - 모바일 친화</option>
+          <option value="m4a">M4A - Apple 호환</option>
+          <option value="opus">OPUS - 고효율 압축</option>
+        </select>
+      </div>
+    </div>
+    <div class="option-row" id="bitrateRow">
+      <span class="option-label">비트레이트</span>
+      <div class="option-control">
+        <select id="bitrate">
+          <option value="96k">96 kbps</option>
+          <option value="128k" selected>128 kbps - 표준</option>
+          <option value="192k">192 kbps</option>
+          <option value="256k">256 kbps</option>
+          <option value="320k">320 kbps</option>
+        </select>
+      </div>
+    </div>
+    <div class="option-row">
+      <span class="option-label">샘플레이트</span>
+      <div class="option-control">
+        <select id="sampleRate">
+          <option value="">원본 유지</option>
+          <option value="44100">44,100 Hz</option>
+          <option value="48000">48,000 Hz</option>
+        </select>
+      </div>
+    </div>
+    <div class="option-row">
+      <span class="option-label">채널</span>
+      <div class="option-control">
+        <select id="channels">
+          <option value="">원본 유지</option>
+          <option value="1">모노</option>
+          <option value="2">스테레오</option>
+        </select>
+      </div>
+    </div>
+    <button class="btn-convert" id="convertBtn" disabled>변환 시작</button>
+  </div>
+
+  <div class="progress-wrap" id="progressWrap" style="display:none">
+    <div class="progress-label">
+      <span id="progressText">변환 중...</span>
+      <span id="progressPct">0%</span>
+    </div>
+    <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+  </div>
+
+  <div id="errorMsg" class="alert alert-error" style="display:none"></div>
+
+  <div class="result-panel" id="resultPanel">
+    <div class="result-header">
+      <span class="result-icon">✅</span>
+      <div>
+        <div class="result-title">변환 완료!</div>
+        <div class="result-subtitle" id="resultSubtitle"></div>
+      </div>
+    </div>
+    <div id="downloadList"></div>
+    <div style="margin-top:16px">
+      <button class="btn-reset" id="resetBtn">다시 변환</button>
+    </div>
+  </div>
+
+  <div class="cross-link-banner" style="max-width:800px;margin:2rem auto;padding:1rem 1.5rem;background:linear-gradient(135deg,#f5f3ff,#ede9fe);border-radius:12px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.8rem;">
+    <span style="font-size:0.95rem;color:#444;">이미지나 PDF 파일 작업도 필요하신가요?</span>
+    <a href="https://imagekit.wooahouse.com/" target="_blank" rel="noopener" style="background:#7C3AED;color:#fff;padding:0.5rem 1rem;border-radius:8px;text-decoration:none;font-size:0.9rem;white-space:nowrap;">🖼️ WooaImage 이미지 도구 →</a>
+  </div>
+
+  <section class="faq-section" style="max-width:800px;margin:3rem auto;padding:0 1rem;">
+    <h2 style="font-size:1.4rem;margin-bottom:1.5rem;">자주 묻는 질문</h2>
+    <div class="faq-list">
+      <div class="faq-item" style="margin-bottom:1.2rem;padding:1rem;background:#f8f9fa;border-radius:8px;">
+        <h3 style="font-size:1rem;font-weight:600;margin-bottom:0.5rem;">Q. 어떤 오디오 포맷을 지원하나요?</h3>
+        <p style="color:#555;margin:0;">MP3, WAV, OGG, FLAC, AAC, M4A, OPUS, AIFF 등 주요 오디오 포맷 간 상호 변환을 지원합니다.</p>
+      </div>
+      <div class="faq-item" style="margin-bottom:1.2rem;padding:1rem;background:#f8f9fa;border-radius:8px;">
+        <h3 style="font-size:1rem;font-weight:600;margin-bottom:0.5rem;">Q. 파일이 서버에 저장되나요?</h3>
+        <p style="color:#555;margin:0;">아니요. 모든 변환 작업은 브라우저 안에서만 이루어지며, 파일은 외부 서버로 전송되지 않습니다.</p>
+      </div>
+      <div class="faq-item" style="padding:1rem;background:#f8f9fa;border-radius:8px;">
+        <h3 style="font-size:1rem;font-weight:600;margin-bottom:0.5rem;">Q. 처음 변환 시 시간이 걸리는 이유가 뭔가요?</h3>
+        <p style="color:#555;margin:0;">브라우저에서 직접 오디오를 처리하기 위해 FFmpeg 변환 엔진(약 30MB)을 최초 1회 다운로드합니다.</p>
+      </div>
+    </div>
+  </section>
 
 </main>
 
@@ -116,6 +240,50 @@
   </div>
 </footer>
 
+<script>
+const dropZone = document.getElementById('dropZone');
+const fileInput = document.getElementById('fileInput');
+const outputFormat = document.getElementById('outputFormat');
+let selectedFiles = [];
+
+function formatSize(b) {
+  if (b < 1024) return b + ' B';
+  if (b < 1048576) return (b/1024).toFixed(1) + ' KB';
+  return (b/1048576).toFixed(1) + ' MB';
+}
+
+function renderFileList() {
+  const list = document.getElementById('fileList');
+  list.innerHTML = '';
+  selectedFiles.forEach((file, i) => {
+    const item = document.createElement('div');
+    item.className = 'file-item';
+    item.innerHTML = `<span class="file-item-icon">🎵</span><div class="file-item-info"><div class="file-item-name"></div><div class="file-item-size">${formatSize(file.size)}</div></div><button type="button" class="file-item-remove" aria-label="파일 삭제">×</button>`;
+    item.querySelector('.file-item-name').textContent = file.name;
+    item.querySelector('button').addEventListener('click', () => { selectedFiles.splice(i, 1); renderFileList(); });
+    list.appendChild(item);
+  });
+  const has = selectedFiles.length > 0;
+  document.getElementById('fileListPanel').style.display = has ? 'block' : 'none';
+}
+
+function addFiles(files) {
+  selectedFiles.push(...files.filter(f => f.type.startsWith('audio/') || /\.(mp3|wav|ogg|flac|aac|m4a|opus|aiff)$/i.test(f.name)));
+  renderFileList();
+}
+
+function toggleBitrate() {
+  document.getElementById('bitrateRow').style.display = ['wav','flac'].includes(outputFormat.value) ? 'none' : 'flex';
+}
+
+dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('drag-over'); });
+dropZone.addEventListener('dragleave', () => dropZone.classList.remove('drag-over'));
+dropZone.addEventListener('drop', e => { e.preventDefault(); dropZone.classList.remove('drag-over'); addFiles([...e.dataTransfer.files]); });
+dropZone.addEventListener('click', e => { if (e.target.tagName !== 'LABEL') fileInput.click(); });
+fileInput.addEventListener('change', e => addFiles([...e.target.files]));
+outputFormat.addEventListener('change', toggleBitrate);
+toggleBitrate();
+</script>
 <script src="js/pwa-install.js"></script>
 </body>
 </html>
