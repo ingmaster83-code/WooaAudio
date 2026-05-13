@@ -50,6 +50,7 @@
       width: 100%;
       min-width: 0;
       box-sizing: border-box;
+      will-change: scroll-position;
     }
     #canvasWrapper::-webkit-scrollbar { height: 6px; }
     #canvasWrapper::-webkit-scrollbar-track { background: #1e293b; }
@@ -314,12 +315,15 @@ document.getElementById('playbar').addEventListener('input', e => {
 
 // 드래그 스크롤 (마우스 좌클릭 드래그로 파형 이동)
 let dragStartX = 0, dragScrollLeft = 0, isDragging = false, dragMoved = false;
+let pendingScrollX = 0, rafDrag = null;
+
 wrapper.addEventListener('mousedown', e => {
   if (e.button !== 0) return;
   isDragging = true;
   dragMoved = false;
   dragStartX = e.clientX;
   dragScrollLeft = wrapper.scrollLeft;
+  pendingScrollX = wrapper.scrollLeft;
   wrapper.style.cursor = 'grabbing';
   e.preventDefault();
 });
@@ -327,13 +331,21 @@ window.addEventListener('mousemove', e => {
   if (!isDragging) return;
   const dx = e.clientX - dragStartX;
   if (Math.abs(dx) > 4) dragMoved = true;
-  if (dragMoved) wrapper.scrollLeft = dragScrollLeft - dx;
-});
+  if (dragMoved) {
+    pendingScrollX = dragScrollLeft - dx;
+    if (!rafDrag) {
+      rafDrag = requestAnimationFrame(() => {
+        wrapper.scrollLeft = pendingScrollX;
+        rafDrag = null;
+      });
+    }
+  }
+}, { passive: true });
 window.addEventListener('mouseup', e => {
   if (!isDragging) return;
   isDragging = false;
   wrapper.style.cursor = 'pointer';
-  // 드래그 없이 클릭만 했으면 구간 이동
+  if (rafDrag) { cancelAnimationFrame(rafDrag); rafDrag = null; }
   if (!dragMoved && audioBuffer) {
     const rect = canvas.getBoundingClientRect();
     const x = e.clientX - rect.left + wrapper.scrollLeft;
