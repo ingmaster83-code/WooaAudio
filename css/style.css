@@ -172,6 +172,7 @@ nav a:hover { background: rgba(255,255,255,0.18); color: white; }
   align-items: start;
   padding: 0 20px;
 }
+.index-with-sidebar .tools-section { max-width: 100%; margin: 0; padding-left: 0; padding-right: 0; }
 .tools-section {
   max-width: 1200px;
   margin: -36px auto 0;
