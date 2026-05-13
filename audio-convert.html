@@ -124,7 +124,7 @@
     <div id="fileList"></div>
   </div>
 
-  <div id="optionsPanel" class="options-panel" style="display:none">
+  <div id="optionsPanel" class="options-panel">
     <div class="options-title">변환 설정</div>
     <div class="option-row">
       <span class="option-label">출력 포맷</span>
@@ -452,7 +452,6 @@ function renderFileList() {
   });
   const has = selectedFiles.length > 0;
   document.getElementById('fileListPanel').style.display = has ? 'block' : 'none';
-  document.getElementById('optionsPanel').style.display = has ? 'block' : 'none';
   document.getElementById('resultPanel').style.display = 'none';
   convertBtn.disabled = !(has && engineReady);
   hideError();
