@@ -287,13 +287,24 @@ window.addEventListener('DOMContentLoaded', () => {
 
 async function startEngineLoad() {
   setBanner('loading', '<span class="banner-spinner"></span> 변환 엔진 준비 중...');
+  const progressWrap = document.getElementById('progressWrap');
+  const progressBar = document.getElementById('progressWrap').querySelector('.progress-bar');
+  progressWrap.style.display = 'block';
+  progressBar.classList.add('progress-bar--indeterminate');
+  document.getElementById('progressText').textContent = '엔진 다운로드 중...';
+  document.getElementById('progressPct').textContent = '';
   try {
     await loadFFmpeg();
+    progressBar.classList.remove('progress-bar--indeterminate');
+    updateProgress(100, '엔진 준비 완료!');
+    setTimeout(() => { progressWrap.style.display = 'none'; }, 800);
     engineReady = true;
     setBanner('ready', '✅ 변환 준비 완료');
     convertBtn.disabled = false;
     setTimeout(() => hideBanner(), 3000);
   } catch (err) {
+    progressBar.classList.remove('progress-bar--indeterminate');
+    progressWrap.style.display = 'none';
     setBanner('error', '⚠️ 엔진 로드 실패. 페이지를 새로고침하거나 광고 차단 확장 프로그램을 비활성화 후 다시 시도해주세요.');
   }
 }
@@ -321,7 +332,13 @@ async function loadFFmpeg() {
   let lastErr;
   for (const coreUrl of FFMPEG_CORE_URLS) {
     try {
-      const instance = window.FFmpeg.createFFmpeg({ log: false, corePath: coreUrl });
+      const instance = window.FFmpeg.createFFmpeg({
+        log: false,
+        corePath: coreUrl,
+        progress: ({ ratio }) => {
+          if (ratio > 0 && ratio <= 1) updateProgress(Math.round(ratio * 100), '변환 중...');
+        }
+      });
       await Promise.race([
         instance.load(),
         new Promise((_, r) => setTimeout(() => r(new Error('timeout')), LOAD_TIMEOUT))
@@ -370,7 +387,10 @@ async function convertFiles() {
   convertBtn.disabled = true;
   hideError();
   document.getElementById('resultPanel').style.display = 'none';
-  document.getElementById('progressWrap').style.display = 'block';
+  const progressWrap = document.getElementById('progressWrap');
+  progressWrap.querySelector('.progress-bar').classList.remove('progress-bar--indeterminate');
+  progressWrap.style.display = 'block';
+  updateProgress(0, '변환 준비 중...');
   const processingAd = document.getElementById('processingAd');
   processingAd.style.display = 'block';
   if (!processingAd.dataset.adLoaded) {

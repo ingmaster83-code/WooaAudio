@@ -445,7 +445,16 @@ nav a:hover { background: rgba(255,255,255,0.18); color: white; }
 .btn-convert:disabled { background: #D1D5DB; cursor: not-allowed; }
 .progress-wrap { margin-top: 20px; display: none; }
 .progress-label { font-size: 0.85rem; color: var(--text-light); margin-bottom: 8px; display: flex; justify-content: space-between; gap: 12px; }
-.progress-bar { background: #E5E7EB; border-radius: 99px; height: 8px; overflow: hidden; }
+.progress-bar { background: #E5E7EB; border-radius: 99px; height: 8px; overflow: hidden; position: relative; }
+.progress-bar--indeterminate .progress-fill {
+  width: 40% !important;
+  transition: none;
+  animation: indeterminate 1.4s ease-in-out infinite;
+}
+@keyframes indeterminate {
+  0%   { transform: translateX(-100%); }
+  100% { transform: translateX(350%); }
+}
 .progress-fill {
   background: linear-gradient(90deg, var(--primary), #A78BFA);
   height: 100%;
