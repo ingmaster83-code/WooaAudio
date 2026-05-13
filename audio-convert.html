@@ -236,8 +236,29 @@ const CDN = [
 const LOAD_TIMEOUT = 60000;
 let selectedFiles = [];
 let ffmpeg = null;
-let ffmpegUtil = null;
 let engineReady = false;
+
+// @ffmpeg/util 없이 직접 구현
+async function fetchFileUtil(input) {
+  if (input instanceof File || input instanceof Blob)
+    return new Uint8Array(await input.arrayBuffer());
+  return new Uint8Array(await (await fetch(input)).arrayBuffer());
+}
+async function toBlobURL(url, mimeType, onProgress) {
+  const resp = await fetch(url);
+  const total = parseInt(resp.headers.get('content-length') || '0');
+  const reader = resp.body.getReader();
+  const chunks = [];
+  let loaded = 0;
+  while (true) {
+    const { done, value } = await reader.read();
+    if (done) break;
+    chunks.push(value);
+    loaded += value.length;
+    if (total && onProgress) onProgress(loaded / total);
+  }
+  return URL.createObjectURL(new Blob(chunks, { type: mimeType }));
+}
 
 const dropZone = document.getElementById('dropZone');
 const fileInput = document.getElementById('fileInput');
@@ -310,49 +331,43 @@ async function tryLoadScript(paths, check) {
 }
 
 async function loadFFmpeg() {
-  // 1단계: 라이브러리 스크립트 로드 (작은 파일, 빠름)
   updateProgress(5, '라이브러리 로드 중...');
   await tryLoadScript(
     CDN.map(c => `${c}/@ffmpeg/ffmpeg@0.12.10/dist/umd/ffmpeg.js`),
     () => !!(window.FFmpegWASM)
   );
-  await tryLoadScript(
-    CDN.map(c => `${c}/@ffmpeg/util@0.12.1/dist/umd/index.js`),
-    () => !!(window.FFmpegUtil)
-  );
-  ffmpegUtil = window.FFmpegUtil;
+  if (!window.FFmpegWASM) throw new Error('FFmpeg 라이브러리 로드 실패');
   const { FFmpeg } = window.FFmpegWASM;
-  const { toBlobURL } = ffmpegUtil;
 
-  // 2단계: 코어 JS 다운로드 (진행률 표시)
-  updateProgress(10, '코어 다운로드 중...');
-  let coreURL, wasmURL, lastErr;
+  let lastErr;
   for (const base of CDN) {
     try {
-      coreURL = await toBlobURL(
+      const classWorkerURL = await toBlobURL(
+        `${base}/@ffmpeg/ffmpeg@0.12.10/dist/umd/814.ffmpeg.js`,
+        'text/javascript',
+        p => updateProgress(10 + Math.round(p * 15), '워커 다운로드 중...')
+      );
+      const coreURL = await toBlobURL(
         `${base}/@ffmpeg/core@0.12.6/dist/umd/ffmpeg-core.js`,
         'text/javascript',
-        (p) => updateProgress(10 + Math.round(p * 40), '코어 JS 다운로드 중...')
+        p => updateProgress(25 + Math.round(p * 30), '코어 JS 다운로드 중...')
       );
-      // 3단계: WASM 파일 다운로드 (가장 큰 파일 ~30MB)
-      wasmURL = await toBlobURL(
+      const wasmURL = await toBlobURL(
         `${base}/@ffmpeg/core@0.12.6/dist/umd/ffmpeg-core.wasm`,
         'application/wasm',
-        (p) => updateProgress(50 + Math.round(p * 40), 'WASM 다운로드 중...')
+        p => updateProgress(55 + Math.round(p * 37), 'WASM 다운로드 중...')
       );
-      break;
+      updateProgress(92, '엔진 초기화 중...');
+      const instance = new FFmpeg();
+      instance.on('progress', ({ progress }) => {
+        if (engineReady && progress > 0) updateProgress(Math.round(progress * 100), '변환 중...');
+      });
+      await instance.load({ classWorkerURL, coreURL, wasmURL });
+      ffmpeg = instance;
+      return;
     } catch(e) { lastErr = e; }
   }
-  if (!coreURL || !wasmURL) throw lastErr || new Error('코어 파일 다운로드 실패');
-
-  // 4단계: 초기화
-  updateProgress(92, '엔진 초기화 중...');
-  const instance = new FFmpeg();
-  instance.on('progress', ({ progress }) => {
-    if (engineReady && progress > 0) updateProgress(Math.round(progress * 100), '변환 중...');
-  });
-  await instance.load({ coreURL, wasmURL });
-  ffmpeg = instance;
+  throw lastErr || new Error('엔진 초기화 실패');
 }
 
 function addFiles(files) {
@@ -409,7 +424,7 @@ async function convertFiles() {
       const ext = (file.name.split('.').pop() || 'audio').replace(/[^a-z0-9]/gi,'').toLowerCase();
       const inputName = `in_${Date.now()}_${i}.${ext}`;
       const outputName = `out_${Date.now()}_${i}.${fmt}`;
-      await ffmpeg.writeFile(inputName, await ffmpegUtil.fetchFile(file));
+      await ffmpeg.writeFile(inputName, await fetchFileUtil(file));
       const args = ['-i', inputName];
       if (sampleRate) args.push('-ar', sampleRate);
       if (channels) args.push('-ac', channels);
