@@ -4,10 +4,14 @@
 <script>
   window.__needsReload = false;
   if (!crossOriginIsolated) {
-    window.__needsReload = true;
-    navigator.serviceWorker.register('/coi-serviceworker.js').then(() => {
-      setTimeout(() => location.reload(), 2000);
-    });
+    if (!sessionStorage.getItem('coi-tried')) {
+      sessionStorage.setItem('coi-tried', '1');
+      window.__needsReload = true;
+      navigator.serviceWorker.register('/coi-serviceworker.js')
+        .then(() => setTimeout(() => location.reload(), 2000))
+        .catch(() => { window.__needsReload = false; });
+    }
+    // 재시도 후에도 안 되면 그냥 진행 (FFmpeg 로드 시 에러 안내)
   }
 </script>
 <!-- Google tag (gtag.js) -->
