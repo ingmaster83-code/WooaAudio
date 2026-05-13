@@ -1,11 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<script>
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.getRegistrations().then(regs => regs.forEach(r => r.unregister()));
-  }
-</script>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-9ZGENFSXWC"></script>
 <script>
@@ -29,6 +24,7 @@
   <meta property="og:locale" content="ko_KR">
   <link rel="manifest" href="/manifest.json">
   <meta name="theme-color" content="#7C3AED">
+  <link rel="stylesheet" href="css/style.css">
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6464921081676309" crossorigin="anonymous"></script>
   <script type="application/ld+json">
   {
@@ -43,18 +39,6 @@
     "offers": {"@type":"Offer","price":"0","priceCurrency":"KRW"}
   }
   </script>
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {"@type":"Question","name":"어떤 오디오 포맷을 지원하나요?","acceptedAnswer":{"@type":"Answer","text":"MP3, WAV, OGG, FLAC, AAC, M4A, OPUS, AIFF 등 주요 오디오 포맷 간 상호 변환을 지원합니다."}},
-      {"@type":"Question","name":"파일이 서버에 저장되나요?","acceptedAnswer":{"@type":"Answer","text":"아니요. 모든 변환 작업은 브라우저 안에서만 이루어지며, 파일은 외부 서버로 전송되지 않습니다."}},
-      {"@type":"Question","name":"처음 변환 시 시간이 걸리는 이유가 뭔가요?","acceptedAnswer":{"@type":"Answer","text":"브라우저에서 직접 오디오를 처리하기 위해 FFmpeg 변환 엔진을 최초 1회 다운로드합니다. 이후에는 캐시되어 빠르게 실행됩니다."}}
-    ]
-  }
-  </script>
-  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
@@ -180,7 +164,7 @@
     <p style="font-size:0.85rem;color:#6b7280;margin-bottom:8px;">⏳ 변환 중입니다. 완료되면 자동으로 닫힙니다.</p>
   </div>
 
-  <div class="progress-wrap" id="progressWrap">
+  <div class="progress-wrap" id="progressWrap" style="display:none">
     <div class="progress-label">
       <span id="progressText">변환 중...</span>
       <span id="progressPct">0%</span>
@@ -198,9 +182,7 @@
         <div class="result-subtitle" id="resultSubtitle"></div>
       </div>
     </div>
-    <div style="text-align:center;margin:16px auto;max-width:728px;padding:0 8px">
-      <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-6464921081676309" data-ad-slot="1419180025" data-ad-format="auto" data-full-width-responsive="true"></ins>
-    </div>
+    <div id="resultAd" style="text-align:center;margin:16px auto;max-width:728px;padding:0 8px"></div>
     <div id="downloadList"></div>
     <div style="margin-top:16px">
       <button class="btn-reset" id="resetBtn">다시 변환</button>
@@ -282,6 +264,7 @@
         <a href="audio-convert.html">오디오 포맷 변환</a>
         <a href="audio-convert.html?format=mp3">MP3 변환</a>
         <a href="audio-convert.html?format=wav">WAV 변환</a>
+        <a href="audio-convert.html?format=flac">FLAC 변환</a>
       </div>
       <div class="footer-links">
         <h4>WooaHouse 서비스</h4>
@@ -375,6 +358,7 @@ async function startEngineLoad() {
     updateProgress(100, '엔진 준비 완료!');
     setTimeout(() => { progressWrap.style.display = 'none'; }, 800);
     engineReady = true;
+    convertBtn.disabled = !(selectedFiles.length > 0);
     setBanner('ready', '✅ 변환 준비 완료');
     setTimeout(() => hideBanner(), 3000);
   } catch (err) {
@@ -540,9 +524,18 @@ function renderResults(results) {
   document.getElementById('resultSubtitle').textContent = `${results.length}개 파일 변환 완료`;
   const rp = document.getElementById('resultPanel');
   rp.style.display = 'block';
-  const rpIns = rp.querySelector('ins.adsbygoogle');
-  if (rpIns && !rpIns.dataset.adsbygoogleStatus) {
+  const resultAd = document.getElementById('resultAd');
+  if (resultAd && !resultAd.dataset.adLoaded) {
+    const ins = document.createElement('ins');
+    ins.className = 'adsbygoogle';
+    ins.style.cssText = 'display:block';
+    ins.setAttribute('data-ad-client', 'ca-pub-6464921081676309');
+    ins.setAttribute('data-ad-slot', '1419180025');
+    ins.setAttribute('data-ad-format', 'auto');
+    ins.setAttribute('data-full-width-responsive', 'true');
+    resultAd.appendChild(ins);
     (window.adsbygoogle = window.adsbygoogle || []).push({});
+    resultAd.dataset.adLoaded = '1';
   }
   rp.scrollIntoView({ behavior: 'smooth' });
 }
