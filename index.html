@@ -44,9 +44,15 @@
     "name": "오디오 도구 목록",
     "itemListElement": [
       {"@type":"ListItem","position":1,"name":"오디오 포맷 변환","url":"https://wooaaudio.wooahouse.com/audio-convert.html"},
-      {"@type":"ListItem","position":2,"name":"MP3 변환","url":"https://wooaaudio.wooahouse.com/audio-convert.html?format=mp3"},
-      {"@type":"ListItem","position":3,"name":"WAV 변환","url":"https://wooaaudio.wooahouse.com/audio-convert.html?format=wav"},
-      {"@type":"ListItem","position":4,"name":"FLAC 변환","url":"https://wooaaudio.wooahouse.com/audio-convert.html?format=flac"}
+      {"@type":"ListItem","position":2,"name":"MP3 변환","url":"https://wooaaudio.wooahouse.com/audio-mp3.html"},
+      {"@type":"ListItem","position":3,"name":"WAV 변환","url":"https://wooaaudio.wooahouse.com/audio-wav.html"},
+      {"@type":"ListItem","position":4,"name":"FLAC 변환","url":"https://wooaaudio.wooahouse.com/audio-flac.html"},
+      {"@type":"ListItem","position":5,"name":"오디오 자르기","url":"https://wooaaudio.wooahouse.com/audio-cut.html"},
+      {"@type":"ListItem","position":6,"name":"오디오 합치기","url":"https://wooaaudio.wooahouse.com/audio-merge.html"},
+      {"@type":"ListItem","position":7,"name":"볼륨 조절","url":"https://wooaaudio.wooahouse.com/audio-volume.html"},
+      {"@type":"ListItem","position":8,"name":"속도 조절","url":"https://wooaaudio.wooahouse.com/audio-speed.html"},
+      {"@type":"ListItem","position":9,"name":"파형 시각화","url":"https://wooaaudio.wooahouse.com/audio-waveform.html"},
+      {"@type":"ListItem","position":10,"name":"오디오 정보","url":"https://wooaaudio.wooahouse.com/audio-info.html"}
     ]
   }
   </script>
@@ -63,9 +69,10 @@
     <a href="index.html" class="logo">WooaAudio</a>
     <nav>
       <a href="audio-convert.html">포맷 변환</a>
-      <a href="audio-convert.html?format=mp3">MP3 변환</a>
-      <a href="audio-convert.html?format=wav">WAV 변환</a>
-      <a href="audio-convert.html?format=flac">FLAC 변환</a>
+      <a href="audio-cut.html">자르기</a>
+      <a href="audio-merge.html">합치기</a>
+      <a href="audio-volume.html">볼륨</a>
+      <a href="audio-waveform.html">파형</a>
       <a href="index.html">전체 도구 ›</a>
     </nav>
     <div class="header-right">
@@ -125,19 +132,19 @@
         <div class="tool-name">오디오 포맷 변환</div>
         <div class="tool-desc">MP3, WAV, OGG, FLAC, AAC 포맷 변환</div>
       </a>
-      <a href="audio-convert.html?format=mp3" class="tool-card">
+      <a href="audio-mp3.html" class="tool-card">
         <span class="free-badge">무료</span>
         <span class="tool-icon">🎧</span>
         <div class="tool-name">MP3 변환</div>
         <div class="tool-desc">다양한 오디오 파일을 MP3로 변환</div>
       </a>
-      <a href="audio-convert.html?format=wav" class="tool-card">
+      <a href="audio-wav.html" class="tool-card">
         <span class="free-badge">무료</span>
         <span class="tool-icon">〰️</span>
         <div class="tool-name">WAV 변환</div>
         <div class="tool-desc">고품질 무압축 WAV 파일로 변환</div>
       </a>
-      <a href="audio-convert.html?format=flac" class="tool-card">
+      <a href="audio-flac.html" class="tool-card">
         <span class="free-badge">무료</span>
         <span class="tool-icon">💿</span>
         <div class="tool-name">FLAC 변환</div>
@@ -208,10 +215,17 @@
         <p>무료 온라인 오디오 도구 모음. 변환, 편집, 분석 작업을 브라우저에서 안전하게 처리하세요.</p>
       </div>
       <div class="footer-links">
-        <h4>오디오 변환</h4>
-        <a href="audio-convert.html">오디오 포맷 변환</a>
-        <a href="audio-convert.html?format=mp3">MP3 변환</a>
-        <a href="audio-convert.html?format=wav">WAV 변환</a>
+        <h4>오디오 변환·편집</h4>
+        <a href="audio-convert.html">포맷 변환</a>
+        <a href="audio-mp3.html">MP3 변환</a>
+        <a href="audio-wav.html">WAV 변환</a>
+        <a href="audio-flac.html">FLAC 변환</a>
+        <a href="audio-cut.html">오디오 자르기</a>
+        <a href="audio-merge.html">오디오 합치기</a>
+        <a href="audio-volume.html">볼륨 조절</a>
+        <a href="audio-speed.html">속도 조절</a>
+        <a href="audio-waveform.html">파형 시각화</a>
+        <a href="audio-info.html">오디오 정보</a>
       </div>
       <div class="footer-links">
         <h4>WooaHouse 서비스</h4>
