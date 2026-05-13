@@ -132,6 +132,16 @@
     <button class="btn-convert" id="convertBtn" disabled>변환 시작</button>
   </div>
 
+  <div id="processingAd" style="display:none;text-align:center;margin:16px auto;max-width:728px;padding:0 8px">
+    <p style="font-size:0.85rem;color:#6b7280;margin-bottom:8px;">⏳ 변환 중입니다. 완료되면 자동으로 닫힙니다.</p>
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-6464921081676309"
+         data-ad-slot="1419180025"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
+  </div>
+
   <div class="progress-wrap" id="progressWrap" style="display:none">
     <div class="progress-label">
       <span id="progressText">변환 중...</span>
@@ -241,15 +251,140 @@
 </footer>
 
 <script>
+const CDN = ['https://cdn.jsdelivr.net/npm', 'https://unpkg.com'];
+const LOAD_TIMEOUT = 60000;
+let selectedFiles = [];
+let ffmpeg = null;
+let engineReady = false;
+
+async function fetchFileUtil(input) {
+  if (input instanceof File || input instanceof Blob)
+    return new Uint8Array(await input.arrayBuffer());
+  return new Uint8Array(await (await fetch(input)).arrayBuffer());
+}
+async function toBlobURL(url, mimeType, onProgress) {
+  const resp = await fetch(url);
+  const total = parseInt(resp.headers.get('content-length') || '0');
+  const reader = resp.body.getReader();
+  const chunks = [];
+  let loaded = 0;
+  while (true) {
+    const { done, value } = await reader.read();
+    if (done) break;
+    chunks.push(value);
+    loaded += value.length;
+    if (total && onProgress) onProgress(loaded / total);
+  }
+  return URL.createObjectURL(new Blob(chunks, { type: mimeType }));
+}
+
 const dropZone = document.getElementById('dropZone');
 const fileInput = document.getElementById('fileInput');
 const outputFormat = document.getElementById('outputFormat');
-let selectedFiles = [];
+const convertBtn = document.getElementById('convertBtn');
+const urlFormat = new URLSearchParams(location.search).get('format');
+if (urlFormat && outputFormat.querySelector(`option[value="${urlFormat}"]`)) outputFormat.value = urlFormat;
+toggleBitrate();
 
-function formatSize(b) {
-  if (b < 1024) return b + ' B';
-  if (b < 1048576) return (b/1024).toFixed(1) + ' KB';
-  return (b/1048576).toFixed(1) + ' MB';
+dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('drag-over'); });
+dropZone.addEventListener('dragleave', () => dropZone.classList.remove('drag-over'));
+dropZone.addEventListener('drop', e => { e.preventDefault(); dropZone.classList.remove('drag-over'); addFiles([...e.dataTransfer.files]); });
+dropZone.addEventListener('click', e => { if (e.target.tagName !== 'LABEL') fileInput.click(); });
+fileInput.addEventListener('change', e => addFiles([...e.target.files]));
+outputFormat.addEventListener('change', toggleBitrate);
+convertBtn.addEventListener('click', convertFiles);
+document.getElementById('resetBtn').addEventListener('click', resetAll);
+
+function setBanner(state, text) {
+  const b = document.getElementById('engineBanner');
+  b.className = 'engine-banner engine-banner--' + state;
+  b.innerHTML = text;
+  b.style.display = 'flex';
+}
+function hideBanner() { document.getElementById('engineBanner').style.display = 'none'; }
+
+let engineLoading = false;
+function ensureEngine() {
+  if (engineReady || engineLoading) return;
+  engineLoading = true;
+  startEngineLoad();
+}
+
+async function startEngineLoad() {
+  setBanner('loading', '<span class="banner-spinner"></span> 변환 엔진 준비 중...');
+  const progressWrap = document.getElementById('progressWrap');
+  const progressBar = progressWrap.querySelector('.progress-bar');
+  progressWrap.style.display = 'block';
+  progressBar.classList.add('progress-bar--indeterminate');
+  document.getElementById('progressText').textContent = '엔진 다운로드 중...';
+  document.getElementById('progressPct').textContent = '';
+  try {
+    await loadFFmpeg();
+    progressBar.classList.remove('progress-bar--indeterminate');
+    updateProgress(100, '엔진 준비 완료!');
+    setTimeout(() => { progressWrap.style.display = 'none'; }, 800);
+    engineReady = true;
+    setBanner('ready', '✅ 변환 준비 완료');
+    setTimeout(() => hideBanner(), 3000);
+  } catch (err) {
+    progressBar.classList.remove('progress-bar--indeterminate');
+    progressWrap.style.display = 'none';
+    setBanner('error', '⚠️ 엔진 로드 실패. 페이지를 새로고침하거나 광고 차단 확장 프로그램을 비활성화 후 다시 시도해주세요.');
+  }
+}
+
+function loadScript(src) {
+  return new Promise((resolve, reject) => {
+    const s = document.createElement('script');
+    const t = setTimeout(() => { s.remove(); reject(new Error('timeout')); }, LOAD_TIMEOUT);
+    s.src = src; s.async = true;
+    s.onload = () => { clearTimeout(t); resolve(); };
+    s.onerror = () => { clearTimeout(t); reject(new Error('load error')); };
+    document.head.appendChild(s);
+  });
+}
+async function tryLoadScript(paths, check) {
+  for (const url of paths) {
+    try { await loadScript(url); if (check()) return; } catch(e) {}
+  }
+  if (!check()) throw new Error('스크립트 로드 실패');
+}
+
+async function loadFFmpeg() {
+  updateProgress(5, '라이브러리 로드 중...');
+  await tryLoadScript(['js/ffmpeg.js'], () => !!(window.FFmpegWASM));
+  if (!window.FFmpegWASM) throw new Error('FFmpeg 라이브러리 로드 실패');
+  const { FFmpeg } = window.FFmpegWASM;
+  let lastErr;
+  for (const base of CDN) {
+    try {
+      const coreURL = await toBlobURL(
+        `${base}/@ffmpeg/core@0.12.6/dist/umd/ffmpeg-core.js`,
+        'text/javascript',
+        p => updateProgress(10 + Math.round(p * 45), '코어 JS 다운로드 중...')
+      );
+      const wasmURL = await toBlobURL(
+        `${base}/@ffmpeg/core@0.12.6/dist/umd/ffmpeg-core.wasm`,
+        'application/wasm',
+        p => updateProgress(55 + Math.round(p * 37), 'WASM 다운로드 중...')
+      );
+      updateProgress(93, '엔진 초기화 중...');
+      const instance = new FFmpeg();
+      instance.on('progress', ({ progress }) => {
+        if (engineReady && progress > 0) updateProgress(Math.round(progress * 100), '변환 중...');
+      });
+      await instance.load({ coreURL, wasmURL });
+      ffmpeg = instance;
+      return;
+    } catch(e) { lastErr = e; }
+  }
+  throw lastErr || new Error('엔진 초기화 실패');
+}
+
+function addFiles(files) {
+  selectedFiles.push(...files.filter(f => f.type.startsWith('audio/') || /\.(mp3|wav|ogg|flac|aac|m4a|opus|aiff|wma)$/i.test(f.name)));
+  ensureEngine();
+  renderFileList();
 }
 
 function renderFileList() {
@@ -265,24 +400,115 @@ function renderFileList() {
   });
   const has = selectedFiles.length > 0;
   document.getElementById('fileListPanel').style.display = has ? 'block' : 'none';
-}
-
-function addFiles(files) {
-  selectedFiles.push(...files.filter(f => f.type.startsWith('audio/') || /\.(mp3|wav|ogg|flac|aac|m4a|opus|aiff)$/i.test(f.name)));
-  renderFileList();
+  document.getElementById('resultPanel').style.display = 'none';
+  convertBtn.disabled = !(has && engineReady);
+  hideError();
 }
 
 function toggleBitrate() {
   document.getElementById('bitrateRow').style.display = ['wav','flac'].includes(outputFormat.value) ? 'none' : 'flex';
 }
 
-dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('drag-over'); });
-dropZone.addEventListener('dragleave', () => dropZone.classList.remove('drag-over'));
-dropZone.addEventListener('drop', e => { e.preventDefault(); dropZone.classList.remove('drag-over'); addFiles([...e.dataTransfer.files]); });
-dropZone.addEventListener('click', e => { if (e.target.tagName !== 'LABEL') fileInput.click(); });
-fileInput.addEventListener('change', e => addFiles([...e.target.files]));
-outputFormat.addEventListener('change', toggleBitrate);
-toggleBitrate();
+async function convertFiles() {
+  if (!selectedFiles.length || !engineReady) return;
+  const fmt = outputFormat.value;
+  const bitrate = document.getElementById('bitrate').value;
+  const sampleRate = document.getElementById('sampleRate').value;
+  const channels = document.getElementById('channels').value;
+  const results = [];
+  convertBtn.disabled = true;
+  hideError();
+  document.getElementById('resultPanel').style.display = 'none';
+  const progressWrap = document.getElementById('progressWrap');
+  progressWrap.querySelector('.progress-bar').classList.remove('progress-bar--indeterminate');
+  progressWrap.style.display = 'block';
+  updateProgress(0, '변환 준비 중...');
+  const processingAd = document.getElementById('processingAd');
+  processingAd.style.display = 'block';
+  if (!processingAd.dataset.adLoaded) {
+    (window.adsbygoogle = window.adsbygoogle || []).push({});
+    processingAd.dataset.adLoaded = '1';
+  }
+  try {
+    for (let i = 0; i < selectedFiles.length; i++) {
+      const file = selectedFiles[i];
+      updateProgress(Math.round((i / selectedFiles.length) * 95) + 2, `${file.name} 변환 중... (${i+1}/${selectedFiles.length})`);
+      const ext = (file.name.split('.').pop() || 'audio').replace(/[^a-z0-9]/gi,'').toLowerCase();
+      const inputName = `in_${Date.now()}_${i}.${ext}`;
+      const outputName = `out_${Date.now()}_${i}.${fmt}`;
+      await ffmpeg.writeFile(inputName, await fetchFileUtil(file));
+      const args = ['-i', inputName];
+      if (sampleRate) args.push('-ar', sampleRate);
+      if (channels) args.push('-ac', channels);
+      if (!['wav','flac'].includes(fmt)) args.push('-b:a', bitrate);
+      args.push('-y', outputName);
+      try {
+        await ffmpeg.exec(args);
+        const data = await ffmpeg.readFile(outputName);
+        const blob = new Blob([data.buffer], { type: `audio/${fmt}` });
+        results.push({ name: `${file.name.replace(/\.[^.]+$/, '')}.${fmt}`, size: blob.size, url: URL.createObjectURL(blob) });
+      } finally {
+        safeUnlink(inputName); safeUnlink(outputName);
+      }
+    }
+    updateProgress(100, '완료!');
+    processingAd.style.display = 'none';
+    progressWrap.style.display = 'none';
+    renderResults(results);
+  } catch (err) {
+    console.error(err);
+    processingAd.style.display = 'none';
+    showError('변환에 실패했습니다. 파일 형식을 확인하거나 다시 시도해주세요. (' + err.message + ')');
+  } finally {
+    convertBtn.disabled = false;
+  }
+}
+
+function renderResults(results) {
+  const list = document.getElementById('downloadList');
+  list.innerHTML = '';
+  results.forEach((r, i) => {
+    const item = document.createElement('div');
+    item.className = 'file-item';
+    item.style.marginBottom = '8px';
+    item.innerHTML = `<span class="file-item-icon">✅</span><div class="file-item-info"><div class="file-item-name"></div><div class="file-item-size">${formatSize(r.size)}</div></div><a class="btn-download" style="padding:8px 16px;font-size:0.85rem">다운로드</a>`;
+    item.querySelector('.file-item-name').textContent = r.name;
+    const link = item.querySelector('a');
+    link.href = r.url; link.download = r.name;
+    if (i === 0) link.id = 'downloadBtn';
+    list.appendChild(item);
+  });
+  document.getElementById('resultSubtitle').textContent = `${results.length}개 파일 변환 완료`;
+  const rp = document.getElementById('resultPanel');
+  rp.style.display = 'block';
+  const rpIns = rp.querySelector('ins.adsbygoogle');
+  if (rpIns && !rpIns.dataset.adsbygoogleStatus) {
+    (window.adsbygoogle = window.adsbygoogle || []).push({});
+  }
+  rp.scrollIntoView({ behavior: 'smooth' });
+}
+
+function resetAll() {
+  selectedFiles = []; fileInput.value = '';
+  renderFileList();
+  document.getElementById('progressWrap').style.display = 'none';
+  document.getElementById('resultPanel').style.display = 'none';
+}
+
+function safeUnlink(name) { try { ffmpeg.deleteFile(name); } catch(e) {} }
+function updateProgress(pct, text) {
+  const p = Math.max(0, Math.min(100, pct));
+  document.getElementById('progressFill').style.width = p + '%';
+  document.getElementById('progressPct').textContent = p + '%';
+  document.getElementById('progressText').textContent = text;
+}
+function showError(msg) { const el = document.getElementById('errorMsg'); el.textContent = msg; el.style.display = 'block'; }
+function hideError() { document.getElementById('errorMsg').style.display = 'none'; }
+function formatSize(b) {
+  if (b < 1024) return b + ' B';
+  if (b < 1048576) return (b/1024).toFixed(1) + ' KB';
+  return (b/1048576).toFixed(1) + ' MB';
+}
 </script>
 <script src="js/pwa-install.js"></script>
 </body>
