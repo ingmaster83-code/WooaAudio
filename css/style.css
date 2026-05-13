@@ -290,7 +290,7 @@ nav a:hover { background: rgba(255,255,255,0.18); color: white; }
   align-items: start;
 }
 .tool-page { max-width: 780px; margin: 40px auto 80px; padding: 0 20px; }
-.page-with-sidebar .tool-page { max-width: 100% !important; margin: 0; padding: 0; }
+.page-with-sidebar .tool-page { max-width: 100% !important; margin: 0; padding: 0; min-width: 0; }
 .tool-sidebar { position: sticky; top: 76px; }
 .ad-card {
   background: #fff;
