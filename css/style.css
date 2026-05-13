@@ -487,6 +487,30 @@ nav a:hover { background: rgba(255,255,255,0.18); color: white; }
 .alert { padding: 12px 16px; border-radius: var(--radius-sm); font-size: 0.88rem; margin-top: 16px; }
 .alert-error { background: #FEF2F2; color: #DC2626; border: 1px solid #FECACA; }
 .alert-info { background: var(--primary-light); color: var(--primary-dark); border: 1px solid #DDD6FE; }
+
+.engine-banner {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  border-radius: var(--radius-sm);
+  font-size: 0.88rem;
+  font-weight: 500;
+  margin-bottom: 16px;
+}
+.engine-banner--loading { background: var(--primary-light); color: var(--primary-dark); border: 1px solid #DDD6FE; }
+.engine-banner--ready   { background: #F0FDF4; color: #16A34A; border: 1px solid #BBF7D0; }
+.engine-banner--setting { background: #FFFBEB; color: #92400E; border: 1px solid #FDE68A; }
+.engine-banner--error   { background: #FEF2F2; color: #DC2626; border: 1px solid #FECACA; }
+.banner-spinner {
+  width: 16px; height: 16px;
+  border: 2px solid #DDD6FE;
+  border-top-color: var(--primary);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  flex-shrink: 0;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
 .cross-link-banner {
   margin: 32px 0 0;
   padding: 16px 20px;

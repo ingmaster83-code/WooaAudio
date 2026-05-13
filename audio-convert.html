@@ -2,8 +2,12 @@
 <html lang="ko">
 <head>
 <script>
+  window.__needsReload = false;
   if (!crossOriginIsolated) {
-    navigator.serviceWorker.register('/coi-serviceworker.js').then(() => location.reload());
+    window.__needsReload = true;
+    navigator.serviceWorker.register('/coi-serviceworker.js').then(() => {
+      setTimeout(() => location.reload(), 2000);
+    });
   }
 </script>
 <!-- Google tag (gtag.js) -->
@@ -61,19 +65,19 @@
 <div class="our-sites-bar">
   <span class="our-sites-label">WooaHouse Services</span>
   <div class="our-sites-links">
-    <a href="https://wooahouse.com/" target="_blank" rel="noopener">WooaHouse</a>
-    <a href="https://pdfkit.wooahouse.com/" target="_blank" rel="noopener">WooaPDF</a>
-    <a href="https://imagekit.wooahouse.com/" target="_blank" rel="noopener">WooaImage</a>
-    <a href="https://colorkit.wooahouse.com/" target="_blank" rel="noopener">WooaColor</a>
-    <a href="https://textkit.wooahouse.com/" target="_blank" rel="noopener">WooaText</a>
-    <a href="https://qrkit.wooahouse.com/" target="_blank" rel="noopener">WooaQR</a>
-    <a href="https://calckit.wooahouse.com/" target="_blank" rel="noopener">WooaCalc</a>
-    <a href="https://chromekit.wooahouse.com/" target="_blank" rel="noopener">WooaChrome</a>
-    <a href="https://fontkit.wooahouse.com/" target="_blank" rel="noopener">WooaFont</a>
-    <a href="https://mactools.wooahouse.com/" target="_blank" rel="noopener">WooaMac</a>
-    <a href="https://pctools.wooahouse.com/" target="_blank" rel="noopener">WooaPC</a>
-    <a href="https://vskit.wooahouse.com/" target="_blank" rel="noopener">WooaVS</a>
-    <a href="https://wooaaudio.wooahouse.com/" target="_blank" rel="noopener" class="active">WooaAudio</a>
+    <a href="https://wooahouse.com/" target="_blank" rel="noopener">🔗 WooaHouse</a>
+    <a href="https://pdfkit.wooahouse.com/" target="_blank" rel="noopener">📄 WooaPDF</a>
+    <a href="https://imagekit.wooahouse.com/" target="_blank" rel="noopener">🖼️ WooaImage</a>
+    <a href="https://colorkit.wooahouse.com/" target="_blank" rel="noopener">🎨 WooaColor</a>
+    <a href="https://textkit.wooahouse.com/" target="_blank" rel="noopener">✏️ WooaText</a>
+    <a href="https://qrkit.wooahouse.com/" target="_blank" rel="noopener">📱 WooaQR</a>
+    <a href="https://calckit.wooahouse.com/" target="_blank" rel="noopener">🧮 WooaCalc</a>
+    <a href="https://chromekit.wooahouse.com/" target="_blank" rel="noopener">🧩 WooaChrome</a>
+    <a href="https://fontkit.wooahouse.com/" target="_blank" rel="noopener">🔤 WooaFont</a>
+    <a href="https://mactools.wooahouse.com/" target="_blank" rel="noopener">🍎 WooaMac</a>
+    <a href="https://pctools.wooahouse.com/" target="_blank" rel="noopener">🖥️ WooaPC</a>
+    <a href="https://vskit.wooahouse.com/" target="_blank" rel="noopener">💻 WooaVS</a>
+    <a href="https://wooaaudio.wooahouse.com/" target="_blank" rel="noopener" class="active">🎵 WooaAudio</a>
   </div>
 </div>
 
@@ -95,6 +99,8 @@
     <h1>오디오 포맷 변환 무료 온라인</h1>
     <p>MP3, WAV, OGG, FLAC, AAC, M4A 파일을 브라우저에서 변환합니다.</p>
   </div>
+
+  <div id="engineBanner" class="engine-banner" style="display:none"></div>
 
   <div class="drop-zone" id="dropZone">
     <span class="drop-zone-icon">📂</span>
@@ -158,10 +164,9 @@
         </select>
       </div>
     </div>
-    <button class="btn-convert" id="convertBtn">변환 시작</button>
+    <button class="btn-convert" id="convertBtn" disabled>변환 시작</button>
   </div>
 
-  <div id="engineStatus" class="alert alert-info" style="display:none"></div>
   <div id="errorMsg" class="alert alert-error" style="display:none"></div>
 
   <div class="progress-wrap" id="progressWrap">
@@ -225,188 +230,177 @@ const FFMPEG_CORE_URLS = [
   'https://cdn.jsdelivr.net/npm/@ffmpeg/core@0.11.0/dist/ffmpeg-core.js',
   'https://unpkg.com/@ffmpeg/core@0.11.0/dist/ffmpeg-core.js'
 ];
-const LOAD_TIMEOUT = 20000;
+const LOAD_TIMEOUT = 30000;
 let selectedFiles = [];
 let ffmpeg = null;
 let fetchFile = null;
-let ffmpegLoadPromise = null;
+let engineReady = false;
 
 const dropZone = document.getElementById('dropZone');
 const fileInput = document.getElementById('fileInput');
 const outputFormat = document.getElementById('outputFormat');
+const convertBtn = document.getElementById('convertBtn');
 const urlFormat = new URLSearchParams(location.search).get('format');
 if (urlFormat && outputFormat.querySelector(`option[value="${urlFormat}"]`)) outputFormat.value = urlFormat;
 toggleBitrate();
 
-dropZone.addEventListener('dragover', event => { event.preventDefault(); dropZone.classList.add('drag-over'); });
+dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('drag-over'); });
 dropZone.addEventListener('dragleave', () => dropZone.classList.remove('drag-over'));
-dropZone.addEventListener('drop', event => {
-  event.preventDefault();
-  dropZone.classList.remove('drag-over');
-  addFiles([...event.dataTransfer.files]);
-});
-dropZone.addEventListener('click', event => { if (event.target.tagName !== 'LABEL') fileInput.click(); });
-fileInput.addEventListener('change', event => addFiles([...event.target.files]));
+dropZone.addEventListener('drop', e => { e.preventDefault(); dropZone.classList.remove('drag-over'); addFiles([...e.dataTransfer.files]); });
+dropZone.addEventListener('click', e => { if (e.target.tagName !== 'LABEL') fileInput.click(); });
+fileInput.addEventListener('change', e => addFiles([...e.target.files]));
 outputFormat.addEventListener('change', toggleBitrate);
-document.getElementById('convertBtn').addEventListener('click', convertFiles);
+convertBtn.addEventListener('click', convertFiles);
 document.getElementById('resetBtn').addEventListener('click', resetAll);
 
+// 배너 상태: 'loading' | 'ready' | 'setting' | 'error'
+function setBanner(state, text) {
+  const banner = document.getElementById('engineBanner');
+  banner.className = 'engine-banner engine-banner--' + state;
+  banner.innerHTML = text;
+  banner.style.display = 'flex';
+}
+function hideBanner() { document.getElementById('engineBanner').style.display = 'none'; }
+
+// 페이지 진입 시 자동 실행
+window.addEventListener('DOMContentLoaded', () => {
+  if (window.__needsReload) {
+    setBanner('setting', '🔒 변환 엔진 보안 설정 적용 중입니다. 잠시 후 자동으로 새로고침됩니다...');
+    return;
+  }
+  startEngineLoad();
+});
+
+async function startEngineLoad() {
+  setBanner('loading', '<span class="banner-spinner"></span> 변환 엔진 준비 중...');
+  try {
+    await loadFFmpeg();
+    engineReady = true;
+    setBanner('ready', '✅ 변환 준비 완료');
+    convertBtn.disabled = false;
+    setTimeout(() => hideBanner(), 3000);
+  } catch (err) {
+    setBanner('error', '⚠️ 엔진 로드 실패. 페이지를 새로고침하거나 광고 차단 확장 프로그램을 비활성화 후 다시 시도해주세요.');
+  }
+}
+
+function loadScript(src) {
+  return new Promise((resolve, reject) => {
+    const script = document.createElement('script');
+    const timer = setTimeout(() => { script.remove(); reject(new Error('timeout')); }, LOAD_TIMEOUT);
+    script.src = src; script.async = true;
+    script.onload = () => { clearTimeout(timer); resolve(); };
+    script.onerror = () => { clearTimeout(timer); reject(new Error('load error')); };
+    document.head.appendChild(script);
+  });
+}
+
+async function loadFFmpeg() {
+  if (!window.FFmpeg) {
+    let err;
+    for (const url of FFMPEG_SCRIPT_URLS) {
+      try { await loadScript(url); if (window.FFmpeg) break; } catch(e) { err = e; }
+    }
+    if (!window.FFmpeg) throw err || new Error('FFmpeg 라이브러리 로드 실패');
+  }
+  fetchFile = window.FFmpeg.fetchFile;
+  let lastErr;
+  for (const coreUrl of FFMPEG_CORE_URLS) {
+    try {
+      const instance = window.FFmpeg.createFFmpeg({ log: false, corePath: coreUrl });
+      await Promise.race([
+        instance.load(),
+        new Promise((_, r) => setTimeout(() => r(new Error('timeout')), LOAD_TIMEOUT))
+      ]);
+      ffmpeg = instance;
+      return;
+    } catch(e) { lastErr = e; }
+  }
+  throw lastErr || new Error('FFmpeg 코어 초기화 실패');
+}
+
 function addFiles(files) {
-  selectedFiles.push(...files.filter(file =>
-    file.type.startsWith('audio/') || /\.(mp3|wav|ogg|flac|aac|m4a|opus|aiff|wma)$/i.test(file.name)
-  ));
+  selectedFiles.push(...files.filter(f => f.type.startsWith('audio/') || /\.(mp3|wav|ogg|flac|aac|m4a|opus|aiff|wma)$/i.test(f.name)));
   renderFileList();
 }
 
 function renderFileList() {
   const list = document.getElementById('fileList');
   list.innerHTML = '';
-  selectedFiles.forEach((file, index) => {
+  selectedFiles.forEach((file, i) => {
     const item = document.createElement('div');
     item.className = 'file-item';
     item.innerHTML = `<span class="file-item-icon">🎵</span><div class="file-item-info"><div class="file-item-name"></div><div class="file-item-size">${formatSize(file.size)}</div></div><button type="button" class="file-item-remove" aria-label="파일 삭제">×</button>`;
     item.querySelector('.file-item-name').textContent = file.name;
-    item.querySelector('button').addEventListener('click', () => {
-      selectedFiles.splice(index, 1);
-      renderFileList();
-    });
+    item.querySelector('button').addEventListener('click', () => { selectedFiles.splice(i, 1); renderFileList(); });
     list.appendChild(item);
   });
-  const hasFiles = selectedFiles.length > 0;
-  document.getElementById('fileListPanel').style.display = hasFiles ? 'block' : 'none';
-  document.getElementById('optionsPanel').style.display = hasFiles ? 'block' : 'none';
+  const has = selectedFiles.length > 0;
+  document.getElementById('fileListPanel').style.display = has ? 'block' : 'none';
+  document.getElementById('optionsPanel').style.display = has ? 'block' : 'none';
   document.getElementById('resultPanel').style.display = 'none';
   hideError();
 }
 
 function toggleBitrate() {
-  document.getElementById('bitrateRow').style.display = ['wav', 'flac'].includes(outputFormat.value) ? 'none' : 'flex';
-}
-
-function setEngineStatus(message, isError = false) {
-  const status = document.getElementById('engineStatus');
-  status.textContent = message;
-  status.className = isError ? 'alert alert-error' : 'alert alert-info';
-  status.style.display = 'block';
-}
-
-function loadScript(src) {
-  return new Promise((resolve, reject) => {
-    const script = document.createElement('script');
-    const timer = setTimeout(() => { script.remove(); reject(new Error('다운로드 시간이 초과되었습니다.')); }, LOAD_TIMEOUT);
-    script.src = src;
-    script.async = true;
-    script.onload = () => { clearTimeout(timer); resolve(); };
-    script.onerror = () => { clearTimeout(timer); reject(new Error('스크립트를 불러오지 못했습니다.')); };
-    document.head.appendChild(script);
-  });
-}
-
-function withTimeout(promise, message) {
-  let timer;
-  const timeout = new Promise((_, reject) => { timer = setTimeout(() => reject(new Error(message)), LOAD_TIMEOUT); });
-  return Promise.race([promise, timeout]).finally(() => clearTimeout(timer));
-}
-
-async function ensureFFmpeg() {
-  if (ffmpeg) return ffmpeg;
-  if (ffmpegLoadPromise) return ffmpegLoadPromise;
-  ffmpegLoadPromise = (async () => {
-    if (!window.FFmpeg) {
-      let scriptError = null;
-      for (const scriptUrl of FFMPEG_SCRIPT_URLS) {
-        try {
-          setEngineStatus(`FFmpeg 라이브러리 다운로드 중... ${new URL(scriptUrl).hostname}`);
-          await loadScript(scriptUrl);
-          if (window.FFmpeg) break;
-        } catch (error) {
-          scriptError = error;
-        }
-      }
-      if (!window.FFmpeg) throw scriptError || new Error('FFmpeg 라이브러리를 사용할 수 없습니다.');
-    }
-    fetchFile = window.FFmpeg.fetchFile;
-    let lastError = null;
-    for (let i = 0; i < FFMPEG_CORE_URLS.length; i++) {
-      try {
-        setEngineStatus(`FFmpeg 엔진 다운로드 및 초기화 중... (${i + 1}/${FFMPEG_CORE_URLS.length})`);
-        const instance = window.FFmpeg.createFFmpeg({ log: false, corePath: FFMPEG_CORE_URLS[i] });
-        await withTimeout(instance.load(), '엔진 초기화 시간이 초과되었습니다.');
-        ffmpeg = instance;
-        setEngineStatus('FFmpeg 엔진 준비 완료. 변환을 시작합니다.');
-        return ffmpeg;
-      } catch (error) {
-        lastError = error;
-      }
-    }
-    throw lastError || new Error('FFmpeg 엔진을 초기화하지 못했습니다.');
-  })().catch(error => {
-    ffmpegLoadPromise = null;
-    throw error;
-  });
-  return ffmpegLoadPromise;
+  document.getElementById('bitrateRow').style.display = ['wav','flac'].includes(outputFormat.value) ? 'none' : 'flex';
 }
 
 async function convertFiles() {
-  if (!selectedFiles.length) return;
-  const btn = document.getElementById('convertBtn');
+  if (!selectedFiles.length || !engineReady) return;
   const fmt = outputFormat.value;
   const bitrate = document.getElementById('bitrate').value;
   const sampleRate = document.getElementById('sampleRate').value;
   const channels = document.getElementById('channels').value;
   const results = [];
-  btn.disabled = true;
+  convertBtn.disabled = true;
   hideError();
   document.getElementById('resultPanel').style.display = 'none';
   document.getElementById('progressWrap').style.display = 'block';
-  updateProgress(2, '엔진 준비 중...');
   try {
-    const engine = await ensureFFmpeg();
     for (let i = 0; i < selectedFiles.length; i++) {
       const file = selectedFiles[i];
-      const ext = (file.name.split('.').pop() || 'audio').replace(/[^a-z0-9]/gi, '').toLowerCase();
-      const inputName = `input_${Date.now()}_${i}.${ext}`;
-      const outputName = `output_${Date.now()}_${i}.${fmt}`;
-      engine.FS('writeFile', inputName, await fetchFile(file));
+      updateProgress(Math.round((i / selectedFiles.length) * 95) + 2, `${file.name} 변환 중... (${i+1}/${selectedFiles.length})`);
+      const ext = (file.name.split('.').pop() || 'audio').replace(/[^a-z0-9]/gi,'').toLowerCase();
+      const inputName = `in_${Date.now()}_${i}.${ext}`;
+      const outputName = `out_${Date.now()}_${i}.${fmt}`;
+      ffmpeg.FS('writeFile', inputName, await fetchFile(file));
       const args = ['-i', inputName];
       if (sampleRate) args.push('-ar', sampleRate);
       if (channels) args.push('-ac', channels);
-      if (!['wav', 'flac'].includes(fmt)) args.push('-b:a', bitrate);
+      if (!['wav','flac'].includes(fmt)) args.push('-b:a', bitrate);
       args.push('-y', outputName);
       try {
-        updateProgress(Math.round((i / selectedFiles.length) * 90) + 5, `${file.name} 변환 중...`);
-        await engine.run(...args);
-        const data = engine.FS('readFile', outputName);
+        await ffmpeg.run(...args);
+        const data = ffmpeg.FS('readFile', outputName);
         const blob = new Blob([data.buffer], { type: `audio/${fmt}` });
         results.push({ name: `${file.name.replace(/\.[^.]+$/, '')}.${fmt}`, size: blob.size, url: URL.createObjectURL(blob) });
       } finally {
-        safeUnlink(engine, inputName);
-        safeUnlink(engine, outputName);
+        safeUnlink(inputName); safeUnlink(outputName);
       }
     }
     updateProgress(100, '완료!');
     renderResults(results);
-  } catch (error) {
-    console.error(error);
-    showError('엔진 로드 또는 변환에 실패했습니다. 광고 차단/보안 확장 프로그램이 CDN 다운로드를 막는지 확인한 뒤 다시 시도해주세요. (' + error.message + ')');
+  } catch (err) {
+    console.error(err);
+    showError('변환에 실패했습니다. 파일 형식을 확인하거나 다시 시도해주세요. (' + err.message + ')');
   } finally {
-    btn.disabled = false;
+    convertBtn.disabled = false;
   }
 }
 
 function renderResults(results) {
   const list = document.getElementById('downloadList');
   list.innerHTML = '';
-  results.forEach((result, index) => {
+  results.forEach((r, i) => {
     const item = document.createElement('div');
     item.className = 'file-item';
     item.style.marginBottom = '8px';
-    item.innerHTML = `<span class="file-item-icon">✅</span><div class="file-item-info"><div class="file-item-name"></div><div class="file-item-size">${formatSize(result.size)}</div></div><a class="btn-download" style="padding:8px 16px;font-size:0.85rem">다운로드</a>`;
-    item.querySelector('.file-item-name').textContent = result.name;
+    item.innerHTML = `<span class="file-item-icon">✅</span><div class="file-item-info"><div class="file-item-name"></div><div class="file-item-size">${formatSize(r.size)}</div></div><a class="btn-download" style="padding:8px 16px;font-size:0.85rem">다운로드</a>`;
+    item.querySelector('.file-item-name').textContent = r.name;
     const link = item.querySelector('a');
-    link.href = result.url;
-    link.download = result.name;
-    if (index === 0) link.id = 'downloadBtn';
+    link.href = r.url; link.download = r.name;
+    if (i === 0) link.id = 'downloadBtn';
     list.appendChild(item);
   });
   document.getElementById('resultSubtitle').textContent = `${results.length}개 파일 변환 완료`;
@@ -415,31 +409,25 @@ function renderResults(results) {
 }
 
 function resetAll() {
-  selectedFiles = [];
-  fileInput.value = '';
+  selectedFiles = []; fileInput.value = '';
   renderFileList();
   document.getElementById('progressWrap').style.display = 'none';
   document.getElementById('resultPanel').style.display = 'none';
-  document.getElementById('engineStatus').style.display = 'none';
 }
 
-function safeUnlink(engine, name) { try { engine.FS('unlink', name); } catch (error) {} }
+function safeUnlink(name) { try { ffmpeg.FS('unlink', name); } catch(e) {} }
 function updateProgress(pct, text) {
-  const safePct = Math.max(0, Math.min(100, pct));
-  document.getElementById('progressFill').style.width = safePct + '%';
-  document.getElementById('progressPct').textContent = safePct + '%';
+  const p = Math.max(0, Math.min(100, pct));
+  document.getElementById('progressFill').style.width = p + '%';
+  document.getElementById('progressPct').textContent = p + '%';
   document.getElementById('progressText').textContent = text;
 }
-function showError(message) {
-  const el = document.getElementById('errorMsg');
-  el.textContent = message;
-  el.style.display = 'block';
-}
+function showError(msg) { const el = document.getElementById('errorMsg'); el.textContent = msg; el.style.display = 'block'; }
 function hideError() { document.getElementById('errorMsg').style.display = 'none'; }
-function formatSize(bytes) {
-  if (bytes < 1024) return bytes + ' B';
-  if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
-  return (bytes / 1024 / 1024).toFixed(1) + ' MB';
+function formatSize(b) {
+  if (b < 1024) return b + ' B';
+  if (b < 1048576) return (b/1024).toFixed(1) + ' KB';
+  return (b/1048576).toFixed(1) + ' MB';
 }
 </script>
 <script src="js/pwa-install.js"></script>
