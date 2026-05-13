@@ -361,7 +361,12 @@ function setBanner(state, text) {
 }
 function hideBanner() { document.getElementById('engineBanner').style.display = 'none'; }
 
-window.addEventListener('DOMContentLoaded', () => startEngineLoad());
+let engineLoading = false;
+function ensureEngine() {
+  if (engineReady || engineLoading) return;
+  engineLoading = true;
+  startEngineLoad();
+}
 
 async function startEngineLoad() {
   setBanner('loading', '<span class="banner-spinner"></span> 변환 엔진 준비 중...');
@@ -436,6 +441,7 @@ async function loadFFmpeg() {
 
 function addFiles(files) {
   selectedFiles.push(...files.filter(f => f.type.startsWith('audio/') || /\.(mp3|wav|ogg|flac|aac|m4a|opus|aiff|wma)$/i.test(f.name)));
+  ensureEngine();
   renderFileList();
 }
 
