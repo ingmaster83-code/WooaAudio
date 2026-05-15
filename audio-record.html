@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9ZGENFSXWC"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-9ZGENFSXWC');
+</script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="naver-site-verification" content="7396a327607b884b9bef1283dfd3a5c6115a2b50">
+  <meta name="google-site-verification" content="tNM8tmr_6DFold03YSScWz4KEtu5Zo0Fsqc03u5Afms">
+  <title>오디오 녹음기 무료 온라인 - 마이크 녹음 후 바로 WAV 다운로드 | WooaAudio</title>
+  <meta name="description" content="브라우저에서 마이크로 바로 녹음하고 WAV 파일로 다운로드하세요. 실시간 파형 시각화, 녹음 시간 표시, 재생 미리 듣기 지원. 앱 설치 없이 무료로 사용, 서버 전송 없음.">
+  <meta name="keywords" content="오디오녹음기, 마이크녹음, 브라우저녹음, 온라인녹음, 무료녹음, WAV녹음, 음성녹음, 목소리녹음, 온라인마이크녹음기, 무료음성녹음, 웹녹음기, 인터넷녹음기">
+  <link rel="canonical" href="https://wooaaudio.wooahouse.com/audio-record.html">
+  <meta property="og:title" content="오디오 녹음기 무료 온라인 - 마이크 녹음 후 바로 WAV 다운로드 | WooaAudio">
+  <meta property="og:description" content="브라우저에서 마이크로 녹음하고 WAV로 다운로드. 실시간 파형 시각화, 재생 미리 듣기 지원. 무료, 서버 전송 없음.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://wooaaudio.wooahouse.com/audio-record.html">
+  <meta property="og:locale" content="ko_KR">
+  <meta property="og:image" content="https://wooaaudio.wooahouse.com/og-image.png">
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#059669">
+  <link rel="stylesheet" href="css/style.css">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6464921081676309" crossorigin="anonymous"></script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "오디오 녹음기",
+    "url": "https://wooaaudio.wooahouse.com/audio-record.html",
+    "applicationCategory": "MultimediaApplication",
+    "operatingSystem": "Web",
+    "inLanguage": "ko",
+    "isAccessibleForFree": true,
+    "offers": {"@type":"Offer","price":"0","priceCurrency":"KRW"}
+  }
+  </script>
+  <style>
+    .record-container {
+      max-width: 680px;
+      margin: 0 auto;
+    }
+    .record-visualizer {
+      width: 100%;
+      height: 120px;
+      background: #0f172a;
+      border-radius: 12px;
+      margin: 16px 0;
+      display: block;
+    }
+    .record-timer {
+      text-align: center;
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: #059669;
+      letter-spacing: 2px;
+      margin: 12px 0;
+      font-variant-numeric: tabular-nums;
+    }
+    .record-status {
+      text-align: center;
+      font-size: 0.9rem;
+      color: #6b7280;
+      margin-bottom: 16px;
+      min-height: 1.4em;
+    }
+    .record-status.recording {
+      color: #ef4444;
+      font-weight: 600;
+    }
+    .record-controls {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin: 20px 0;
+    }
+    .btn-record {
+      padding: 14px 32px;
+      border: none;
+      border-radius: 50px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .btn-record-start {
+      background: #059669;
+      color: #fff;
+    }
+    .btn-record-start:hover:not(:disabled) { background: #047857; }
+    .btn-record-stop {
+      background: #ef4444;
+      color: #fff;
+    }
+    .btn-record-stop:hover:not(:disabled) { background: #dc2626; }
+    .btn-record-play {
+      background: #3b82f6;
+      color: #fff;
+    }
+    .btn-record-play:hover:not(:disabled) { background: #2563eb; }
+    .btn-record:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+    .record-result {
+      background: #f0fdf4;
+      border: 1.5px solid #bbf7d0;
+      border-radius: 12px;
+      padding: 20px;
+      margin-top: 20px;
+      display: none;
+    }
+    .record-result audio {
+      width: 100%;
+      border-radius: 8px;
+      margin: 12px 0;
+    }
+    .record-download-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 8px;
+    }
+    .btn-dl {
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .btn-dl-wav {
+      background: #059669;
+      color: #fff;
+    }
+    .btn-dl-wav:hover { background: #047857; }
+    .btn-dl-reset {
+      background: #e5e7eb;
+      color: #374151;
+    }
+    .btn-dl-reset:hover { background: #d1d5db; }
+    .mic-error {
+      background: #fef2f2;
+      border: 1.5px solid #fecaca;
+      border-radius: 10px;
+      padding: 16px 20px;
+      color: #991b1b;
+      margin: 16px 0;
+      display: none;
+    }
+    .recording-dot {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      background: #ef4444;
+      border-radius: 50%;
+      animation: blink 1s infinite;
+      margin-right: 4px;
+    }
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a href="index.html" class="logo">WooaAudio</a>
+    <nav>
+      <a href="audio-convert.html">포맷 변환</a>
+      <a href="audio-cut.html">오디오 자르기</a>
+      <a href="audio-merge.html">오디오 합치기</a>
+      <a href="audio-volume.html">볼륨 조절</a>
+      <a href="index.html">전체 도구 ›</a>
+    </nav>
+  </div>
+</header>
+
+<div class="our-sites-bar">
+  <span class="our-sites-label">WooaHouse Services</span>
+  <div class="our-sites-links">
+    <a href="https://wooahouse.com/" target="_blank" rel="noopener">🔗 WooaHouse</a>
+    <a href="https://pdfkit.wooahouse.com/" target="_blank" rel="noopener">📄 WooaPDF</a>
+    <a href="https://imagekit.wooahouse.com/" target="_blank" rel="noopener">🖼️ WooaImage</a>
+    <a href="https://colorkit.wooahouse.com/" target="_blank" rel="noopener">🎨 WooaColor</a>
+    <a href="https://textkit.wooahouse.com/" target="_blank" rel="noopener">✏️ WooaText</a>
+    <a href="https://qrkit.wooahouse.com/" target="_blank" rel="noopener">📱 WooaQR</a>
+    <a href="https://calckit.wooahouse.com/" target="_blank" rel="noopener">🧮 WooaCalc</a>
+    <a href="https://fontkit.wooahouse.com/" target="_blank" rel="noopener">🔤 WooaFont</a>
+    <a href="https://mactools.wooahouse.com/" target="_blank" rel="noopener">🍎 WooaMac</a>
+    <a href="https://pctools.wooahouse.com/" target="_blank" rel="noopener">🖥️ WooaPC</a>
+    <a href="https://vskit.wooahouse.com/" target="_blank" rel="noopener">💻 WooaVS</a>
+    <a href="https://wooaaudio.wooahouse.com/" target="_blank" rel="noopener" class="active">🎵 WooaAudio</a>
+    <a href="https://wooaviewer.wooahouse.com/" target="_blank" rel="noopener">🔍 WooaViewer</a>
+    <a href="https://wooadev.wooahouse.com/" target="_blank" rel="noopener">🛠️ WooaDev</a>
+  </div>
+</div>
+
+<div class="mobile-top-ad">
+  <ins class="adsbygoogle" style="display:block;width:100%;height:80px" data-ad-client="ca-pub-6464921081676309" data-ad-slot="7080296704" data-ad-format="auto" data-full-width-responsive="true"></ins>
+  <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+
+<div class="page-with-sidebar">
+<main class="tool-page">
+  <div class="breadcrumb">
+    <a href="index.html">홈</a>
+    <span>›</span>
+    <span>오디오 녹음기</span>
+  </div>
+
+  <div class="tool-header">
+    <span class="tool-header-icon">🎙️</span>
+    <h1>오디오 녹음기 무료 온라인</h1>
+    <p>마이크로 바로 녹음하고 WAV 파일로 저장하세요. 실시간 파형 시각화 지원. 파일은 서버에 저장되지 않습니다.</p>
+  </div>
+
+  <div class="record-container">
+    <div id="micError" class="mic-error">
+      <strong>마이크 권한이 거부되었습니다.</strong><br>
+      브라우저 주소창의 자물쇠 아이콘을 클릭하여 마이크 권한을 허용한 후 페이지를 새로고침하세요.
+    </div>
+
+    <canvas id="visualizer" class="record-visualizer"></canvas>
+
+    <div class="record-timer" id="timer">00:00</div>
+    <div class="record-status" id="statusText">녹음 시작 버튼을 눌러 마이크 권한을 요청합니다.</div>
+
+    <div class="record-controls">
+      <button class="btn-record btn-record-start" id="startBtn">🎙️ 녹음 시작</button>
+      <button class="btn-record btn-record-stop" id="stopBtn" disabled>⏹️ 녹음 중지</button>
+    </div>
+
+    <div class="record-result" id="recordResult">
+      <div style="font-weight:600;color:#065f46;margin-bottom:4px;">✅ 녹음 완료!</div>
+      <audio id="playbackAudio" controls></audio>
+      <div class="record-download-row">
+        <a class="btn-dl btn-dl-wav" id="downloadBtn" download="recording.wav">⬇️ WAV 다운로드</a>
+        <button class="btn-dl btn-dl-reset" id="resetBtn">🔄 다시 녹음</button>
+      </div>
+    </div>
+  </div>
+
+  <section style="max-width:800px;margin:3rem auto;padding:0 1rem;">
+    <h2 class="faq-title">자주 묻는 질문</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <div class="faq-q">Q. 마이크 권한은 어떻게 허용하나요?</div>
+        <div class="faq-a">녹음 시작 버튼을 누르면 브라우저가 마이크 권한을 요청합니다. 팝업창에서 '허용'을 클릭하세요. 권한을 거부했다면 브라우저 주소창의 자물쇠 아이콘에서 재설정할 수 있습니다.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Q. 녹음 파일은 어디에 저장되나요?</div>
+        <div class="faq-a">모든 처리가 브라우저 내에서 이루어지며, 파일은 서버로 전송되지 않습니다. 다운로드 버튼을 누르면 기기에 저장됩니다.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Q. 최대 녹음 시간은 얼마나 되나요?</div>
+        <div class="faq-a">브라우저 메모리가 허용하는 한 계속 녹음할 수 있습니다. 일반적으로 수십 분 이상도 가능합니다.</div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<aside class="tool-sidebar">
+  <div class="ad-card">
+    <ins class="adsbygoogle"
+         style="display:block;width:100%;min-height:250px"
+         data-ad-client="ca-pub-6464921081676309"
+         data-ad-slot="1419180025"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+  <div style="margin-top:16px;overflow:hidden;border-radius:14px;">
+    <script src="https://ads-partners.coupang.com/g.js"></script>
+    <script>new PartnersCoupang.G({"id":974224,"trackingCode":"AF5600192","subId":null,"template":"carousel","width":"300","height":"250"});</script>
+  </div>
+</aside>
+</div>
+
+<div class="features" style="margin-top:60px">
+  <div class="features-inner">
+    <div><div class="feature-icon">🔒</div><div class="feature-title">100% 안전</div><div class="feature-desc">파일이 서버로 전송되지 않습니다. 모든 처리가 브라우저 안에서 이루어집니다.</div></div>
+    <div><div class="feature-icon">⚡</div><div class="feature-title">빠른 처리</div><div class="feature-desc">업로드 대기 없이 로컬에서 처리하므로 반복 작업이 간편합니다.</div></div>
+    <div><div class="feature-icon">💸</div><div class="feature-title">완전 무료</div><div class="feature-desc">회원가입 없이 주요 오디오 기능을 무료로 사용할 수 있습니다.</div></div>
+    <div><div class="feature-icon">📱</div><div class="feature-title">모든 기기 지원</div><div class="feature-desc">PC, 태블릿, 스마트폰 어디서나 사용 가능한 반응형 디자인.</div></div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <span class="logo-footer">WooaAudio</span>
+        <p>무료 온라인 오디오 도구 모음. 변환, 편집, 분석 작업을 브라우저에서 안전하게 처리하세요.</p>
+      </div>
+      <div class="footer-links">
+        <h4>오디오 편집</h4>
+        <a href="audio-cut.html">오디오 자르기</a>
+        <a href="audio-merge.html">오디오 합치기</a>
+        <a href="audio-volume.html">볼륨 조절</a>
+        <a href="audio-speed.html">속도 조절</a>
+        <a href="audio-record.html">오디오 녹음기</a>
+        <a href="audio-fade.html">페이드인·페이드아웃</a>
+        <a href="audio-pitch.html">피치 변경</a>
+        <a href="audio-ringtone.html">벨소리 만들기</a>
+      </div>
+      <div class="footer-links">
+        <h4>WooaHouse 서비스</h4>
+        <a href="https://pdfkit.wooahouse.com/" target="_blank" rel="noopener">WooaPDF</a>
+        <a href="https://imagekit.wooahouse.com/" target="_blank" rel="noopener">WooaImage</a>
+        <a href="https://fontkit.wooahouse.com/" target="_blank" rel="noopener">WooaFont</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 WooaAudio. 모든 권리 보유.</p>
+      <div class="footer-bottom-links">
+        <a href="privacy.html">개인정보처리방침</a>
+        <a href="about.html">소개</a>
+      </div>
+    </div>
+    <p class="coupang-notice">이 포스팅은 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다.</p>
+  </div>
+</footer>
+
+<script>
+(function() {
+  const startBtn = document.getElementById('startBtn');
+  const stopBtn = document.getElementById('stopBtn');
+  const timerEl = document.getElementById('timer');
+  const statusEl = document.getElementById('statusText');
+  const micError = document.getElementById('micError');
+  const recordResult = document.getElementById('recordResult');
+  const playbackAudio = document.getElementById('playbackAudio');
+  const downloadBtn = document.getElementById('downloadBtn');
+  const resetBtn = document.getElementById('resetBtn');
+  const canvas = document.getElementById('visualizer');
+  const ctx = canvas.getContext('2d');
+
+  let mediaRecorder = null;
+  let audioChunks = [];
+  let timerInterval = null;
+  let seconds = 0;
+  let stream = null;
+  let analyser = null;
+  let audioCtx = null;
+  let animFrameId = null;
+  let wavBlob = null;
+
+  function resizeCanvas() {
+    canvas.width = canvas.offsetWidth * (window.devicePixelRatio || 1);
+    canvas.height = canvas.offsetHeight * (window.devicePixelRatio || 1);
+  }
+  resizeCanvas();
+  window.addEventListener('resize', resizeCanvas);
+
+  // Draw idle waveform
+  drawIdle();
+
+  function drawIdle() {
+    resizeCanvas();
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.strokeStyle = '#1e4d40';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(0, canvas.height / 2);
+    ctx.lineTo(canvas.width, canvas.height / 2);
+    ctx.stroke();
+  }
+
+  function drawWaveform() {
+    if (!analyser) return;
+    animFrameId = requestAnimationFrame(drawWaveform);
+    const bufLen = analyser.fftSize;
+    const dataArr = new Float32Array(bufLen);
+    analyser.getFloatTimeDomainData(dataArr);
+
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = '#0f172a';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    ctx.lineWidth = 2;
+    ctx.strokeStyle = '#10b981';
+    ctx.beginPath();
+    const sliceWidth = canvas.width / bufLen;
+    let x = 0;
+    for (let i = 0; i < bufLen; i++) {
+      const v = dataArr[i];
+      const y = (v * canvas.height / 2) + canvas.height / 2;
+      if (i === 0) ctx.moveTo(x, y);
+      else ctx.lineTo(x, y);
+      x += sliceWidth;
+    }
+    ctx.stroke();
+  }
+
+  function formatTime(s) {
+    const m = Math.floor(s / 60);
+    const sec = s % 60;
+    return String(m).padStart(2,'0') + ':' + String(sec).padStart(2,'0');
+  }
+
+  function audioBufferToWav(buffer) {
+    const numChannels = buffer.numberOfChannels;
+    const sampleRate = buffer.sampleRate;
+    const numFrames = buffer.length;
+    const bytesPerSample = 2;
+    const blockAlign = numChannels * bytesPerSample;
+    const byteRate = sampleRate * blockAlign;
+    const dataSize = numFrames * blockAlign;
+    const ab = new ArrayBuffer(44 + dataSize);
+    const view = new DataView(ab);
+    function writeString(view, offset, str) {
+      for (let i = 0; i < str.length; i++) view.setUint8(offset + i, str.charCodeAt(i));
+    }
+    writeString(view, 0, 'RIFF');
+    view.setUint32(4, 36 + dataSize, true);
+    writeString(view, 8, 'WAVE');
+    writeString(view, 12, 'fmt ');
+    view.setUint32(16, 16, true);
+    view.setUint16(20, 1, true);
+    view.setUint16(22, numChannels, true);
+    view.setUint32(24, sampleRate, true);
+    view.setUint32(28, byteRate, true);
+    view.setUint16(32, blockAlign, true);
+    view.setUint16(34, bytesPerSample * 8, true);
+    writeString(view, 36, 'data');
+    view.setUint32(40, dataSize, true);
+    let offset = 44;
+    for (let i = 0; i < numFrames; i++) {
+      for (let ch = 0; ch < numChannels; ch++) {
+        const sample = Math.max(-1, Math.min(1, buffer.getChannelData(ch)[i]));
+        view.setInt16(offset, sample * 0x7FFF, true);
+        offset += 2;
+      }
+    }
+    return ab;
+  }
+
+  startBtn.addEventListener('click', async () => {
+    micError.style.display = 'none';
+    recordResult.style.display = 'none';
+    try {
+      stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+    } catch (e) {
+      micError.style.display = 'block';
+      statusEl.textContent = '마이크 권한이 필요합니다.';
+      return;
+    }
+
+    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    analyser = audioCtx.createAnalyser();
+    analyser.fftSize = 2048;
+    const source = audioCtx.createMediaStreamSource(stream);
+    source.connect(analyser);
+
+    audioChunks = [];
+    const mimeType = MediaRecorder.isTypeSupported('audio/webm;codecs=opus')
+      ? 'audio/webm;codecs=opus'
+      : MediaRecorder.isTypeSupported('audio/webm') ? 'audio/webm' : '';
+    const options = mimeType ? { mimeType } : {};
+    mediaRecorder = new MediaRecorder(stream, options);
+    mediaRecorder.ondataavailable = e => { if (e.data.size > 0) audioChunks.push(e.data); };
+    mediaRecorder.onstop = async () => {
+      const rawBlob = new Blob(audioChunks, { type: mediaRecorder.mimeType });
+      // Convert to WAV
+      try {
+        const arrayBuf = await rawBlob.arrayBuffer();
+        const decoded = await audioCtx.decodeAudioData(arrayBuf);
+        const wavAb = audioBufferToWav(decoded);
+        wavBlob = new Blob([wavAb], { type: 'audio/wav' });
+        const url = URL.createObjectURL(wavBlob);
+        playbackAudio.src = url;
+        downloadBtn.href = url;
+        downloadBtn.download = 'recording_' + new Date().toISOString().slice(0,19).replace(/[:T]/g, '-') + '.wav';
+      } catch(e) {
+        // Fallback: offer raw blob
+        const url = URL.createObjectURL(rawBlob);
+        playbackAudio.src = url;
+        downloadBtn.href = url;
+        downloadBtn.download = 'recording.webm';
+      }
+      recordResult.style.display = 'block';
+      recordResult.scrollIntoView({ behavior: 'smooth' });
+    };
+    mediaRecorder.start(100);
+
+    seconds = 0;
+    timerEl.textContent = '00:00';
+    timerInterval = setInterval(() => {
+      seconds++;
+      timerEl.textContent = formatTime(seconds);
+    }, 1000);
+
+    startBtn.disabled = true;
+    stopBtn.disabled = false;
+    statusEl.innerHTML = '<span class="recording-dot"></span>녹음 중...';
+    statusEl.className = 'record-status recording';
+    drawWaveform();
+  });
+
+  stopBtn.addEventListener('click', () => {
+    if (mediaRecorder && mediaRecorder.state !== 'inactive') mediaRecorder.stop();
+    if (stream) stream.getTracks().forEach(t => t.stop());
+    clearInterval(timerInterval);
+    if (animFrameId) cancelAnimationFrame(animFrameId);
+    analyser = null;
+    startBtn.disabled = false;
+    stopBtn.disabled = true;
+    statusEl.textContent = '녹음 완료. 아래에서 재생하거나 다운로드하세요.';
+    statusEl.className = 'record-status';
+    drawIdle();
+  });
+
+  resetBtn.addEventListener('click', () => {
+    recordResult.style.display = 'none';
+    seconds = 0;
+    timerEl.textContent = '00:00';
+    statusEl.textContent = '녹음 시작 버튼을 눌러 마이크 권한을 요청합니다.';
+    statusEl.className = 'record-status';
+    playbackAudio.src = '';
+    downloadBtn.href = '';
+    drawIdle();
+  });
+})();
+</script>
+<script src="js/pwa-install.js"></script>
+</body>
+</html>

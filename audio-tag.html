@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9ZGENFSXWC"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-9ZGENFSXWC');
+</script>
+  <meta charset="UTF-8">
+  <meta name="naver-site-verification" content="7396a327607b884b9bef1283dfd3a5c6115a2b50">
+  <meta name="google-site-verification" content="tNM8tmr_6DFold03YSScWz4KEtu5Zo0Fsqc03u5Afms">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MP3 태그 편집기 무료 온라인 — ID3 메타데이터 수정 | WooaAudio</title>
+  <meta name="description" content="MP3 파일의 제목·아티스트·앨범·장르·앨범아트 등 ID3 태그를 브라우저에서 무료로 편집하세요. 서버 저장 없음, 설치 불필요.">
+  <meta name="keywords" content="MP3 태그 편집, ID3 태그, 오디오 메타데이터, 앨범 아트 추가, MP3 정보 수정, 음악 태그 편집기, 무료 ID3 편집">
+  <link rel="canonical" href="https://wooaaudio.wooahouse.com/audio-tag.html">
+  <meta property="og:title" content="MP3 태그 편집기 무료 | WooaAudio">
+  <meta property="og:description" content="MP3 ID3 태그(제목·아티스트·앨범·앨범아트) 브라우저에서 무료 편집.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://wooaaudio.wooahouse.com/audio-tag.html">
+  <meta property="og:locale" content="ko_KR">
+  <meta property="og:image" content="https://wooaaudio.wooahouse.com/og-image.png">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6464921081676309" crossorigin="anonymous"></script>
+  <script src="https://ads-partners.coupang.com/g.js"></script>
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#059669">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="WooaAudio">
+  <link rel="stylesheet" href="css/style.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "MP3 태그 편집기",
+    "url": "https://wooaaudio.wooahouse.com/audio-tag.html",
+    "applicationCategory": "MultimediaApplication",
+    "operatingSystem": "Web",
+    "inLanguage": "ko",
+    "isAccessibleForFree": true,
+    "offers": {"@type":"Offer","price":"0","priceCurrency":"KRW"}
+  }
+  </script>
+  <style>
+    .tag-form { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 16px; }
+    @media (max-width: 600px) { .tag-form { grid-template-columns: 1fr; } }
+    .tag-field { display: flex; flex-direction: column; gap: 6px; }
+    .tag-field label { font-size: 0.82rem; font-weight: 600; color: #374151; }
+    .tag-field input, .tag-field select { padding: 9px 12px; border: 1px solid #d1fae5; border-radius: 8px; font-size: 0.9rem; outline: none; transition: border-color 0.2s; }
+    .tag-field input:focus, .tag-field select:focus { border-color: #059669; }
+    .tag-field.full { grid-column: 1 / -1; }
+    .art-section { display: flex; gap: 20px; align-items: flex-start; flex-wrap: wrap; margin-top: 8px; }
+    .art-preview {
+      width: 140px; height: 140px; border-radius: 12px;
+      border: 2px dashed #d1fae5; background: #f0fdf4;
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden; flex-shrink: 0; cursor: pointer; position: relative;
+    }
+    .art-preview img { width: 100%; height: 100%; object-fit: cover; border-radius: 10px; }
+    .art-preview .art-placeholder { color: #9ca3af; font-size: 0.78rem; text-align: center; padding: 8px; }
+    .art-preview .art-overlay {
+      position: absolute; inset: 0; background: rgba(0,0,0,0.45);
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; transition: opacity 0.2s; border-radius: 10px; color: #fff; font-size: 0.78rem;
+    }
+    .art-preview:hover .art-overlay { opacity: 1; }
+    .art-info { flex: 1; min-width: 160px; }
+    .art-info p { font-size: 0.83rem; color: #6b7280; margin-bottom: 10px; line-height: 1.5; }
+    .genre-grid { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
+    .genre-tag {
+      padding: 3px 10px; border-radius: 20px; border: 1px solid #d1fae5;
+      font-size: 0.78rem; cursor: pointer; background: #f0fdf4; color: #374151;
+      transition: all 0.15s;
+    }
+    .genre-tag:hover { background: #059669; color: #fff; border-color: #059669; }
+    .tag-divider { grid-column: 1/-1; border: none; border-top: 1px solid #e5e7eb; margin: 4px 0; }
+    .info-badge { display: inline-flex; gap: 6px; background: #f0fdf4; border-radius: 8px; padding: 8px 14px; font-size: 0.82rem; color: #374151; margin-bottom: 12px; flex-wrap: wrap; }
+    .info-badge span { color: #059669; font-weight: 600; }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a href="index.html" class="logo">WooaAudio</a>
+    <nav>
+      <a href="audio-convert.html">포맷 변환</a>
+      <a href="audio-cut.html">오디오 자르기</a>
+      <a href="audio-merge.html">오디오 합치기</a>
+      <a href="audio-volume.html">볼륨 조절</a>
+      <a href="index.html">전체 도구 ›</a>
+    </nav>
+  </div>
+</header>
+
+<div class="our-sites-bar">
+  <span class="our-sites-label">WooaHouse Services</span>
+  <div class="our-sites-links">
+    <a href="https://wooahouse.com/" target="_blank" rel="noopener">🔗 WooaHouse</a>
+    <a href="https://pdfkit.wooahouse.com/" target="_blank" rel="noopener">📄 WooaPDF</a>
+    <a href="https://imagekit.wooahouse.com/" target="_blank" rel="noopener">🖼️ WooaImage</a>
+    <a href="https://colorkit.wooahouse.com/" target="_blank" rel="noopener">🎨 WooaColor</a>
+    <a href="https://textkit.wooahouse.com/" target="_blank" rel="noopener">✏️ WooaText</a>
+    <a href="https://qrkit.wooahouse.com/" target="_blank" rel="noopener">📱 WooaQR</a>
+    <a href="https://calckit.wooahouse.com/" target="_blank" rel="noopener">🧮 WooaCalc</a>
+    <a href="https://fontkit.wooahouse.com/" target="_blank" rel="noopener">🔤 WooaFont</a>
+    <a href="https://mactools.wooahouse.com/" target="_blank" rel="noopener">🍎 WooaMac</a>
+    <a href="https://pctools.wooahouse.com/" target="_blank" rel="noopener">🖥️ WooaPC</a>
+    <a href="https://vskit.wooahouse.com/" target="_blank" rel="noopener">💻 WooaVS</a>
+    <a href="https://wooaaudio.wooahouse.com/" target="_blank" rel="noopener" class="active">🎵 WooaAudio</a>
+    <a href="https://wooaviewer.wooahouse.com/" target="_blank" rel="noopener">🔍 WooaViewer</a>
+    <a href="https://wooadev.wooahouse.com/" target="_blank" rel="noopener">🛠️ WooaDev</a>
+  </div>
+</div>
+
+<div class="mobile-top-ad">
+  <ins class="adsbygoogle" style="display:block;width:100%;height:80px" data-ad-client="ca-pub-6464921081676309" data-ad-slot="7080296704" data-ad-format="auto" data-full-width-responsive="true"></ins>
+  <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+
+<div class="page-with-sidebar">
+<main class="tool-page">
+  <div class="breadcrumb">
+    <a href="index.html">홈</a>
+    <span>›</span>
+    <span>태그 편집기</span>
+  </div>
+
+  <div class="tool-header">
+    <span class="tool-header-icon">🏷️</span>
+    <h1>MP3 태그 편집기 무료 온라인</h1>
+    <p>MP3 파일의 제목·아티스트·앨범·앨범아트 등 ID3 태그를 브라우저에서 편집합니다. 파일은 서버에 저장되지 않습니다.</p>
+  </div>
+
+  <!-- Drop Zone -->
+  <div class="drop-zone" id="dropZone">
+    <span class="drop-zone-icon">🏷️</span>
+    <h3>MP3 파일을 여기에 끌어다 놓으세요</h3>
+    <p>MP3 파일만 지원합니다 (ID3 태그 읽기/쓰기)</p>
+    <label for="fileInput" class="btn-select">MP3 파일 선택</label>
+    <input type="file" id="fileInput" accept=".mp3,audio/mpeg" style="display:none">
+  </div>
+
+  <!-- 파일 정보 -->
+  <div id="fileInfoPanel" style="display:none; margin-top:16px;">
+    <div class="info-badge" id="fileInfoBadge"></div>
+  </div>
+
+  <!-- 태그 편집 패널 -->
+  <div id="editPanel" class="options-panel" style="display:none">
+    <div class="options-title">🏷️ 태그 편집</div>
+
+    <!-- 앨범 아트 -->
+    <div style="margin-bottom:20px;">
+      <label style="font-size:0.82rem;font-weight:600;color:#374151;display:block;margin-bottom:8px;">앨범 아트 (커버 이미지)</label>
+      <div class="art-section">
+        <div class="art-preview" id="artPreview" onclick="document.getElementById('artInput').click()">
+          <div class="art-placeholder" id="artPlaceholder">🖼️<br>클릭하여<br>이미지 추가</div>
+          <img id="artImg" style="display:none">
+          <div class="art-overlay">🖊️ 변경</div>
+        </div>
+        <div class="art-info">
+          <p>JPG, PNG 이미지를 앨범 아트로 설정합니다.<br>정사각형 이미지 권장 (500×500px 이상).</p>
+          <input type="file" id="artInput" accept="image/jpeg,image/png" style="display:none" onchange="loadArt(event)">
+          <button class="btn-action" onclick="document.getElementById('artInput').click()" style="margin-right:8px;">🖼️ 이미지 선택</button>
+          <button class="btn-action" id="artRemoveBtn" onclick="removeArt()" style="display:none;">✕ 제거</button>
+        </div>
+      </div>
+    </div>
+
+    <hr class="tag-divider">
+
+    <!-- 태그 필드들 -->
+    <div class="tag-form">
+      <div class="tag-field full">
+        <label>곡 제목 (Title)</label>
+        <input type="text" id="tagTitle" placeholder="곡 제목을 입력하세요">
+      </div>
+      <div class="tag-field">
+        <label>아티스트 (Artist)</label>
+        <input type="text" id="tagArtist" placeholder="아티스트명">
+      </div>
+      <div class="tag-field">
+        <label>앨범 아티스트 (Album Artist)</label>
+        <input type="text" id="tagAlbumArtist" placeholder="앨범 아티스트명">
+      </div>
+      <div class="tag-field">
+        <label>앨범 (Album)</label>
+        <input type="text" id="tagAlbum" placeholder="앨범명">
+      </div>
+      <div class="tag-field">
+        <label>연도 (Year)</label>
+        <input type="number" id="tagYear" placeholder="2024" min="1900" max="2099">
+      </div>
+      <div class="tag-field">
+        <label>트랙 번호 (Track)</label>
+        <input type="text" id="tagTrack" placeholder="1 또는 1/12">
+      </div>
+      <div class="tag-field">
+        <label>디스크 번호 (Disc)</label>
+        <input type="text" id="tagDisc" placeholder="1 또는 1/2">
+      </div>
+      <div class="tag-field full">
+        <label>장르 (Genre)</label>
+        <input type="text" id="tagGenre" placeholder="Rock, K-Pop, Classical ...">
+        <div class="genre-grid">
+          <span class="genre-tag" onclick="setGenre('Pop')">Pop</span>
+          <span class="genre-tag" onclick="setGenre('Rock')">Rock</span>
+          <span class="genre-tag" onclick="setGenre('K-Pop')">K-Pop</span>
+          <span class="genre-tag" onclick="setGenre('Hip-Hop')">Hip-Hop</span>
+          <span class="genre-tag" onclick="setGenre('R&B')">R&B</span>
+          <span class="genre-tag" onclick="setGenre('Jazz')">Jazz</span>
+          <span class="genre-tag" onclick="setGenre('Classical')">Classical</span>
+          <span class="genre-tag" onclick="setGenre('Electronic')">Electronic</span>
+          <span class="genre-tag" onclick="setGenre('Ballad')">Ballad</span>
+          <span class="genre-tag" onclick="setGenre('Indie')">Indie</span>
+          <span class="genre-tag" onclick="setGenre('OST')">OST</span>
+        </div>
+      </div>
+      <div class="tag-field full">
+        <label>코멘트 (Comment)</label>
+        <input type="text" id="tagComment" placeholder="메모나 설명을 입력하세요">
+      </div>
+      <div class="tag-field full">
+        <label>작곡가 (Composer)</label>
+        <input type="text" id="tagComposer" placeholder="작곡가명">
+      </div>
+      <div class="tag-field full">
+        <label>저작권 (Copyright)</label>
+        <input type="text" id="tagCopyright" placeholder="© 2024 Artist Name">
+      </div>
+    </div>
+
+    <div id="errorMsg" class="alert alert-error" style="display:none;margin-top:16px;"></div>
+
+    <div style="margin-top:20px;display:flex;gap:10px;flex-wrap:wrap;">
+      <button class="btn-convert" id="downloadBtn" onclick="saveTags()">💾 태그 저장 후 다운로드</button>
+      <button class="btn-action" onclick="clearAll()">↩️ 초기화</button>
+    </div>
+
+    <p style="margin-top:12px;font-size:0.8rem;color:#9ca3af;">
+      * ID3v2.3 형식으로 저장됩니다. MP3 파일만 지원합니다.
+    </p>
+  </div>
+
+  <!-- FAQ -->
+  <section style="max-width:800px;margin:3rem auto;padding:0 1rem;">
+    <h2 class="faq-title">자주 묻는 질문</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <div class="faq-q">Q. ID3 태그가 무엇인가요?</div>
+        <div class="faq-a">MP3 파일에 내장된 메타데이터 규격입니다. 곡 제목, 아티스트, 앨범, 장르, 앨범 커버 이미지 등의 정보를 파일 안에 저장합니다. 음악 앱에서 곡 정보로 표시됩니다.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Q. MP3 외 다른 형식도 지원하나요?</div>
+        <div class="faq-a">현재 MP3(ID3 태그)만 지원합니다. FLAC, M4A, OGG 등은 다른 태그 규격을 사용하므로 별도 지원 예정입니다.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Q. 원본 오디오 품질이 바뀌나요?</div>
+        <div class="faq-a">아니요. 태그 정보만 수정되며 오디오 데이터는 그대로 유지됩니다. 음질에는 전혀 영향이 없습니다.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Q. 파일이 서버에 저장되나요?</div>
+        <div class="faq-a">아니요. 모든 처리는 브라우저에서만 이루어지며 파일이 서버로 전송되지 않습니다.</div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<aside class="tool-sidebar">
+  <div class="ad-card">
+    <ins class="adsbygoogle" style="display:block;width:100%;min-height:250px" data-ad-client="ca-pub-6464921081676309" data-ad-slot="1419180025" data-ad-format="auto" data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+  <div class="ad-card" style="margin-top:16px;">
+    <script>new PartnersCoupang.G({"id":986943,"template":"carousel","trackingCode":"AF5600192","width":"160","height":"200","tsource":""});</script>
+  </div>
+</aside>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-bottom">
+      <p>© 2026 WooaAudio. 모든 권리 보유.</p>
+      <div class="footer-bottom-links">
+        <a href="privacy.html">개인정보처리방침</a>
+        <a href="about.html">소개</a>
+      </div>
+    </div>
+    <p class="coupang-notice">이 포스팅은 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다.</p>
+  </div>
+</footer>
+
+<!-- jsmediatags: ID3 태그 읽기 -->
+<script src="https://cdn.jsdelivr.net/npm/jsmediatags@3.9.7/dist/jsmediatags.min.js"></script>
+<!-- browser-id3-writer: ID3 태그 쓰기 -->
+<script src="https://cdn.jsdelivr.net/npm/browser-id3-writer@4.4.0/dist/browser-id3-writer.min.js"></script>
+
+<script>
+  let selectedFile = null;
+  let artBuffer = null;   // ArrayBuffer of cover image
+  let artMimeType = null; // 'image/jpeg' or 'image/png'
+
+  // ── Drop Zone ──────────────────────────────────────────────
+  const dropZone = document.getElementById('dropZone');
+  dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('drag-over'); });
+  dropZone.addEventListener('dragleave', () => dropZone.classList.remove('drag-over'));
+  dropZone.addEventListener('drop', e => {
+    e.preventDefault(); dropZone.classList.remove('drag-over');
+    const file = e.dataTransfer.files[0];
+    if (file) loadFile(file);
+  });
+  dropZone.addEventListener('click', e => {
+    if (e.target.tagName === 'LABEL' || e.target.id === 'fileInput') return;
+    document.getElementById('fileInput').click();
+  });
+  document.getElementById('fileInput').addEventListener('change', e => {
+    if (e.target.files[0]) loadFile(e.target.files[0]);
+  });
+
+  // ── 파일 로드 ───────────────────────────────────────────────
+  function loadFile(file) {
+    if (!file.name.toLowerCase().endsWith('.mp3') && file.type !== 'audio/mpeg') {
+      showError('MP3 파일만 지원합니다.'); return;
+    }
+    hideError();
+    selectedFile = file;
+
+    // 파일 정보 표시
+    document.getElementById('fileInfoBadge').innerHTML =
+      `🎵 <span>${file.name}</span>&nbsp;&nbsp;📦 크기: <span>${formatSize(file.size)}</span>`;
+    document.getElementById('fileInfoPanel').style.display = 'block';
+    document.getElementById('editPanel').style.display = 'block';
+
+    // 기존 태그 읽기
+    jsmediatags.read(file, {
+      onSuccess(tag) {
+        const t = tag.tags;
+        setValue('tagTitle',       t.title       || '');
+        setValue('tagArtist',      t.artist      || '');
+        setValue('tagAlbum',       t.album        || '');
+        setValue('tagYear',        t.year         || '');
+        setValue('tagTrack',       t.track        || '');
+        setValue('tagGenre',       t.genre        || '');
+        setValue('tagComment',     (t.comment && t.comment.text) ? t.comment.text : '');
+        setValue('tagComposer',    t.composer     || '');
+        setValue('tagAlbumArtist', t.band         || '');  // TPE2
+        setValue('tagDisc',        t.partOfSet    || '');  // TPOS
+        setValue('tagCopyright',   t.copyright    || '');  // TCOP
+
+        // 앨범 아트
+        if (t.picture) {
+          const pic = t.picture;
+          const byteArr = new Uint8Array(pic.data);
+          artBuffer = byteArr.buffer;
+          artMimeType = pic.format || 'image/jpeg';
+          const blob = new Blob([byteArr], { type: artMimeType });
+          displayArt(URL.createObjectURL(blob));
+        }
+      },
+      onError(err) {
+        // 태그 없음 — 빈 폼으로 시작
+        console.log('태그 없음:', err);
+      }
+    });
+  }
+
+  function setValue(id, val) {
+    const el = document.getElementById(id);
+    if (el) el.value = val;
+  }
+
+  // ── 앨범 아트 ───────────────────────────────────────────────
+  function loadArt(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+    artMimeType = file.type || 'image/jpeg';
+    const reader = new FileReader();
+    reader.onload = e => {
+      artBuffer = e.target.result;
+      displayArt(URL.createObjectURL(file));
+    };
+    reader.readAsArrayBuffer(file);
+  }
+
+  function displayArt(url) {
+    const img = document.getElementById('artImg');
+    img.src = url;
+    img.style.display = 'block';
+    document.getElementById('artPlaceholder').style.display = 'none';
+    document.getElementById('artRemoveBtn').style.display = 'inline-flex';
+  }
+
+  function removeArt() {
+    artBuffer = null; artMimeType = null;
+    const img = document.getElementById('artImg');
+    img.src = ''; img.style.display = 'none';
+    document.getElementById('artPlaceholder').style.display = 'flex';
+    document.getElementById('artRemoveBtn').style.display = 'none';
+    document.getElementById('artInput').value = '';
+  }
+
+  // ── 장르 빠른 선택 ──────────────────────────────────────────
+  function setGenre(genre) {
+    document.getElementById('tagGenre').value = genre;
+  }
+
+  // ── 태그 저장 + 다운로드 ────────────────────────────────────
+  function saveTags() {
+    if (!selectedFile) { showError('파일을 먼저 선택하세요.'); return; }
+    hideError();
+
+    const btn = document.getElementById('downloadBtn');
+    btn.textContent = '처리 중...';
+    btn.disabled = true;
+
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      try {
+        const writer = new ID3Writer(e.target.result);
+
+        const title       = document.getElementById('tagTitle').value.trim();
+        const artist      = document.getElementById('tagArtist').value.trim();
+        const albumArtist = document.getElementById('tagAlbumArtist').value.trim();
+        const album       = document.getElementById('tagAlbum').value.trim();
+        const year        = document.getElementById('tagYear').value.trim();
+        const track       = document.getElementById('tagTrack').value.trim();
+        const disc        = document.getElementById('tagDisc').value.trim();
+        const genre       = document.getElementById('tagGenre').value.trim();
+        const comment     = document.getElementById('tagComment').value.trim();
+        const composer    = document.getElementById('tagComposer').value.trim();
+        const copyright   = document.getElementById('tagCopyright').value.trim();
+
+        if (title)       writer.setFrame('TIT2', title);
+        if (artist)      writer.setFrame('TPE1', [artist]);
+        if (albumArtist) writer.setFrame('TPE2', [albumArtist]);
+        if (album)       writer.setFrame('TALB', album);
+        if (year)        writer.setFrame('TYER', parseInt(year));
+        if (track)       writer.setFrame('TRCK', track);
+        if (disc)        writer.setFrame('TPOS', disc);
+        if (genre)       writer.setFrame('TCON', [genre]);
+        if (composer)    writer.setFrame('TCOM', [composer]);
+        if (copyright)   writer.setFrame('TCOP', copyright);
+        if (comment) {
+          writer.setFrame('COMM', {
+            description: '',
+            text: comment,
+            language: 'kor'
+          });
+        }
+        if (artBuffer) {
+          writer.setFrame('APIC', {
+            type: 3,
+            data: artBuffer,
+            description: 'Front cover',
+            useUnicode: true
+          });
+        }
+
+        writer.addTag();
+
+        const url = writer.getURL();
+        const a = document.createElement('a');
+        a.href = url;
+        const baseName = selectedFile.name.replace(/\.mp3$/i, '');
+        a.download = baseName + '_tagged.mp3';
+        a.click();
+
+        setTimeout(() => URL.revokeObjectURL(url), 5000);
+        btn.textContent = '💾 태그 저장 후 다운로드';
+        btn.disabled = false;
+
+      } catch (err) {
+        showError('태그 저장 중 오류가 발생했습니다: ' + err.message);
+        btn.textContent = '💾 태그 저장 후 다운로드';
+        btn.disabled = false;
+      }
+    };
+    reader.onerror = () => {
+      showError('파일을 읽는 중 오류가 발생했습니다.');
+      btn.textContent = '💾 태그 저장 후 다운로드';
+      btn.disabled = false;
+    };
+    reader.readAsArrayBuffer(selectedFile);
+  }
+
+  // ── 초기화 ──────────────────────────────────────────────────
+  function clearAll() {
+    selectedFile = null; artBuffer = null; artMimeType = null;
+    ['tagTitle','tagArtist','tagAlbumArtist','tagAlbum','tagYear',
+     'tagTrack','tagDisc','tagGenre','tagComment','tagComposer','tagCopyright']
+      .forEach(id => { const el = document.getElementById(id); if(el) el.value = ''; });
+    removeArt();
+    document.getElementById('fileInfoPanel').style.display = 'none';
+    document.getElementById('editPanel').style.display = 'none';
+    document.getElementById('fileInput').value = '';
+    hideError();
+  }
+
+  function showError(msg) {
+    const el = document.getElementById('errorMsg');
+    el.textContent = msg; el.style.display = 'block';
+  }
+  function hideError() {
+    document.getElementById('errorMsg').style.display = 'none';
+  }
+  function formatSize(b) {
+    if (b < 1024) return b + ' B';
+    if (b < 1024*1024) return (b/1024).toFixed(1) + ' KB';
+    return (b/(1024*1024)).toFixed(1) + ' MB';
+  }
+</script>
+
+<script src="js/pwa-install.js"></script>
+</body>
+</html>
