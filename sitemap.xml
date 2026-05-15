@@ -44,4 +44,34 @@
     <loc>https://wooaaudio.wooahouse.com/audio-info.html</loc>
     <priority>0.7</priority>
   </url>
+  <url>
+    <loc>https://wooaaudio.wooahouse.com/audio-record.html</loc>
+    <lastmod>2026-05-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://wooaaudio.wooahouse.com/audio-fade.html</loc>
+    <lastmod>2026-05-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://wooaaudio.wooahouse.com/audio-pitch.html</loc>
+    <lastmod>2026-05-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://wooaaudio.wooahouse.com/audio-ringtone.html</loc>
+    <lastmod>2026-05-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://wooaaudio.wooahouse.com/audio-tag.html</loc>
+    <lastmod>2026-05-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
 </urlset>
