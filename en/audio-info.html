@@ -1,0 +1,421 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9ZGENFSXWC"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-9ZGENFSXWC');
+</script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Audio Info Free Online – Check MP3 WAV Duration, Sample Rate & Metadata | WooaAudio</title>
+  <meta name="description" content="Instantly check audio file info: duration, sample rate, channels, bitrate and file size. Works with MP3, WAV, FLAC and more. Browser-based, no upload.">
+  <meta name="keywords" content="audio info, audio metadata, MP3 info, audio duration, sample rate checker, audio file info online free, bitrate checker, audio properties">
+  <link rel="canonical" href="https://wooaaudio.wooahouse.com/en/audio-info.html">
+  <link rel="alternate" hreflang="ko" href="https://wooaaudio.wooahouse.com/audio-info.html">
+  <link rel="alternate" hreflang="en" href="https://wooaaudio.wooahouse.com/en/audio-info.html">
+  <link rel="alternate" hreflang="x-default" href="https://wooaaudio.wooahouse.com/en/audio-info.html">
+  <meta name="naver-site-verification" content="7396a327607b884b9bef1283dfd3a5c6115a2b50">
+  <meta name="google-site-verification" content="tNM8tmr_6DFold03YSScWz4KEtu5Zo0Fsqc03u5Afms">
+  <meta property="og:title" content="Audio Info Free Online – Duration, Bitrate, Channels | WooaAudio">
+  <meta property="og:description" content="Check audio file properties: duration, sample rate, channels, bitrate. Free, no signup, no server upload.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://wooaaudio.wooahouse.com/en/audio-info.html">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:image" content="https://wooaaudio.wooahouse.com/og-image.png">
+  <link rel="manifest" href="../manifest.json">
+  <meta name="theme-color" content="#059669">
+  <link rel="stylesheet" href="../css/style.css">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6464921081676309" crossorigin="anonymous"></script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Audio Info Tool",
+    "url": "https://wooaaudio.wooahouse.com/en/audio-info.html",
+    "applicationCategory": "MultimediaApplication",
+    "operatingSystem": "Web",
+    "inLanguage": "en",
+    "isAccessibleForFree": true,
+    "offers": {"@type":"Offer","price":"0","priceCurrency":"USD"}
+  }
+  </script>
+  <style>
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 12px;
+      margin-top: 16px;
+    }
+    .info-card {
+      background: #f8f9fa;
+      border-radius: 12px;
+      padding: 16px;
+      border: 1px solid #e5e7eb;
+    }
+    .info-card-label {
+      font-size: 0.78rem;
+      color: #6b7280;
+      margin-bottom: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .info-card-value {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #059669;
+    }
+    .info-card-sub {
+      font-size: 0.8rem;
+      color: #9ca3af;
+      margin-top: 2px;
+    }
+    .file-info-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: linear-gradient(135deg, #059669, #34D399);
+      border-radius: 14px;
+      padding: 16px 20px;
+      margin-bottom: 16px;
+      color: #fff;
+    }
+    .file-info-icon { font-size: 2rem; }
+    .file-info-name { font-weight: 700; font-size: 1rem; word-break: break-all; }
+    .file-info-size { font-size: 0.85rem; opacity: 0.85; }
+    #multiList { display: none; }
+    .multi-item {
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      margin-bottom: 12px;
+      overflow: hidden;
+    }
+    .multi-item-header {
+      padding: 12px 16px;
+      background: #f8f9fa;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: 600;
+    }
+    .multi-item-body { padding: 12px 16px; display: none; }
+    .multi-item-body.open { display: block; }
+    .lang-switcher { display:flex; align-items:center; gap:4px; }
+    .lang-switcher a { color:rgba(255,255,255,0.7); text-decoration:none; font-size:0.8rem; font-weight:600; padding:3px 8px; border-radius:12px; transition:background 0.15s; }
+    .lang-switcher a.active { color:white; background:rgba(255,255,255,0.25); }
+    .lang-switcher a:hover { color:white; background:rgba(255,255,255,0.18); }
+    .lang-switcher span { color:rgba(255,255,255,0.3); font-size:0.75rem; }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a href="index.html" class="logo">WooaAudio</a>
+    <nav>
+      <a href="audio-convert.html">Convert</a>
+      <a href="audio-waveform.html">Waveform Visualizer</a>
+      <a href="audio-info.html">Audio Info</a>
+      <a href="index.html">All Tools ›</a>
+    </nav>
+    <div class="header-right">
+      <div class="lang-switcher">
+        <a href="../audio-info.html">KO</a>
+        <span>|</span>
+        <a href="audio-info.html" class="active">EN</a>
+      </div>
+      <a href="../about.html" style="color:rgba(255,255,255,0.85); font-size:0.85rem; text-decoration:none; margin-left:8px;">About</a>
+    </div>
+  </div>
+</header>
+
+<div class="our-sites-bar">
+  <span class="our-sites-label">WooaHouse Services</span>
+  <div class="our-sites-links">
+    <a href="https://wooahouse.com/" target="_blank" rel="noopener">🔗 WooaHouse</a>
+    <a href="https://pdfkit.wooahouse.com/" target="_blank" rel="noopener">📄 WooaPDF</a>
+    <a href="https://imagekit.wooahouse.com/" target="_blank" rel="noopener">🖼️ WooaImage</a>
+    <a href="https://colorkit.wooahouse.com/" target="_blank" rel="noopener">🎨 WooaColor</a>
+    <a href="https://textkit.wooahouse.com/" target="_blank" rel="noopener">✏️ WooaText</a>
+    <a href="https://qrkit.wooahouse.com/" target="_blank" rel="noopener">📱 WooaQR</a>
+    <a href="https://calckit.wooahouse.com/" target="_blank" rel="noopener">🧮 WooaCalc</a>
+    <a href="https://fontkit.wooahouse.com/" target="_blank" rel="noopener">🔤 WooaFont</a>
+    <a href="https://mactools.wooahouse.com/" target="_blank" rel="noopener">🍎 WooaMac</a>
+    <a href="https://pctools.wooahouse.com/" target="_blank" rel="noopener">🖥️ WooaPC</a>
+    <a href="https://vskit.wooahouse.com/" target="_blank" rel="noopener">💻 WooaVS</a>
+    <a href="https://wooaaudio.wooahouse.com/en/" target="_blank" rel="noopener" class="active">🎵 WooaAudio</a>
+  </div>
+</div>
+
+<div class="mobile-top-ad">
+  <ins class="adsbygoogle" style="display:block;width:100%;height:80px" data-ad-client="ca-pub-6464921081676309" data-ad-slot="7080296704" data-ad-format="auto" data-full-width-responsive="true"></ins>
+  <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+
+<div class="page-with-sidebar">
+<main class="tool-page">
+  <div class="breadcrumb">
+    <a href="index.html">Home</a>
+    <span>›</span>
+    <span>Audio Info</span>
+  </div>
+
+  <div class="tool-header">
+    <span class="tool-header-icon">ℹ️</span>
+    <h1>Audio Info – Free Online</h1>
+    <p>Upload an audio file to instantly view its properties: duration, sample rate, channels, bitrate, and more. All processing happens in your browser.</p>
+  </div>
+
+  <div class="drop-zone" id="dropZone">
+    <span class="drop-zone-icon">📂</span>
+    <h3>Drop your audio file here</h3>
+    <p>MP3, WAV, OGG, FLAC, AAC, M4A 지원 · 여러 파일 동시 선택 가능</p>
+    <label for="fileInput" class="btn-select">Select Audio File</label>
+    <input type="file" id="fileInput" accept="audio/*,.mp3,.wav,.ogg,.flac,.aac,.m4a,.opus,.aiff" style="display:none" multiple>
+  </div>
+
+  <div id="loadingMsg" style="display:none;text-align:center;padding:24px;color:#059669;font-weight:600;">⏳ 파일 분석 중...</div>
+  <div id="errorMsg" class="alert alert-error" style="display:none"></div>
+
+  <!-- 단일 파일 결과 -->
+  <div id="singleResult" style="display:none;">
+    <div class="file-info-header">
+      <span class="file-info-icon">🎵</span>
+      <div>
+        <div class="file-info-name" id="infoFileName"></div>
+        <div class="file-info-size" id="infoFileSize"></div>
+      </div>
+    </div>
+    <div class="info-grid" id="infoGrid"></div>
+    <div style="text-align:center;margin:20px 0;">
+      <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-6464921081676309" data-ad-slot="1419180025" data-ad-format="auto" data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+    <button id="resetBtn" style="margin-top:8px;padding:10px 24px;background:#f3f4f6;color:#374151;border:1px solid #e5e7eb;border-radius:10px;cursor:pointer;font-size:0.95rem;">다시 선택</button>
+  </div>
+
+  <!-- 다중 파일 결과 -->
+  <div id="multiList"></div>
+
+  <div class="cross-link-banner" style="max-width:800px;margin:2rem auto;padding:1rem 1.5rem;background:linear-gradient(135deg,#f0fdf4,#dcfce7);border-radius:12px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.8rem;">
+    <span style="font-size:0.95rem;color:#444;">Want to visualize the audio waveform?</span>
+    <a href="../audio-waveform.html" target="_blank" rel="noopener" style="background:#059669;color:#fff;padding:0.5rem 1rem;border-radius:8px;text-decoration:none;font-size:0.9rem;white-space:nowrap;">📈 Waveform Visualizer →</a>
+  </div>
+
+  <section style="max-width:800px;margin:3rem auto;padding:0 1rem;">
+    <h2 class="faq-title">Frequently Asked Questions</h2>
+    <div class="faq-list">
+      <div class="faq-item" style="margin-bottom:1.2rem;padding:1rem;background:#f8f9fa;border-radius:8px;">
+        <h3 style="font-size:1rem;font-weight:600;margin-bottom:0.5rem;">Q. What information is displayed?</h3>
+        <p style="color:#555;margin:0;">Duration, sample rate, number of channels, bitrate, file size, and file format are all shown.</p>
+      </div>
+      <div class="faq-item" style="margin-bottom:1.2rem;padding:1rem;background:#f8f9fa;border-radius:8px;">
+        <h3 style="font-size:1rem;font-weight:600;margin-bottom:0.5rem;">Q. What formats are supported?</h3>
+        <p style="color:#555;margin:0;">MP3, WAV, OGG, FLAC, AAC, M4A, OPUS, and AIFF are all supported.</p>
+      </div>
+      <div class="faq-item" style="padding:1rem;background:#f8f9fa;border-radius:8px;">
+        <h3 style="font-size:1rem;font-weight:600;margin-bottom:0.5rem;">Q. Is the audio file uploaded to a server?</h3>
+        <p style="color:#555;margin:0;">No. All information is read directly in your browser. No files are sent to any server.</p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<aside class="tool-sidebar">
+  <div class="ad-card">
+    <ins class="adsbygoogle"
+         style="display:block;width:100%;min-height:250px"
+         data-ad-client="ca-pub-6464921081676309"
+         data-ad-slot="1419180025"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+  <div style="margin-top:16px;overflow:hidden;border-radius:14px;">    
+  </div>
+</aside>
+</div>
+
+<div class="features" style="margin-top:60px">
+  <div class="features-inner">
+    <div><div class="feature-icon">🔒</div><div class="feature-title">100% Safe</div><div class="feature-desc">Files are never sent to a server. All processing happens inside your browser.</div></div>
+    <div><div class="feature-icon">⚡</div><div class="feature-title">Fast Processing</div><div class="feature-desc">Local processing with no upload wait — repeat tasks are quick and easy.</div></div>
+    <div><div class="feature-icon">💸</div><div class="feature-title">Completely Free</div><div class="feature-desc">All major audio features are free — no signup required.</div></div>
+    <div><div class="feature-icon">📱</div><div class="feature-title">All Devices</div><div class="feature-desc">Responsive design works on PC, tablet, and smartphone.</div></div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <span class="logo-footer">WooaAudio</span>
+        <p>Free online audio toolkit. Convert, edit, and analyze audio safely in your browser.</p>
+      </div>
+      <div class="footer-links">
+        <h4>오디오 분석</h4>
+        <a href="audio-waveform.html">Waveform Visualizer</a>
+        <a href="audio-info.html">Audio Info</a>
+        <a href="audio-convert.html">오디오 변환</a>
+      </div>
+      <div class="footer-links">
+        <h4>WooaHouse Services</h4>
+        <a href="https://pdfkit.wooahouse.com/" target="_blank" rel="noopener">WooaPDF</a>
+        <a href="https://imagekit.wooahouse.com/" target="_blank" rel="noopener">WooaImage</a>
+        <a href="https://fontkit.wooahouse.com/" target="_blank" rel="noopener">WooaFont</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 WooaAudio. All rights reserved.</p>
+      <div class="footer-bottom-links">
+        <a href="../privacy.html">Privacy Policy</a>
+        <a href="../about.html">About</a>
+      </div>
+    </div>
+    
+  </div>
+</footer>
+
+<script>
+let audioCtx = null;
+
+const dropZone = document.getElementById('dropZone');
+const fileInput = document.getElementById('fileInput');
+
+dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('drag-over'); });
+dropZone.addEventListener('dragleave', () => dropZone.classList.remove('drag-over'));
+dropZone.addEventListener('drop', e => { e.preventDefault(); dropZone.classList.remove('drag-over'); analyzeFiles([...e.dataTransfer.files]); });
+dropZone.addEventListener('click', e => { if (e.target.tagName !== 'LABEL') fileInput.click(); });
+fileInput.addEventListener('change', e => analyzeFiles([...e.target.files]));
+document.getElementById('resetBtn').addEventListener('click', resetAll);
+
+async function analyzeFiles(files) {
+  const valid = files.filter(f => f.type.startsWith('audio/') || /\.(mp3|wav|ogg|flac|aac|m4a|opus|aiff|wma)$/i.test(f.name));
+  if (!valid.length) return;
+  document.getElementById('loadingMsg').style.display = 'block';
+  document.getElementById('singleResult').style.display = 'none';
+  document.getElementById('multiList').style.display = 'none';
+  document.getElementById('errorMsg').style.display = 'none';
+  try {
+    if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    const results = [];
+    for (const file of valid) {
+      try {
+        const ab = await file.arrayBuffer();
+        const buf = await audioCtx.decodeAudioData(ab.slice(0));
+        results.push(buildInfo(file, buf));
+      } catch(e) {
+        results.push({ file, error: true });
+      }
+    }
+    document.getElementById('loadingMsg').style.display = 'none';
+    if (results.length === 1) showSingle(results[0]);
+    else showMulti(results);
+  } catch(err) {
+    document.getElementById('loadingMsg').style.display = 'none';
+    showError('파일을 분석할 수 없습니다. 지원하는 오디오 형식인지 확인해주세요.');
+  }
+}
+
+function buildInfo(file, buf) {
+  const ext = file.name.split('.').pop().toUpperCase();
+  const dur = buf.duration;
+  const sr = buf.sampleRate;
+  const ch = buf.numberOfChannels;
+  const estBitrate = dur > 0 ? Math.round((file.size * 8) / dur / 1000) : 0;
+  return { file, duration: dur, sampleRate: sr, channels: ch, estBitrate, ext };
+}
+
+function showSingle(info) {
+  if (info.error) { showError('파일을 분석할 수 없습니다.'); return; }
+  document.getElementById('infoFileName').textContent = info.file.name;
+  document.getElementById('infoFileSize').textContent = formatSize(info.file.size);
+  renderInfoGrid(document.getElementById('infoGrid'), info);
+  document.getElementById('singleResult').style.display = 'block';
+}
+
+function showMulti(results) {
+  const container = document.getElementById('multiList');
+  container.innerHTML = '';
+  results.forEach((info, i) => {
+    const item = document.createElement('div');
+    item.className = 'multi-item';
+    const header = document.createElement('div');
+    header.className = 'multi-item-header';
+    header.innerHTML = `<span>🎵 ${escHtml(info.file.name)}</span><span style="font-size:0.82rem;color:#6b7280;">${info.error ? '❌ 분석 실패' : formatTime(info.duration) + ' · ' + formatSize(info.file.size)}</span>`;
+    const body = document.createElement('div');
+    body.className = 'multi-item-body';
+    if (!info.error) {
+      const grid = document.createElement('div');
+      grid.className = 'info-grid';
+      renderInfoGrid(grid, info);
+      body.appendChild(grid);
+    } else {
+      body.textContent = '이 파일은 분석할 수 없습니다.';
+    }
+    header.addEventListener('click', () => body.classList.toggle('open'));
+    if (i === 0) body.classList.add('open');
+    item.appendChild(header);
+    item.appendChild(body);
+    container.appendChild(item);
+  });
+  container.style.display = 'block';
+  const resetBtn = document.createElement('button');
+  resetBtn.textContent = '다시 선택';
+  resetBtn.style.cssText = 'margin-top:12px;padding:10px 24px;background:#f3f4f6;color:#374151;border:1px solid #e5e7eb;border-radius:10px;cursor:pointer;font-size:0.95rem;';
+  resetBtn.addEventListener('click', resetAll);
+  container.appendChild(resetBtn);
+}
+
+function renderInfoGrid(grid, info) {
+  const items = [
+    { label: '재생 시간', value: formatTime(info.duration), sub: `${info.duration.toFixed(2)}초` },
+    { label: '샘플레이트', value: formatSampleRate(info.sampleRate), sub: `${info.sampleRate.toLocaleString()} Hz` },
+    { label: '채널', value: info.channels === 1 ? '모노' : info.channels === 2 ? '스테레오' : `${info.channels}ch`, sub: `${info.channels} channel` },
+    { label: '추정 비트레이트', value: `${info.estBitrate} kbps`, sub: '평균값 (파일크기 기준)' },
+    { label: '파일 포맷', value: info.ext, sub: info.file.type || '-' },
+    { label: '파일 크기', value: formatSize(info.file.size), sub: `${info.file.size.toLocaleString()} bytes` },
+  ];
+  grid.innerHTML = '';
+  items.forEach(({ label, value, sub }) => {
+    const card = document.createElement('div');
+    card.className = 'info-card';
+    card.innerHTML = `<div class="info-card-label">${label}</div><div class="info-card-value">${value}</div><div class="info-card-sub">${sub}</div>`;
+    grid.appendChild(card);
+  });
+}
+
+function resetAll() {
+  document.getElementById('singleResult').style.display = 'none';
+  document.getElementById('multiList').style.display = 'none';
+  document.getElementById('errorMsg').style.display = 'none';
+  fileInput.value = '';
+}
+
+function showError(msg) { const el = document.getElementById('errorMsg'); el.textContent = msg; el.style.display = 'block'; }
+function formatSize(b) {
+  if (b < 1024) return b + ' B';
+  if (b < 1048576) return (b/1024).toFixed(1) + ' KB';
+  if (b < 1073741824) return (b/1048576).toFixed(1) + ' MB';
+  return (b/1073741824).toFixed(2) + ' GB';
+}
+function formatTime(s) {
+  if (!s || isNaN(s)) return '0:00';
+  const h = Math.floor(s / 3600), m = Math.floor((s % 3600) / 60), sec = Math.floor(s % 60);
+  if (h > 0) return `${h}:${m.toString().padStart(2,'0')}:${sec.toString().padStart(2,'0')}`;
+  return `${m}:${sec.toString().padStart(2,'0')}`;
+}
+function formatSampleRate(sr) {
+  if (sr >= 1000) return (sr / 1000).toFixed(1) + ' kHz';
+  return sr + ' Hz';
+}
+function escHtml(s) { return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+</script>
+<script src="../js/pwa-install.js"></script>
+</body>
+</html>

@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9ZGENFSXWC"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-9ZGENFSXWC');
+</script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="naver-site-verification" content="7396a327607b884b9bef1283dfd3a5c6115a2b50">
+  <meta name="google-site-verification" content="tNM8tmr_6DFold03YSScWz4KEtu5Zo0Fsqc03u5Afms">
+  <title>Ringtone Maker Free Online – Cut MP3 to 30-Second Ringtone | WooaAudio</title>
+  <meta name="description" content="Create ringtones from MP3, WAV, or FLAC audio for free. Extract a 30-second or shorter clip from any song. Browser-based, no server upload.">
+  <meta name="keywords" content="ringtone maker, make ringtone, create ringtone online free, MP3 ringtone, cut ringtone, iPhone ringtone, Android ringtone, 30 second audio clip">
+  <link rel="canonical" href="https://wooaaudio.wooahouse.com/en/audio-ringtone.html">
+  <link rel="alternate" hreflang="ko" href="https://wooaaudio.wooahouse.com/audio-ringtone.html">
+  <link rel="alternate" hreflang="en" href="https://wooaaudio.wooahouse.com/en/audio-ringtone.html">
+  <link rel="alternate" hreflang="x-default" href="https://wooaaudio.wooahouse.com/en/audio-ringtone.html">
+  <meta property="og:title" content="Ringtone Maker Free Online – Create MP3 Ringtones | WooaAudio">
+  <meta property="og:description" content="Cut any song to create a ringtone under 30 seconds. Free, no signup. Files never uploaded to server.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://wooaaudio.wooahouse.com/en/audio-ringtone.html">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:image" content="https://wooaaudio.wooahouse.com/og-image.png">
+  <link rel="manifest" href="../manifest.json">
+  <meta name="theme-color" content="#059669">
+  <link rel="stylesheet" href="../css/style.css">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6464921081676309" crossorigin="anonymous"></script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Ringtone Maker",
+    "url": "https://wooaaudio.wooahouse.com/en/audio-ringtone.html",
+    "applicationCategory": "MultimediaApplication",
+    "operatingSystem": "Web",
+    "inLanguage": "en",
+    "isAccessibleForFree": true,
+    "offers": {"@type":"Offer","price":"0","priceCurrency":"USD"}
+  }
+  </script>
+  <style>
+    .waveform-canvas {
+      width: 100%;
+      height: 80px;
+      background: #0f172a;
+      border-radius: 10px;
+      display: block;
+      margin: 12px 0;
+      cursor: pointer;
+    }
+    .time-inputs {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .time-input-group {
+      flex: 1;
+      min-width: 140px;
+    }
+    .time-input-group label {
+      display: block;
+      font-size: 0.88rem;
+      color: #6b7280;
+      margin-bottom: 4px;
+    }
+    .time-input-group input[type=number] {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1.5px solid #d1fae5;
+      border-radius: 8px;
+      font-size: 1rem;
+      box-sizing: border-box;
+    }
+    .duration-badge {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      background: #d1fae5;
+      color: #065f46;
+      margin: 8px 0;
+    }
+    .duration-badge.over-limit {
+      background: #fee2e2;
+      color: #991b1b;
+    }
+    .ios-notice {
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-size: 0.87rem;
+      color: #1e40af;
+      margin: 12px 0;
+    }
+    .checkbox-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin: 10px 0;
+    }
+    .checkbox-row input[type=checkbox] {
+      width: 18px;
+      height: 18px;
+      accent-color: #059669;
+    }
+    .waveform-hint {
+      font-size: 0.8rem;
+      color: #9ca3af;
+      text-align: center;
+    }
+    .lang-switcher { display:flex; align-items:center; gap:4px; }
+    .lang-switcher a { color:rgba(255,255,255,0.7); text-decoration:none; font-size:0.8rem; font-weight:600; padding:3px 8px; border-radius:12px; transition:background 0.15s; }
+    .lang-switcher a.active { color:white; background:rgba(255,255,255,0.25); }
+    .lang-switcher a:hover { color:white; background:rgba(255,255,255,0.18); }
+    .lang-switcher span { color:rgba(255,255,255,0.3); font-size:0.75rem; }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a href="index.html" class="logo">WooaAudio</a>
+    <nav>
+      <a href="audio-convert.html">Convert</a>
+      <a href="audio-cut.html">Cut Audio</a>
+      <a href="audio-merge.html">Merge Audio</a>
+      <a href="audio-volume.html">Volume</a>
+      <a href="index.html">All Tools ›</a>
+    </nav>
+    <div class="header-right">
+      <div class="lang-switcher">
+        <a href="../audio-ringtone.html">KO</a>
+        <span>|</span>
+        <a href="audio-ringtone.html" class="active">EN</a>
+      </div>
+      <a href="../about.html" style="color:rgba(255,255,255,0.85); font-size:0.85rem; text-decoration:none; margin-left:8px;">About</a>
+    </div>
+  </div>
+</header>
+
+<div class="our-sites-bar">
+  <span class="our-sites-label">WooaHouse Services</span>
+  <div class="our-sites-links">
+    <a href="https://wooahouse.com/" target="_blank" rel="noopener">🔗 WooaHouse</a>
+    <a href="https://pdfkit.wooahouse.com/" target="_blank" rel="noopener">📄 WooaPDF</a>
+    <a href="https://imagekit.wooahouse.com/" target="_blank" rel="noopener">🖼️ WooaImage</a>
+    <a href="https://colorkit.wooahouse.com/" target="_blank" rel="noopener">🎨 WooaColor</a>
+    <a href="https://textkit.wooahouse.com/" target="_blank" rel="noopener">✏️ WooaText</a>
+    <a href="https://qrkit.wooahouse.com/" target="_blank" rel="noopener">📱 WooaQR</a>
+    <a href="https://calckit.wooahouse.com/" target="_blank" rel="noopener">🧮 WooaCalc</a>
+    <a href="https://fontkit.wooahouse.com/" target="_blank" rel="noopener">🔤 WooaFont</a>
+    <a href="https://mactools.wooahouse.com/" target="_blank" rel="noopener">🍎 WooaMac</a>
+    <a href="https://pctools.wooahouse.com/" target="_blank" rel="noopener">🖥️ WooaPC</a>
+    <a href="https://vskit.wooahouse.com/" target="_blank" rel="noopener">💻 WooaVS</a>
+    <a href="https://wooaaudio.wooahouse.com/en/" target="_blank" rel="noopener" class="active">🎵 WooaAudio</a>
+    <a href="https://wooaviewer.wooahouse.com/" target="_blank" rel="noopener">🔍 WooaViewer</a>
+    <a href="https://wooadev.wooahouse.com/" target="_blank" rel="noopener">🛠️ WooaDev</a>
+  </div>
+</div>
+
+<div class="mobile-top-ad">
+  <ins class="adsbygoogle" style="display:block;width:100%;height:80px" data-ad-client="ca-pub-6464921081676309" data-ad-slot="7080296704" data-ad-format="auto" data-full-width-responsive="true"></ins>
+  <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+
+<div class="page-with-sidebar">
+<main class="tool-page">
+  <div class="breadcrumb">
+    <a href="index.html">Home</a>
+    <span>›</span>
+    <span>Ringtone Maker</span>
+  </div>
+
+  <div class="tool-header">
+    <span class="tool-header-icon">📳</span>
+    <h1>Ringtone Maker – Free Online</h1>
+    <p>Extract a short clip from any audio file to create a ringtone. Set start and end time, keep it under 30 seconds, and download. All in your browser.</p>
+  </div>
+
+  <div class="drop-zone" id="dropZone">
+    <span class="drop-zone-icon">📂</span>
+    <h3>Drop your audio file here</h3>
+    <p>MP3, WAV, OGG, FLAC, AAC, M4A 지원</p>
+    <label for="fileInput" class="btn-select">Select Audio File</label>
+    <input type="file" id="fileInput" accept="audio/*" style="display:none">
+  </div>
+
+  <div id="playerPanel" style="display:none;margin:16px 0;background:#f8f9fa;border-radius:12px;padding:16px;">
+    <div style="font-weight:600;margin-bottom:8px;color:#374151;">🎵 <span id="playerFileName"></span></div>
+    <canvas id="waveformCanvas" class="waveform-canvas"></canvas>
+    <div class="waveform-hint">클릭하여 해당 위치로 이동</div>
+    <audio id="audioPlayer" controls style="width:100%;border-radius:8px;margin-top:8px;"></audio>
+    <div style="margin-top:6px;font-size:0.85rem;color:#6b7280;">Duration: <span id="totalDuration">-</span></div>
+  </div>
+
+  <div id="optionsPanel" class="options-panel" style="display:none">
+    <div class="options-title">벨소리 구간 설정</div>
+
+    <div class="time-inputs">
+      <div class="time-input-group">
+        <label for="startSec">시작 시간 (초)</label>
+        <input type="number" id="startSec" min="0" step="0.1" value="0" placeholder="예: 30">
+      </div>
+      <div class="time-input-group">
+        <label for="endSec">종료 시간 (초)</label>
+        <input type="number" id="endSec" min="0" step="0.1" value="30" placeholder="예: 60">
+      </div>
+    </div>
+
+    <div style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap;">
+      <button id="setStartBtn" style="padding:6px 14px;background:#059669;color:#fff;border:none;border-radius:8px;font-size:0.82rem;cursor:pointer;">현재 위치를 시작점으로</button>
+      <button id="setEndBtn" style="padding:6px 14px;background:#059669;color:#fff;border:none;border-radius:8px;font-size:0.82rem;cursor:pointer;">현재 위치를 종료점으로</button>
+    </div>
+
+    <div style="margin-top:10px;">
+      <span id="durationBadge" class="duration-badge">길이: 0초</span>
+    </div>
+
+    <div class="checkbox-row" style="margin-top:12px;">
+      <input type="checkbox" id="applyFade" checked>
+      <label for="applyFade" style="font-size:0.92rem;color:#374151;">페이드인·페이드아웃 적용 (각 0.5초)</label>
+    </div>
+
+    <div class="ios-notice">
+      🍎 <strong>iOS 아이폰 벨소리:</strong> 다운로드한 WAV 파일의 확장자를 <code>.m4r</code>로 변경하면 아이튠즈를 통해 아이폰에 적용할 수 있습니다.
+    </div>
+
+    <button class="btn-convert" id="processBtn">📳 벨소리 만들기</button>
+  </div>
+
+  <div class="progress-wrap" id="progressWrap" style="display:none">
+    <div class="progress-label">
+      <span id="progressText">Processing...</span>
+      <span id="progressPct">0%</span>
+    </div>
+    <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+  </div>
+
+  <div id="errorMsg" class="alert alert-error" style="display:none"></div>
+
+  <div class="result-panel" id="resultPanel" style="display:none">
+    <div class="result-header">
+      <span class="result-icon">✅</span>
+      <div>
+        <div class="result-title">벨소리 제작 완료!</div>
+        <div class="result-subtitle" id="resultSubtitle"></div>
+      </div>
+    </div>
+    <div style="margin:12px 0;">
+      <audio id="resultAudio" controls style="width:100%;border-radius:8px;"></audio>
+    </div>
+    <div id="downloadList"></div>
+    <div style="margin-top:16px">
+      <button class="btn-reset" id="resetBtn">다시 만들기</button>
+    </div>
+  </div>
+
+  <div class="cross-link-banner" style="max-width:800px;margin:2rem auto;padding:1rem 1.5rem;background:linear-gradient(135deg,#f0fdf4,#dcfce7);border-radius:12px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.8rem;">
+    <span style="font-size:0.95rem;color:#444;">Want to cut a longer section from your audio?</span>
+    <a href="../audio-cut.html" target="_blank" rel="noopener" style="background:#059669;color:#fff;padding:0.5rem 1rem;border-radius:8px;text-decoration:none;font-size:0.9rem;white-space:nowrap;">✂️ Audio Cutter →</a>
+  </div>
+
+  <section style="max-width:800px;margin:3rem auto;padding:0 1rem;">
+    <h2 class="faq-title">Frequently Asked Questions</h2>
+    <div class="faq-list">
+      <div class="faq-item" style="margin-bottom:1.2rem;padding:1rem;background:#f8f9fa;border-radius:8px;">
+        <h3 style="font-size:1rem;font-weight:600;margin-bottom:0.5rem;">Q. What file formats are supported as input?</h3>
+        <p style="color:#555;margin:0;">MP3, WAV, OGG, FLAC, AAC, M4A, and OPUS can be used to create ringtones.</p>
+      </div>
+      <div class="faq-item" style="margin-bottom:1.2rem;padding:1rem;background:#f8f9fa;border-radius:8px;">
+        <h3 style="font-size:1rem;font-weight:600;margin-bottom:0.5rem;">Q. Is there a length limit for ringtones?</h3>
+        <p style="color:#555;margin:0;">For best compatibility with smartphones, keep ringtones under 30 seconds.</p>
+      </div>
+      <div class="faq-item" style="padding:1rem;background:#f8f9fa;border-radius:8px;">
+        <h3 style="font-size:1rem;font-weight:600;margin-bottom:0.5rem;">Q. Are files uploaded to a server?</h3>
+        <p style="color:#555;margin:0;">No. All processing happens locally in your browser. Your files are never sent anywhere.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<aside class="tool-sidebar">
+  <div class="ad-card">
+    <ins class="adsbygoogle"
+         style="display:block;width:100%;min-height:250px"
+         data-ad-client="ca-pub-6464921081676309"
+         data-ad-slot="1419180025"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+  <div style="margin-top:16px;overflow:hidden;border-radius:14px;">    
+  </div>
+</aside>
+</div>
+
+<div class="features" style="margin-top:60px">
+  <div class="features-inner">
+    <div><div class="feature-icon">🔒</div><div class="feature-title">100% Safe</div><div class="feature-desc">Files are never sent to a server. All processing happens inside your browser.</div></div>
+    <div><div class="feature-icon">⚡</div><div class="feature-title">Fast Processing</div><div class="feature-desc">Local processing with no upload wait — repeat tasks are quick and easy.</div></div>
+    <div><div class="feature-icon">💸</div><div class="feature-title">Completely Free</div><div class="feature-desc">All major audio features are free — no signup required.</div></div>
+    <div><div class="feature-icon">📱</div><div class="feature-title">All Devices</div><div class="feature-desc">Responsive design works on PC, tablet, and smartphone.</div></div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <span class="logo-footer">WooaAudio</span>
+        <p>Free online audio toolkit. Convert, edit, and analyze audio safely in your browser.</p>
+      </div>
+      <div class="footer-links">
+        <h4>오디오 편집</h4>
+        <a href="audio-cut.html">Cut Audio</a>
+        <a href="audio-merge.html">Merge Audio</a>
+        <a href="audio-volume.html">Volume</a>
+        <a href="audio-speed.html">Speed</a>
+        <a href="audio-record.html">Audio Recorder</a>
+        <a href="audio-fade.html">Fade In & Out</a>
+        <a href="audio-pitch.html">Pitch Changer</a>
+        <a href="audio-ringtone.html">Ringtone Maker</a>
+      </div>
+      <div class="footer-links">
+        <h4>WooaHouse Services</h4>
+        <a href="https://pdfkit.wooahouse.com/" target="_blank" rel="noopener">WooaPDF</a>
+        <a href="https://imagekit.wooahouse.com/" target="_blank" rel="noopener">WooaImage</a>
+        <a href="https://fontkit.wooahouse.com/" target="_blank" rel="noopener">WooaFont</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 WooaAudio. All rights reserved.</p>
+      <div class="footer-bottom-links">
+        <a href="../privacy.html">Privacy Policy</a>
+        <a href="../about.html">About</a>
+      </div>
+    </div>
+    
+  </div>
+</footer>
+
+<script>
+(function() {
+  const MAX_DURATION = 30;
+  const FADE_SEC = 0.5;
+
+  const dropZone = document.getElementById('dropZone');
+  const fileInput = document.getElementById('fileInput');
+  const processBtn = document.getElementById('processBtn');
+  const resetBtn = document.getElementById('resetBtn');
+  const startSecInput = document.getElementById('startSec');
+  const endSecInput = document.getElementById('endSec');
+  const durationBadge = document.getElementById('durationBadge');
+  const applyFadeCheck = document.getElementById('applyFade');
+  const setStartBtn = document.getElementById('setStartBtn');
+  const setEndBtn = document.getElementById('setEndBtn');
+  const waveCanvas = document.getElementById('waveformCanvas');
+  const waveCtx = waveCanvas.getContext('2d');
+  const audioPlayer = document.getElementById('audioPlayer');
+
+  let selectedFile = null;
+  let audioCtx = null;
+  let originalBuffer = null;
+  let waveImageData = null;
+  let rafId = null;
+
+  function updateDurationBadge() {
+    const st = parseFloat(startSecInput.value) || 0;
+    const en = parseFloat(endSecInput.value) || 0;
+    const dur = en - st;
+    durationBadge.textContent = `길이: ${dur.toFixed(1)}초`;
+    if (dur <= 0 || dur > MAX_DURATION) {
+      durationBadge.className = 'duration-badge over-limit';
+    } else {
+      durationBadge.className = 'duration-badge';
+    }
+  }
+
+  startSecInput.addEventListener('input', updateDurationBadge);
+  endSecInput.addEventListener('input', updateDurationBadge);
+
+  setStartBtn.addEventListener('click', () => {
+    startSecInput.value = audioPlayer.currentTime.toFixed(1);
+    updateDurationBadge();
+  });
+  setEndBtn.addEventListener('click', () => {
+    endSecInput.value = audioPlayer.currentTime.toFixed(1);
+    updateDurationBadge();
+  });
+
+  waveCanvas.addEventListener('click', e => {
+    if (!originalBuffer) return;
+    const rect = waveCanvas.getBoundingClientRect();
+    const ratio = (e.clientX - rect.left) / rect.width;
+    audioPlayer.currentTime = ratio * originalBuffer.duration;
+    drawPlayhead(ratio);
+  });
+
+  audioPlayer.addEventListener('timeupdate', () => {
+    if (!originalBuffer || !waveImageData) return;
+    const ratio = audioPlayer.currentTime / originalBuffer.duration;
+    drawPlayhead(ratio);
+  });
+
+  dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('drag-over'); });
+  dropZone.addEventListener('dragleave', () => dropZone.classList.remove('drag-over'));
+  dropZone.addEventListener('drop', e => { e.preventDefault(); dropZone.classList.remove('drag-over'); if (e.dataTransfer.files[0]) setFile(e.dataTransfer.files[0]); });
+  dropZone.addEventListener('click', e => { if (e.target.tagName !== 'LABEL') fileInput.click(); });
+  fileInput.addEventListener('change', e => { if (e.target.files[0]) setFile(e.target.files[0]); });
+
+  async function setFile(file) {
+    selectedFile = file;
+    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    showProgress(); updateProgress(10, '파일 읽는 중...');
+    try {
+      const ab = await file.arrayBuffer();
+      updateProgress(40, '오디오 디코딩 중...');
+      originalBuffer = await audioCtx.decodeAudioData(ab);
+      updateProgress(80, '파형 그리는 중...');
+
+      const dur = originalBuffer.duration;
+      document.getElementById('playerFileName').textContent = file.name;
+      audioPlayer.src = URL.createObjectURL(file);
+      document.getElementById('totalDuration').textContent = formatTime(dur);
+
+      // Default: first 30s or whole file
+      startSecInput.value = '0';
+      endSecInput.value = Math.min(30, dur).toFixed(1);
+      updateDurationBadge();
+
+      document.getElementById('playerPanel').style.display = 'block';
+      document.getElementById('optionsPanel').style.display = 'block';
+
+      // 패널이 렌더링된 후 파형 그리기
+      requestAnimationFrame(() => {
+        drawWaveform(originalBuffer);
+        updateProgress(100, '준비 완료');
+        setTimeout(() => hideProgress(), 400);
+      });
+      document.getElementById('resultPanel').style.display = 'none';
+      hideError();
+    } catch(e) {
+      hideProgress();
+      showError('파일을 읽을 수 없습니다. 오디오 파일인지 확인하세요.');
+    }
+  }
+
+  function drawWaveform(buffer) {
+    const dpr = window.devicePixelRatio || 1;
+    waveCanvas.width = waveCanvas.offsetWidth * dpr;
+    waveCanvas.height = waveCanvas.offsetHeight * dpr;
+    waveCtx.scale(dpr, dpr);
+
+    const W = waveCanvas.offsetWidth;
+    const H = waveCanvas.offsetHeight;
+    const data = buffer.getChannelData(0);
+    const step = Math.ceil(data.length / W);
+
+    waveCtx.fillStyle = '#0f172a';
+    waveCtx.fillRect(0, 0, W, H);
+    waveCtx.strokeStyle = '#10b981';
+    waveCtx.lineWidth = 1;
+    waveCtx.beginPath();
+    for (let x = 0; x < W; x++) {
+      let min = 1, max = -1;
+      for (let j = 0; j < step; j++) {
+        const idx = x * step + j;
+        if (idx < data.length) {
+          if (data[idx] < min) min = data[idx];
+          if (data[idx] > max) max = data[idx];
+        }
+      }
+      const yMin = (1 - (min + 1) / 2) * H;
+      const yMax = (1 - (max + 1) / 2) * H;
+      waveCtx.moveTo(x, yMin);
+      waveCtx.lineTo(x, yMax);
+    }
+    waveCtx.stroke();
+
+    // 파형 이미지 캐싱 (플레이헤드 오버레이용)
+    waveImageData = waveCtx.getImageData(0, 0, waveCanvas.width, waveCanvas.height);
+  }
+
+  function drawPlayhead(ratio) {
+    if (!waveImageData) return;
+    const W = waveCanvas.offsetWidth;
+    const H = waveCanvas.offsetHeight;
+    // 캐싱된 파형 복원
+    waveCtx.putImageData(waveImageData, 0, 0);
+    // 플레이헤드 선
+    const x = Math.floor(ratio * W);
+    waveCtx.save();
+    waveCtx.strokeStyle = '#ffffff';
+    waveCtx.lineWidth = 2;
+    waveCtx.shadowColor = '#ffffff';
+    waveCtx.shadowBlur = 4;
+    waveCtx.beginPath();
+    waveCtx.moveTo(x, 0);
+    waveCtx.lineTo(x, H);
+    waveCtx.stroke();
+    // 상단 삼각형 핸들
+    waveCtx.fillStyle = '#ffffff';
+    waveCtx.beginPath();
+    waveCtx.moveTo(x - 5, 0);
+    waveCtx.lineTo(x + 5, 0);
+    waveCtx.lineTo(x, 8);
+    waveCtx.closePath();
+    waveCtx.fill();
+    waveCtx.restore();
+  }
+
+  processBtn.addEventListener('click', async () => {
+    if (!originalBuffer) return;
+    const startS = parseFloat(startSecInput.value) || 0;
+    const endS = parseFloat(endSecInput.value) || 0;
+    const dur = endS - startS;
+    if (dur <= 0) { showError('종료 시간이 시작 시간보다 커야 합니다.'); return; }
+    if (dur > MAX_DURATION) { showError(`벨소리 길이는 ${MAX_DURATION}초를 초과할 수 없습니다. (현재: ${dur.toFixed(1)}초)`); return; }
+    const totalDur = originalBuffer.duration;
+    if (startS < 0 || endS > totalDur) { showError('구간이 오디오 범위를 벗어납니다.'); return; }
+
+    processBtn.disabled = true;
+    showProgress(); updateProgress(5, '구간 추출 중...');
+    hideError();
+    document.getElementById('resultPanel').style.display = 'none';
+
+    try {
+      const sampleRate = originalBuffer.sampleRate;
+      const numChannels = originalBuffer.numberOfChannels;
+      const startFrame = Math.floor(startS * sampleRate);
+      const endFrame = Math.min(Math.ceil(endS * sampleRate), originalBuffer.length);
+      const numFrames = endFrame - startFrame;
+
+      // Extract segment into new AudioBuffer
+      const offCtx = new OfflineAudioContext(numChannels, numFrames, sampleRate);
+      const segBuf = offCtx.createBuffer(numChannels, numFrames, sampleRate);
+      for (let ch = 0; ch < numChannels; ch++) {
+        const src = originalBuffer.getChannelData(ch);
+        const dst = segBuf.getChannelData(ch);
+        for (let i = 0; i < numFrames; i++) dst[i] = src[startFrame + i];
+      }
+
+      const source = offCtx.createBufferSource();
+      source.buffer = segBuf;
+
+      const applyFade = applyFadeCheck.checked;
+      if (applyFade) {
+        const gainNode = offCtx.createGain();
+        gainNode.gain.setValueAtTime(0.0001, 0);
+        gainNode.gain.linearRampToValueAtTime(1, FADE_SEC);
+        const segDur = numFrames / sampleRate;
+        gainNode.gain.setValueAtTime(1, Math.max(FADE_SEC, segDur - FADE_SEC));
+        gainNode.gain.linearRampToValueAtTime(0.0001, segDur);
+        source.connect(gainNode);
+        gainNode.connect(offCtx.destination);
+      } else {
+        source.connect(offCtx.destination);
+      }
+      source.start(0);
+
+      updateProgress(40, '렌더링 중...');
+      const rendered = await offCtx.startRendering();
+      updateProgress(80, 'WAV Processing...');
+
+      const wavAb = audioBufferToWav(rendered);
+      const wavBlob = new Blob([wavAb], { type: 'audio/wav' });
+      const url = URL.createObjectURL(wavBlob);
+
+      updateProgress(100, '완료!');
+      setTimeout(() => hideProgress(), 400);
+
+      document.getElementById('resultAudio').src = url;
+      const baseName = selectedFile.name.replace(/\.[^.]+$/, '');
+      const outName = `${baseName}_ringtone_${startS.toFixed(0)}s-${endS.toFixed(0)}s.wav`;
+
+      const list = document.getElementById('downloadList');
+      list.innerHTML = '';
+      const item = document.createElement('div');
+      item.className = 'file-item';
+      item.innerHTML = `<span class="file-item-icon">✅</span><div class="file-item-info"><div class="file-item-name"></div><div class="file-item-size">${formatSize(wavBlob.size)}</div></div><a class="btn-download" id="downloadBtn" style="padding:8px 16px;font-size:0.85rem">다운로드</a>`;
+      item.querySelector('.file-item-name').textContent = outName;
+      const link = item.querySelector('a');
+      link.href = url; link.download = outName;
+      list.appendChild(item);
+
+      document.getElementById('resultSubtitle').textContent = `${startS.toFixed(1)}초 ~ ${endS.toFixed(1)}초, 길이 ${dur.toFixed(1)}초${applyFade ? ' (페이드 적용)' : ''}`;
+      document.getElementById('resultPanel').style.display = 'block';
+      document.getElementById('resultPanel').scrollIntoView({ behavior: 'smooth' });
+    } catch(e) {
+      console.error(e);
+      hideProgress();
+      showError('처리에 실패했습니다. (' + e.message + ')');
+    } finally {
+      processBtn.disabled = false;
+    }
+  });
+
+  resetBtn.addEventListener('click', () => {
+    selectedFile = null; originalBuffer = null; fileInput.value = '';
+    document.getElementById('playerPanel').style.display = 'none';
+    document.getElementById('optionsPanel').style.display = 'none';
+    document.getElementById('resultPanel').style.display = 'none';
+    hideError(); hideProgress();
+  });
+
+  function audioBufferToWav(buffer) {
+    const numChannels = buffer.numberOfChannels;
+    const sampleRate = buffer.sampleRate;
+    const numFrames = buffer.length;
+    const bytesPerSample = 2;
+    const blockAlign = numChannels * bytesPerSample;
+    const byteRate = sampleRate * blockAlign;
+    const dataSize = numFrames * blockAlign;
+    const ab = new ArrayBuffer(44 + dataSize);
+    const view = new DataView(ab);
+    function writeString(v, off, str) { for (let i = 0; i < str.length; i++) v.setUint8(off + i, str.charCodeAt(i)); }
+    writeString(view, 0, 'RIFF');
+    view.setUint32(4, 36 + dataSize, true);
+    writeString(view, 8, 'WAVE');
+    writeString(view, 12, 'fmt ');
+    view.setUint32(16, 16, true);
+    view.setUint16(20, 1, true);
+    view.setUint16(22, numChannels, true);
+    view.setUint32(24, sampleRate, true);
+    view.setUint32(28, byteRate, true);
+    view.setUint16(32, blockAlign, true);
+    view.setUint16(34, bytesPerSample * 8, true);
+    writeString(view, 36, 'data');
+    view.setUint32(40, dataSize, true);
+    let offset = 44;
+    for (let i = 0; i < numFrames; i++) {
+      for (let ch = 0; ch < numChannels; ch++) {
+        const sample = Math.max(-1, Math.min(1, buffer.getChannelData(ch)[i]));
+        view.setInt16(offset, sample * 0x7FFF, true);
+        offset += 2;
+      }
+    }
+    return ab;
+  }
+
+  function showProgress() { document.getElementById('progressWrap').style.display = 'block'; }
+  function hideProgress() { document.getElementById('progressWrap').style.display = 'none'; }
+  function updateProgress(pct, text) {
+    const p = Math.max(0, Math.min(100, pct));
+    document.getElementById('progressFill').style.width = p + '%';
+    document.getElementById('progressPct').textContent = p + '%';
+    document.getElementById('progressText').textContent = text;
+  }
+  function showError(msg) { const el = document.getElementById('errorMsg'); el.textContent = msg; el.style.display = 'block'; }
+  function hideError() { document.getElementById('errorMsg').style.display = 'none'; }
+  function formatSize(b) {
+    if (b < 1024) return b + ' B';
+    if (b < 1048576) return (b/1024).toFixed(1) + ' KB';
+    return (b/1048576).toFixed(1) + ' MB';
+  }
+  function formatTime(s) {
+    if (isNaN(s)) return '-';
+    const m = Math.floor(s / 60), sec = Math.floor(s % 60);
+    return `${m}:${sec.toString().padStart(2,'0')}`;
+  }
+})();
+</script>
+<script src="../js/pwa-install.js"></script>
+</body>
+</html>
