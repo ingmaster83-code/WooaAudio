@@ -536,6 +536,9 @@ COMMON = [
     ('<span class="category-title">분석</span>', '<span class="category-title">Analyze</span>'),
     ('<p class="category-desc">오디오 정보와 파형을 확인하는 도구</p>',
      '<p class="category-desc">Tools for checking audio info and waveforms</p>'),
+    ('<span class="category-title">악기·연습</span>', '<span class="category-title">Instruments & Practice</span>'),
+    ('<p class="category-desc">연주 연습과 MR 제작에 유용한 도구</p>',
+     '<p class="category-desc">Useful tools for music practice and MR backing track creation</p>'),
 
     # tool card names (index)
     ('<div class="tool-name">오디오 포맷 변환</div>', '<div class="tool-name">Audio Format Converter</div>'),
@@ -553,6 +556,11 @@ COMMON = [
     ('<div class="tool-name">파형 시각화</div>', '<div class="tool-name">Waveform Visualizer</div>'),
     ('<div class="tool-name">오디오 정보</div>', '<div class="tool-name">Audio Info</div>'),
     ('<div class="tool-name">태그 편집기</div>', '<div class="tool-name">Tag Editor</div>'),
+    ('<div class="tool-name">데시벨 측정기</div>', '<div class="tool-name">Decibel Meter</div>'),
+    ('<div class="tool-name">MR 만들기 (보컬 제거)</div>', '<div class="tool-name">Vocal Remover (MR Maker)</div>'),
+    ('<div class="tool-name">메트로놈</div>', '<div class="tool-name">Metronome</div>'),
+    ('<div class="tool-name">악기 튜너</div>', '<div class="tool-name">Instrument Tuner</div>'),
+    ('<div class="tool-name">텍스트 음성 변환 (TTS)</div>', '<div class="tool-name">Text to Speech (TTS)</div>'),
 
     # tool card descs (index)
     ('<div class="tool-desc">MP3, WAV, OGG, FLAC, AAC 포맷 변환</div>',
@@ -585,6 +593,16 @@ COMMON = [
      '<div class="tool-desc">Check duration, sample rate, channel info</div>'),
     ('<div class="tool-desc">MP3 제목·아티스트·앨범아트 등 ID3 태그 편집</div>',
      '<div class="tool-desc">Edit ID3 tags: title, artist, album art</div>'),
+    ('<div class="tool-desc">마이크로 소음을 실시간 dB로 측정, 층간소음 확인</div>',
+     '<div class="tool-desc">Measure noise level in real-time dB via microphone</div>'),
+    ('<div class="tool-desc">MP3·WAV에서 보컬을 제거해 반주(MR) 추출</div>',
+     '<div class="tool-desc">Remove vocals from MP3/WAV to extract backing track</div>'),
+    ('<div class="tool-desc">BPM·박자 설정, 탭 템포, 악기 연습용</div>',
+     '<div class="tool-desc">Set BPM & time signature, tap tempo, for music practice</div>'),
+    ('<div class="tool-desc">마이크로 음정 감지, 기타·베이스·바이올린 튜닝</div>',
+     '<div class="tool-desc">Detect pitch via mic, tune guitar, bass, violin</div>'),
+    ('<div class="tool-desc">한국어·영어 텍스트를 음성으로 읽어주기</div>',
+     '<div class="tool-desc">Read Korean & English text aloud with voice synthesis</div>'),
 
     # free/new badges
     ('>무료<', '>Free<'),
