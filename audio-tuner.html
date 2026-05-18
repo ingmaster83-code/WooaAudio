@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9ZGENFSXWC"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-9ZGENFSXWC');
+</script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="naver-site-verification" content="7396a327607b884b9bef1283dfd3a5c6115a2b50">
+  <meta name="google-site-verification" content="tNM8tmr_6DFold03YSScWz4KEtu5Zo0Fsqc03u5Afms">
+  <title>기타 튜너 온라인 무료 — 악기 음정 튜닝 크로매틱 튜너 | WooaAudio</title>
+  <meta name="description" content="마이크로 악기 음을 감지해 음이름·주파수·음정 편차를 실시간 표시합니다. 기타·베이스·바이올린 등 모든 악기에 사용 가능한 크로매틱 튜너. 설치 없이 무료 사용.">
+  <meta name="keywords" content="기타튜너,온라인튜너,악기튜너,기타음정,크로매틱튜너,기타튜닝,온라인기타튜너,무료튜너,베이스튜너,바이올린튜너,우쿨렐레튜너,음정체크,튜닝기">
+  <link rel="canonical" href="https://wooaaudio.wooahouse.com/audio-tuner.html">
+  <link rel="alternate" hreflang="ko" href="https://wooaaudio.wooahouse.com/audio-tuner.html">
+  <link rel="alternate" hreflang="en" href="https://wooaaudio.wooahouse.com/en/audio-tuner.html">
+  <link rel="alternate" hreflang="x-default" href="https://wooaaudio.wooahouse.com/en/audio-tuner.html">
+  <meta property="og:title" content="기타 튜너 온라인 무료 — 악기 음정 튜닝 | WooaAudio">
+  <meta property="og:description" content="마이크로 악기 음을 감지해 실시간 음이름·주파수 표시. 크로매틱 튜너, 설치 없이 무료 사용.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://wooaaudio.wooahouse.com/audio-tuner.html">
+  <meta property="og:locale" content="ko_KR">
+  <meta property="og:image" content="https://wooaaudio.wooahouse.com/og-image.png">
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#059669">
+  <link rel="stylesheet" href="css/style.css">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6464921081676309" crossorigin="anonymous"></script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "온라인 크로매틱 튜너",
+    "url": "https://wooaaudio.wooahouse.com/audio-tuner.html",
+    "applicationCategory": "MusicApplication",
+    "operatingSystem": "Web",
+    "inLanguage": "ko",
+    "isAccessibleForFree": true,
+    "offers": {"@type":"Offer","price":"0","priceCurrency":"KRW"}
+  }
+  </script>
+  <style>
+    .lang-switcher { display:flex; align-items:center; gap:4px; }
+    .lang-switcher a { color:rgba(255,255,255,0.7); text-decoration:none; font-size:0.8rem; font-weight:600; padding:3px 8px; border-radius:12px; transition:background 0.15s; }
+    .lang-switcher a.active { color:white; background:rgba(255,255,255,0.25); }
+    .lang-switcher a:hover { color:white; background:rgba(255,255,255,0.18); }
+    .lang-switcher span { color:rgba(255,255,255,0.3); font-size:0.75rem; }
+
+    .tuner-wrap { background:#fff; border-radius:16px; padding:32px 24px; box-shadow:0 2px 16px rgba(0,0,0,0.07); max-width:480px; margin:0 auto; text-align:center; }
+    .note-display { font-size:5rem; font-weight:900; color:#059669; line-height:1; margin:8px 0 4px; min-height:80px; }
+    .note-display.sharp { color:#f59e0b; }
+    .note-display.flat  { color:#3b82f6; }
+    .note-display.in-tune { color:#059669; }
+    .freq-display { font-size:1.1rem; color:#6b7280; margin-bottom:4px; }
+    .octave-display { font-size:0.9rem; color:#9ca3af; margin-bottom:20px; }
+    /* Needle gauge */
+    .gauge-wrap { position:relative; width:280px; height:160px; margin:0 auto 20px; }
+    .gauge-svg { width:100%; height:100%; }
+    .gauge-needle { transform-origin: 140px 140px; transition: transform 0.15s ease-out; }
+    .cents-display { font-size:1rem; color:#374151; font-weight:600; min-height:22px; }
+    .tune-status { font-size:0.9rem; margin-top:4px; min-height:20px; color:#6b7280; }
+    .btn-listen { display:inline-block; background:#059669; color:#fff; border:none; border-radius:10px; font-size:1.1rem; font-weight:700; padding:14px 40px; cursor:pointer; transition:background .15s; font-family:inherit; margin-top:20px; }
+    .btn-listen:hover { background:#047857; }
+    .btn-listen.active { background:#dc2626; }
+    .btn-listen.active:hover { background:#b91c1c; }
+    /* Guitar reference */
+    .guitar-ref { display:flex; gap:8px; justify-content:center; flex-wrap:wrap; margin-top:20px; }
+    .string-btn { background:#f3f4f6; border:1px solid #e5e7eb; color:#374151; font-size:0.82rem; font-weight:600; padding:6px 12px; border-radius:8px; cursor:pointer; transition:all .15s; }
+    .string-btn:hover { background:#d1fae5; border-color:#059669; color:#059669; }
+    .string-btn.highlight { background:#059669; color:#fff; border-color:#059669; }
+    .ref-label { font-size:0.78rem; color:#9ca3af; text-align:center; margin-top:8px; }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a href="index.html" class="logo">WooaAudio</a>
+    <nav>
+      <a href="audio-convert.html">포맷 변환</a>
+      <a href="audio-metronome.html">메트로놈</a>
+      <a href="audio-tuner.html" style="color:#fff;background:rgba(255,255,255,0.2);">악기 튜너</a>
+      <a href="audio-mr.html">MR 만들기</a>
+      <a href="index.html">전체 도구 ›</a>
+    </nav>
+    <div class="header-right">
+      <div class="lang-switcher">
+        <a href="audio-tuner.html" class="active">KO</a>
+        <span>|</span>
+        <a href="en/audio-tuner.html">EN</a>
+      </div>
+      <a href="about.html" style="color:rgba(255,255,255,0.85);font-size:.85rem;text-decoration:none;margin-left:8px;">소개</a>
+    </div>
+  </div>
+</header>
+
+<div class="our-sites-bar">
+  <span class="our-sites-label">WooaHouse Services</span>
+  <div class="our-sites-links">
+    <a href="https://wooahouse.com/" target="_blank" rel="noopener">🔗 WooaHouse</a>
+    <a href="https://pdfkit.wooahouse.com/" target="_blank" rel="noopener">📄 WooaPDF</a>
+    <a href="https://imagekit.wooahouse.com/" target="_blank" rel="noopener">🖼️ WooaImage</a>
+    <a href="https://colorkit.wooahouse.com/" target="_blank" rel="noopener">🎨 WooaColor</a>
+    <a href="https://textkit.wooahouse.com/" target="_blank" rel="noopener">✏️ WooaText</a>
+    <a href="https://qrkit.wooahouse.com/" target="_blank" rel="noopener">📱 WooaQR</a>
+    <a href="https://calckit.wooahouse.com/" target="_blank" rel="noopener">🧮 WooaCalc</a>
+    <a href="https://fontkit.wooahouse.com/" target="_blank" rel="noopener">🔤 WooaFont</a>
+    <a href="https://mactools.wooahouse.com/" target="_blank" rel="noopener">🍎 WooaMac</a>
+    <a href="https://pctools.wooahouse.com/" target="_blank" rel="noopener">🖥️ WooaPC</a>
+    <a href="https://vskit.wooahouse.com/" target="_blank" rel="noopener">💻 WooaVS</a>
+    <a href="https://wooaaudio.wooahouse.com/" target="_blank" rel="noopener" class="active">🎵 WooaAudio</a>
+    <a href="https://wooaviewer.wooahouse.com/" target="_blank" rel="noopener">🔍 WooaViewer</a>
+    <a href="https://wooadev.wooahouse.com/" target="_blank" rel="noopener">🛠️ WooaDev</a>
+    <a href="https://wooaocr.wooahouse.com/" target="_blank" rel="noopener">🔍 WooaOCR</a>
+    <a href="https://wooasheet.wooahouse.com/" target="_blank" rel="noopener">📊 WooaSheet</a>
+  </div>
+</div>
+
+<div class="mobile-top-ad">
+  <ins class="adsbygoogle" style="display:block;width:100%;height:80px" data-ad-client="ca-pub-6464921081676309" data-ad-slot="7080296704" data-ad-format="auto" data-full-width-responsive="true"></ins>
+  <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+
+<div class="page-with-sidebar">
+<main class="tool-page">
+  <div class="breadcrumb">
+    <a href="index.html">홈</a><span>›</span><span>악기 튜너</span>
+  </div>
+
+  <div class="tool-header">
+    <span class="tool-header-icon">🎸</span>
+    <h1>기타 튜너 온라인 무료 — 크로매틱 튜너</h1>
+    <p>마이크로 악기 음을 감지해 음이름·주파수·편차를 실시간 표시합니다. 모든 악기 지원.</p>
+  </div>
+
+  <div class="tuner-wrap">
+    <div class="note-display" id="noteDisplay">—</div>
+    <div class="freq-display" id="freqDisplay">— Hz</div>
+    <div class="octave-display" id="octaveDisplay">마이크를 시작하세요</div>
+
+    <div class="gauge-wrap">
+      <svg class="gauge-svg" viewBox="0 0 280 160">
+        <!-- Arc background -->
+        <path d="M 30 140 A 110 110 0 0 1 250 140" fill="none" stroke="#e5e7eb" stroke-width="8" stroke-linecap="round"/>
+        <!-- In-tune zone -->
+        <path d="M 118 43 A 110 110 0 0 1 162 43" fill="none" stroke="#d1fae5" stroke-width="12" stroke-linecap="round"/>
+        <!-- Tick marks -->
+        <line x1="30" y1="140" x2="44" y2="140" stroke="#9ca3af" stroke-width="2"/>
+        <line x1="250" y1="140" x2="236" y2="140" stroke="#9ca3af" stroke-width="2"/>
+        <line x1="140" y1="30" x2="140" y2="46" stroke="#059669" stroke-width="2"/>
+        <text x="22" y="158" font-size="11" fill="#6b7280" text-anchor="middle">−50</text>
+        <text x="258" y="158" font-size="11" fill="#6b7280" text-anchor="middle">+50</text>
+        <text x="140" y="28" font-size="11" fill="#059669" text-anchor="middle">0</text>
+        <!-- Needle -->
+        <line id="needle" x1="140" y1="140" x2="140" y2="40" stroke="#374151" stroke-width="3" stroke-linecap="round"
+          style="transform-origin:140px 140px; transform:rotate(0deg); transition:transform 0.12s ease-out;"/>
+        <!-- Center dot -->
+        <circle cx="140" cy="140" r="6" fill="#374151"/>
+      </svg>
+    </div>
+
+    <div class="cents-display" id="centsDisplay">— cents</div>
+    <div class="tune-status" id="tuneStatus"></div>
+
+    <button class="btn-listen" id="listenBtn">🎙 튜닝 시작</button>
+
+    <div style="margin-top:24px;">
+      <div class="ref-label">기타 표준 튜닝 참조 (낮은 음 → 높은 음)</div>
+      <div class="guitar-ref" id="guitarRef">
+        <button class="string-btn" data-note="E2">E2 (6번)</button>
+        <button class="string-btn" data-note="A2">A2 (5번)</button>
+        <button class="string-btn" data-note="D3">D3 (4번)</button>
+        <button class="string-btn" data-note="G3">G3 (3번)</button>
+        <button class="string-btn" data-note="B3">B3 (2번)</button>
+        <button class="string-btn" data-note="E4">E4 (1번)</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="cross-link-banner" style="max-width:800px;margin:2rem auto;padding:1rem 1.5rem;background:linear-gradient(135deg,#f0fdf4,#dcfce7);border-radius:12px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.8rem;">
+    <span style="font-size:0.95rem;color:#444;">박자 감각도 함께 연습하고 싶으신가요?</span>
+    <a href="audio-metronome.html" style="background:#059669;color:#fff;padding:0.5rem 1rem;border-radius:8px;text-decoration:none;font-size:0.9rem;white-space:nowrap;">🥁 메트로놈 →</a>
+  </div>
+
+  <section style="max-width:800px;margin:3rem auto;padding:0 1rem;">
+    <h2 class="faq-title">자주 묻는 질문</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <div class="faq-q">Q. 어떤 악기에 사용할 수 있나요?</div>
+        <div class="faq-a">크로매틱 튜너이므로 기타, 베이스, 바이올린, 첼로, 우쿨렐레, 만돌린 등 음을 내는 모든 악기에 사용할 수 있습니다.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Q. cents(센트)는 무엇인가요?</div>
+        <div class="faq-a">반음(半音)을 100등분한 단위입니다. ±10 cents 이내이면 정확한 음정, ±50 cents 이내이면 반음 차이입니다. 0에 가까울수록 정확합니다.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Q. 마이크 권한이 필요한가요?</div>
+        <div class="faq-a">네, 음을 감지하기 위해 마이크 접근 권한이 필요합니다. 브라우저에서 권한 요청 팝업이 뜨면 '허용'을 선택하세요. 오디오 데이터는 서버로 전송되지 않습니다.</div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<aside class="tool-sidebar">
+  <div class="ad-card">
+    <ins class="adsbygoogle" style="display:block;width:100%;min-height:250px"
+      data-ad-client="ca-pub-6464921081676309" data-ad-slot="1419180025"
+      data-ad-format="auto" data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+  <div style="margin-top:16px;overflow:hidden;border-radius:14px;">
+    <script src="https://ads-partners.coupang.com/g.js"></script>
+    <script>new PartnersCoupang.G({"id":974224,"trackingCode":"AF5600192","subId":null,"template":"carousel","width":"300","height":"250"});</script>
+  </div>
+</aside>
+</div>
+
+<div class="features" style="margin-top:60px">
+  <div class="features-inner">
+    <div><div class="feature-icon">🎯</div><div class="feature-title">실시간 감지</div><div class="feature-desc">마이크 입력을 실시간으로 분석해 음이름과 편차를 즉시 표시합니다.</div></div>
+    <div><div class="feature-icon">🎸</div><div class="feature-title">모든 악기 지원</div><div class="feature-desc">크로매틱 방식으로 기타, 베이스, 바이올린 등 모든 악기를 튜닝할 수 있습니다.</div></div>
+    <div><div class="feature-icon">💸</div><div class="feature-title">완전 무료</div><div class="feature-desc">설치·회원가입 없이 즉시 사용 가능합니다.</div></div>
+    <div><div class="feature-icon">🔒</div><div class="feature-title">개인정보 안전</div><div class="feature-desc">마이크 오디오가 서버로 전송되지 않습니다. 브라우저 안에서만 처리됩니다.</div></div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <span class="logo-footer">WooaAudio</span>
+        <p>무료 온라인 오디오 도구 모음. 변환, 편집, 분석 작업을 브라우저에서 안전하게 처리하세요.</p>
+      </div>
+      <div class="footer-links">
+        <h4>악기 도구</h4>
+        <a href="audio-tuner.html">악기 튜너</a>
+        <a href="audio-metronome.html">메트로놈</a>
+        <a href="audio-mr.html">MR 만들기</a>
+        <a href="audio-record.html">오디오 녹음</a>
+      </div>
+      <div class="footer-links">
+        <h4>WooaHouse 서비스</h4>
+        <a href="https://pdfkit.wooahouse.com/" target="_blank" rel="noopener">WooaPDF</a>
+        <a href="https://imagekit.wooahouse.com/" target="_blank" rel="noopener">WooaImage</a>
+        <a href="https://wooasheet.wooahouse.com/" target="_blank" rel="noopener">WooaSheet</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 WooaAudio. 모든 권리 보유.</p>
+      <div class="footer-bottom-links">
+        <a href="privacy.html">개인정보처리방침</a>
+        <a href="about.html">소개</a>
+      </div>
+    </div>
+    <p class="coupang-notice">이 포스팅은 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다.</p>
+  </div>
+</footer>
+
+<script>
+const NOTES = ['C','C#','D','D#','E','F','F#','G','G#','A','A#','B'];
+const GUITAR_FREQS = { 'E2':82.41,'A2':110,'D3':146.83,'G3':196,'B3':246.94,'E4':329.63 };
+
+let audioCtx = null, analyser = null, stream = null, rafId = null;
+let listening = false;
+let targetNote = null;
+
+// Autocorrelation pitch detection
+function detectPitch(buf, sampleRate) {
+  const SIZE = buf.length;
+  let rms = 0;
+  for (let i = 0; i < SIZE; i++) rms += buf[i] * buf[i];
+  rms = Math.sqrt(rms / SIZE);
+  if (rms < 0.008) return -1; // silence
+
+  const corr = new Float32Array(SIZE);
+  for (let lag = 0; lag < SIZE; lag++) {
+    let s = 0;
+    for (let i = 0; i < SIZE - lag; i++) s += buf[i] * buf[i + lag];
+    corr[lag] = s;
+  }
+
+  // Find first minimum, then first maximum after it
+  let d = 0;
+  while (d < SIZE && corr[d] > corr[d+1]) d++;
+  let maxVal = -Infinity, maxPos = d;
+  for (let i = d; i < SIZE; i++) {
+    if (corr[i] > maxVal) { maxVal = corr[i]; maxPos = i; }
+  }
+  if (maxPos === 0) return -1;
+  // Parabolic interpolation
+  const x1 = corr[maxPos-1], x2 = corr[maxPos], x3 = corr[maxPos+1] || 0;
+  const shift = (x3 - x1) / (2 * (2*x2 - x1 - x3)) || 0;
+  return sampleRate / (maxPos + shift);
+}
+
+function freqToNoteInfo(freq) {
+  if (freq <= 0) return null;
+  const A4 = 440;
+  const semitones = 12 * Math.log2(freq / A4);
+  const noteNum = Math.round(semitones) + 69; // MIDI note number
+  const noteName = NOTES[((noteNum % 12) + 12) % 12];
+  const octave = Math.floor(noteNum / 12) - 1;
+  const cents = Math.round((semitones - Math.round(semitones)) * 100);
+  const targetFreq = A4 * Math.pow(2, (noteNum - 69) / 12);
+  return { noteName, octave, cents, freq, targetFreq };
+}
+
+function updateNeedle(cents) {
+  const clamp = Math.max(-50, Math.min(50, cents));
+  const deg = clamp * 1.8; // -50..+50 → -90..+90 degrees
+  document.getElementById('needle').style.transform = `rotate(${deg}deg)`;
+}
+
+function updateUI(info) {
+  if (!info) {
+    document.getElementById('noteDisplay').textContent = '—';
+    document.getElementById('freqDisplay').textContent = '— Hz';
+    document.getElementById('octaveDisplay').textContent = '소리를 내주세요';
+    document.getElementById('centsDisplay').textContent = '— cents';
+    document.getElementById('tuneStatus').textContent = '';
+    updateNeedle(0);
+    return;
+  }
+  const { noteName, octave, cents, freq } = info;
+  const nd = document.getElementById('noteDisplay');
+  nd.textContent = noteName + octave;
+  nd.className = 'note-display' + (Math.abs(cents) <= 5 ? ' in-tune' : cents < 0 ? ' flat' : ' sharp');
+  document.getElementById('freqDisplay').textContent = freq.toFixed(1) + ' Hz';
+  document.getElementById('octaveDisplay').textContent = `옥타브 ${octave}`;
+  document.getElementById('centsDisplay').textContent = (cents >= 0 ? '+' : '') + cents + ' cents';
+
+  let status = '';
+  if (Math.abs(cents) <= 5) status = '✅ 정확합니다!';
+  else if (cents < 0) status = '⬆ 더 올려주세요 (날카롭게)';
+  else status = '⬇ 조금 내려주세요 (둔하게)';
+  document.getElementById('tuneStatus').textContent = status;
+  updateNeedle(cents);
+
+  // Highlight reference string if close
+  document.querySelectorAll('.string-btn').forEach(btn => {
+    const ref = GUITAR_FREQS[btn.dataset.note];
+    if (ref && Math.abs(freq - ref) / ref < 0.05) btn.classList.add('highlight');
+    else btn.classList.remove('highlight');
+  });
+}
+
+function loop() {
+  if (!analyser) return;
+  const buf = new Float32Array(analyser.fftSize);
+  analyser.getFloatTimeDomainData(buf);
+  const freq = detectPitch(buf, audioCtx.sampleRate);
+  const info = freq > 60 ? freqToNoteInfo(freq) : null;
+  updateUI(info);
+  rafId = requestAnimationFrame(loop);
+}
+
+async function startListening() {
+  try {
+    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    stream = await navigator.mediaDevices.getUserMedia({ audio: { echoCancellation: false, noiseSuppression: false, autoGainControl: false }, video: false });
+    analyser = audioCtx.createAnalyser();
+    analyser.fftSize = 2048;
+    const src = audioCtx.createMediaStreamSource(stream);
+    src.connect(analyser);
+    listening = true;
+    document.getElementById('listenBtn').textContent = '⏹ 튜닝 중지';
+    document.getElementById('listenBtn').classList.add('active');
+    document.getElementById('octaveDisplay').textContent = '소리를 내주세요';
+    loop();
+  } catch(e) {
+    alert('마이크 접근 권한이 필요합니다. 브라우저에서 마이크를 허용해주세요.');
+  }
+}
+
+function stopListening() {
+  if (rafId) { cancelAnimationFrame(rafId); rafId = null; }
+  if (stream) { stream.getTracks().forEach(t => t.stop()); stream = null; }
+  if (audioCtx) { audioCtx.close(); audioCtx = null; }
+  analyser = null;
+  listening = false;
+  document.getElementById('listenBtn').textContent = '🎙 튜닝 시작';
+  document.getElementById('listenBtn').classList.remove('active');
+  updateUI(null);
+  document.getElementById('octaveDisplay').textContent = '마이크를 시작하세요';
+}
+
+document.getElementById('listenBtn').addEventListener('click', () => {
+  listening ? stopListening() : startListening();
+});
+
+// Reference string buttons: play reference tone
+document.getElementById('guitarRef').addEventListener('click', e => {
+  if (!e.target.classList.contains('string-btn')) return;
+  const freq = GUITAR_FREQS[e.target.dataset.note];
+  if (!freq) return;
+  const ctx = new (window.AudioContext || window.webkitAudioContext)();
+  const osc = ctx.createOscillator();
+  const gain = ctx.createGain();
+  osc.connect(gain); gain.connect(ctx.destination);
+  osc.type = 'sawtooth';
+  osc.frequency.value = freq;
+  gain.gain.setValueAtTime(0.3, ctx.currentTime);
+  gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 2);
+  osc.start(); osc.stop(ctx.currentTime + 2.1);
+  osc.onended = () => ctx.close();
+});
+</script>
+<script src="js/pwa-install.js"></script>
+</body>
+</html>

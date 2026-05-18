@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9ZGENFSXWC"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-9ZGENFSXWC');
+</script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="naver-site-verification" content="7396a327607b884b9bef1283dfd3a5c6115a2b50">
+  <meta name="google-site-verification" content="tNM8tmr_6DFold03YSScWz4KEtu5Zo0Fsqc03u5Afms">
+  <title>메트로놈 온라인 무료 — BPM 설정·탭 템포·박자 연습 | WooaAudio</title>
+  <meta name="description" content="온라인 메트로놈으로 BPM과 박자를 자유롭게 설정하세요. 탭 템포 기능, 2/4·3/4·4/4·6/8 박자 지원. 설치 없이 브라우저에서 무료 사용. 악기 연습·작곡에 최적.">
+  <meta name="keywords" content="메트로놈,온라인메트로놈,메트로놈온라인,BPM메트로놈,무료메트로놈,탭템포,박자연습,악기연습,드럼메트로놈,기타메트로놈,피아노연습,BPM설정,박자기">
+  <link rel="canonical" href="https://wooaaudio.wooahouse.com/audio-metronome.html">
+  <link rel="alternate" hreflang="ko" href="https://wooaaudio.wooahouse.com/audio-metronome.html">
+  <link rel="alternate" hreflang="en" href="https://wooaaudio.wooahouse.com/en/audio-metronome.html">
+  <link rel="alternate" hreflang="x-default" href="https://wooaaudio.wooahouse.com/en/audio-metronome.html">
+  <meta property="og:title" content="메트로놈 온라인 무료 — BPM 설정·탭 템포 | WooaAudio">
+  <meta property="og:description" content="온라인 메트로놈. BPM·박자 설정, 탭 템포 기능. 설치 없이 무료 사용.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://wooaaudio.wooahouse.com/audio-metronome.html">
+  <meta property="og:locale" content="ko_KR">
+  <meta property="og:image" content="https://wooaaudio.wooahouse.com/og-image.png">
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#059669">
+  <link rel="stylesheet" href="css/style.css">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6464921081676309" crossorigin="anonymous"></script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "온라인 메트로놈",
+    "url": "https://wooaaudio.wooahouse.com/audio-metronome.html",
+    "applicationCategory": "MusicApplication",
+    "operatingSystem": "Web",
+    "inLanguage": "ko",
+    "isAccessibleForFree": true,
+    "offers": {"@type":"Offer","price":"0","priceCurrency":"KRW"}
+  }
+  </script>
+  <style>
+    .lang-switcher { display:flex; align-items:center; gap:4px; }
+    .lang-switcher a { color:rgba(255,255,255,0.7); text-decoration:none; font-size:0.8rem; font-weight:600; padding:3px 8px; border-radius:12px; transition:background 0.15s; }
+    .lang-switcher a.active { color:white; background:rgba(255,255,255,0.25); }
+    .lang-switcher a:hover { color:white; background:rgba(255,255,255,0.18); }
+    .lang-switcher span { color:rgba(255,255,255,0.3); font-size:0.75rem; }
+
+    .metro-wrap { background:#fff; border-radius:16px; padding:32px 24px; box-shadow:0 2px 16px rgba(0,0,0,0.07); max-width:540px; margin:0 auto; }
+    .bpm-display { text-align:center; font-size:4.5rem; font-weight:800; color:#059669; line-height:1; margin:8px 0 4px; cursor:default; }
+    .bpm-label { text-align:center; font-size:0.85rem; color:#6b7280; margin-bottom:20px; letter-spacing:2px; text-transform:uppercase; }
+    .bpm-slider { width:100%; height:6px; -webkit-appearance:none; appearance:none; background:linear-gradient(to right, #059669 var(--pct,50%), #e5e7eb var(--pct,50%)); border-radius:3px; outline:none; cursor:pointer; margin:0 0 8px; }
+    .bpm-slider::-webkit-slider-thumb { -webkit-appearance:none; width:22px; height:22px; border-radius:50%; background:#059669; border:3px solid #fff; box-shadow:0 2px 6px rgba(5,150,105,0.4); cursor:pointer; }
+    .bpm-slider::-moz-range-thumb { width:22px; height:22px; border-radius:50%; background:#059669; border:3px solid #fff; cursor:pointer; }
+    .bpm-range-labels { display:flex; justify-content:space-between; font-size:0.75rem; color:#9ca3af; margin-bottom:20px; }
+    .bpm-stepper { display:flex; justify-content:center; gap:12px; margin-bottom:24px; }
+    .btn-step { background:#f3f4f6; border:1px solid #e5e7eb; color:#374151; font-size:1rem; font-weight:700; padding:8px 20px; border-radius:8px; cursor:pointer; transition:background .15s; user-select:none; }
+    .btn-step:hover { background:#e5e7eb; }
+    .beat-row { display:flex; justify-content:center; gap:10px; margin:20px 0 28px; }
+    .beat-dot { width:44px; height:44px; border-radius:50%; background:#e5e7eb; transition:background .05s, transform .05s; }
+    .beat-dot.accent { background:#d1fae5; }
+    .beat-dot.active { background:#059669; transform:scale(1.15); }
+    .beat-dot.active.accent { background:#047857; }
+    .controls-row { display:flex; gap:12px; margin-bottom:20px; }
+    .btn-start { flex:1; background:#059669; color:#fff; border:none; border-radius:10px; font-size:1.1rem; font-weight:700; padding:16px; cursor:pointer; transition:background .15s; font-family:inherit; }
+    .btn-start:hover { background:#047857; }
+    .btn-start.running { background:#dc2626; }
+    .btn-start.running:hover { background:#b91c1c; }
+    .btn-tap { background:#f0fdf4; color:#059669; border:2px solid #059669; border-radius:10px; font-size:1.1rem; font-weight:700; padding:16px 20px; cursor:pointer; transition:all .1s; font-family:inherit; white-space:nowrap; }
+    .btn-tap:active { background:#059669; color:#fff; transform:scale(0.97); }
+    .sig-row { display:flex; gap:8px; justify-content:center; flex-wrap:wrap; margin-bottom:8px; }
+    .sig-btn { background:#f3f4f6; border:1px solid #e5e7eb; color:#374151; font-size:0.88rem; font-weight:600; padding:7px 16px; border-radius:20px; cursor:pointer; transition:all .15s; }
+    .sig-btn.active { background:#059669; color:#fff; border-color:#059669; }
+    .section-label { font-size:0.78rem; color:#9ca3af; text-align:center; margin-bottom:8px; text-transform:uppercase; letter-spacing:1px; }
+    .tempo-name { text-align:center; font-size:0.9rem; color:#6b7280; height:20px; margin-bottom:4px; }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a href="index.html" class="logo">WooaAudio</a>
+    <nav>
+      <a href="audio-convert.html">포맷 변환</a>
+      <a href="audio-cut.html">오디오 자르기</a>
+      <a href="audio-metronome.html" style="color:#fff;background:rgba(255,255,255,0.2);">메트로놈</a>
+      <a href="audio-tuner.html">악기 튜너</a>
+      <a href="index.html">전체 도구 ›</a>
+    </nav>
+    <div class="header-right">
+      <div class="lang-switcher">
+        <a href="audio-metronome.html" class="active">KO</a>
+        <span>|</span>
+        <a href="en/audio-metronome.html">EN</a>
+      </div>
+      <a href="about.html" style="color:rgba(255,255,255,0.85);font-size:.85rem;text-decoration:none;margin-left:8px;">소개</a>
+    </div>
+  </div>
+</header>
+
+<div class="our-sites-bar">
+  <span class="our-sites-label">WooaHouse Services</span>
+  <div class="our-sites-links">
+    <a href="https://wooahouse.com/" target="_blank" rel="noopener">🔗 WooaHouse</a>
+    <a href="https://pdfkit.wooahouse.com/" target="_blank" rel="noopener">📄 WooaPDF</a>
+    <a href="https://imagekit.wooahouse.com/" target="_blank" rel="noopener">🖼️ WooaImage</a>
+    <a href="https://colorkit.wooahouse.com/" target="_blank" rel="noopener">🎨 WooaColor</a>
+    <a href="https://textkit.wooahouse.com/" target="_blank" rel="noopener">✏️ WooaText</a>
+    <a href="https://qrkit.wooahouse.com/" target="_blank" rel="noopener">📱 WooaQR</a>
+    <a href="https://calckit.wooahouse.com/" target="_blank" rel="noopener">🧮 WooaCalc</a>
+    <a href="https://fontkit.wooahouse.com/" target="_blank" rel="noopener">🔤 WooaFont</a>
+    <a href="https://mactools.wooahouse.com/" target="_blank" rel="noopener">🍎 WooaMac</a>
+    <a href="https://pctools.wooahouse.com/" target="_blank" rel="noopener">🖥️ WooaPC</a>
+    <a href="https://vskit.wooahouse.com/" target="_blank" rel="noopener">💻 WooaVS</a>
+    <a href="https://wooaaudio.wooahouse.com/" target="_blank" rel="noopener" class="active">🎵 WooaAudio</a>
+    <a href="https://wooaviewer.wooahouse.com/" target="_blank" rel="noopener">🔍 WooaViewer</a>
+    <a href="https://wooadev.wooahouse.com/" target="_blank" rel="noopener">🛠️ WooaDev</a>
+    <a href="https://wooaocr.wooahouse.com/" target="_blank" rel="noopener">🔍 WooaOCR</a>
+    <a href="https://wooasheet.wooahouse.com/" target="_blank" rel="noopener">📊 WooaSheet</a>
+  </div>
+</div>
+
+<div class="mobile-top-ad">
+  <ins class="adsbygoogle" style="display:block;width:100%;height:80px" data-ad-client="ca-pub-6464921081676309" data-ad-slot="7080296704" data-ad-format="auto" data-full-width-responsive="true"></ins>
+  <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+
+<div class="page-with-sidebar">
+<main class="tool-page">
+  <div class="breadcrumb">
+    <a href="index.html">홈</a><span>›</span><span>온라인 메트로놈</span>
+  </div>
+
+  <div class="tool-header">
+    <span class="tool-header-icon">🥁</span>
+    <h1>메트로놈 온라인 무료</h1>
+    <p>BPM·박자 설정과 탭 템포 기능. 악기 연습·작곡에 바로 사용하세요.</p>
+  </div>
+
+  <div class="metro-wrap">
+    <div class="tempo-name" id="tempoName">Moderato</div>
+    <div class="bpm-display" id="bpmDisplay">120</div>
+    <div class="bpm-label">BPM</div>
+
+    <input type="range" class="bpm-slider" id="bpmSlider" min="40" max="240" value="120">
+    <div class="bpm-range-labels"><span>40</span><span>240</span></div>
+
+    <div class="bpm-stepper">
+      <button class="btn-step" id="minus10">−10</button>
+      <button class="btn-step" id="minus1">−1</button>
+      <button class="btn-step" id="plus1">+1</button>
+      <button class="btn-step" id="plus10">+10</button>
+    </div>
+
+    <div class="section-label">박자</div>
+    <div class="sig-row" id="sigRow">
+      <button class="sig-btn" data-beats="2">2/4</button>
+      <button class="sig-btn active" data-beats="4">4/4</button>
+      <button class="sig-btn" data-beats="3">3/4</button>
+      <button class="sig-btn" data-beats="6">6/8</button>
+    </div>
+
+    <div class="beat-row" id="beatRow"></div>
+
+    <div class="controls-row">
+      <button class="btn-start" id="startBtn">▶ 시작</button>
+      <button class="btn-tap" id="tapBtn">탭 템포</button>
+    </div>
+  </div>
+
+  <div class="cross-link-banner" style="max-width:800px;margin:2rem auto;padding:1rem 1.5rem;background:linear-gradient(135deg,#f0fdf4,#dcfce7);border-radius:12px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.8rem;">
+    <span style="font-size:0.95rem;color:#444;">악기 음정이 맞는지 확인하고 싶으신가요?</span>
+    <a href="audio-tuner.html" style="background:#059669;color:#fff;padding:0.5rem 1rem;border-radius:8px;text-decoration:none;font-size:0.9rem;white-space:nowrap;">🎸 악기 튜너 →</a>
+  </div>
+
+  <section style="max-width:800px;margin:3rem auto;padding:0 1rem;">
+    <h2 class="faq-title">자주 묻는 질문</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <div class="faq-q">Q. 탭 템포(Tap Tempo)는 무엇인가요?</div>
+        <div class="faq-a">원하는 곡의 박자에 맞춰 '탭 템포' 버튼을 여러 번 두드리면 자동으로 BPM이 계산됩니다. 템포를 모르는 곡의 BPM을 빠르게 찾을 때 유용합니다.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Q. 1박자(Accent)는 어떻게 표시되나요?</div>
+        <div class="faq-a">첫 번째 박자(1박)는 더 높고 강한 소리로 재생되며, 비트 표시등도 더 밝게 강조됩니다.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Q. BPM 범위는 얼마나 되나요?</div>
+        <div class="faq-a">40 BPM(Grave)부터 240 BPM(Prestissimo)까지 지원합니다. 슬라이더·버튼으로 1 단위 조절이 가능합니다.</div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<aside class="tool-sidebar">
+  <div class="ad-card">
+    <ins class="adsbygoogle" style="display:block;width:100%;min-height:250px"
+      data-ad-client="ca-pub-6464921081676309" data-ad-slot="1419180025"
+      data-ad-format="auto" data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+  <div style="margin-top:16px;overflow:hidden;border-radius:14px;">
+    <script src="https://ads-partners.coupang.com/g.js"></script>
+    <script>new PartnersCoupang.G({"id":974224,"trackingCode":"AF5600192","subId":null,"template":"carousel","width":"300","height":"250"});</script>
+  </div>
+</aside>
+</div>
+
+<div class="features" style="margin-top:60px">
+  <div class="features-inner">
+    <div><div class="feature-icon">🎵</div><div class="feature-title">정확한 박자</div><div class="feature-desc">Web Audio API 기반 고정밀 타이밍으로 흔들림 없는 박자를 제공합니다.</div></div>
+    <div><div class="feature-icon">👆</div><div class="feature-title">탭 템포</div><div class="feature-desc">버튼을 두드리기만 하면 BPM이 자동 계산됩니다.</div></div>
+    <div><div class="feature-icon">💸</div><div class="feature-title">완전 무료</div><div class="feature-desc">설치·회원가입 없이 즉시 사용 가능합니다.</div></div>
+    <div><div class="feature-icon">📱</div><div class="feature-title">모든 기기 지원</div><div class="feature-desc">PC, 태블릿, 스마트폰 어디서나 사용 가능합니다.</div></div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <span class="logo-footer">WooaAudio</span>
+        <p>무료 온라인 오디오 도구 모음. 변환, 편집, 분석 작업을 브라우저에서 안전하게 처리하세요.</p>
+      </div>
+      <div class="footer-links">
+        <h4>악기 도구</h4>
+        <a href="audio-metronome.html">메트로놈</a>
+        <a href="audio-tuner.html">악기 튜너</a>
+        <a href="audio-mr.html">MR 만들기</a>
+        <a href="audio-record.html">오디오 녹음</a>
+      </div>
+      <div class="footer-links">
+        <h4>WooaHouse 서비스</h4>
+        <a href="https://pdfkit.wooahouse.com/" target="_blank" rel="noopener">WooaPDF</a>
+        <a href="https://imagekit.wooahouse.com/" target="_blank" rel="noopener">WooaImage</a>
+        <a href="https://wooasheet.wooahouse.com/" target="_blank" rel="noopener">WooaSheet</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 WooaAudio. 모든 권리 보유.</p>
+      <div class="footer-bottom-links">
+        <a href="privacy.html">개인정보처리방침</a>
+        <a href="about.html">소개</a>
+      </div>
+    </div>
+    <p class="coupang-notice">이 포스팅은 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다.</p>
+  </div>
+</footer>
+
+<script>
+const TEMPO_NAMES = [
+  [40,59,'Grave (매우 느리게)'], [60,65,'Largo (장중하게)'], [66,75,'Adagio (느리게)'],
+  [76,107,'Andante (걷는 속도)'], [108,119,'Moderato (보통 속도)'], [120,155,'Allegro (빠르게)'],
+  [156,175,'Vivace (활기차게)'], [176,199,'Presto (매우 빠르게)'], [200,240,'Prestissimo (최대한 빠르게)']
+];
+
+let bpm = 120, beats = 4, running = false;
+let audioCtx = null, nextBeatTime = 0, currentBeat = 0;
+let schedulerTimer = null;
+let tapTimes = [];
+
+const bpmSlider = document.getElementById('bpmSlider');
+const bpmDisplay = document.getElementById('bpmDisplay');
+const startBtn = document.getElementById('startBtn');
+
+function getTempoName(b) {
+  for (const [lo, hi, name] of TEMPO_NAMES) if (b >= lo && b <= hi) return name;
+  return '';
+}
+
+function updateBpm(val) {
+  bpm = Math.max(40, Math.min(240, val));
+  bpmDisplay.textContent = bpm;
+  bpmSlider.value = bpm;
+  const pct = ((bpm - 40) / 200 * 100).toFixed(1);
+  bpmSlider.style.setProperty('--pct', pct + '%');
+  document.getElementById('tempoName').textContent = getTempoName(bpm);
+}
+
+function buildBeats(n) {
+  beats = n;
+  const row = document.getElementById('beatRow');
+  row.innerHTML = '';
+  for (let i = 0; i < n; i++) {
+    const d = document.createElement('div');
+    d.className = 'beat-dot' + (i === 0 ? ' accent' : '');
+    d.id = 'dot' + i;
+    row.appendChild(d);
+  }
+  currentBeat = 0;
+}
+
+function flashBeat(i) {
+  document.querySelectorAll('.beat-dot').forEach((d, idx) => {
+    d.classList.toggle('active', idx === i);
+  });
+}
+
+function scheduleBeep(time, isAccent) {
+  if (!audioCtx) return;
+  const osc = audioCtx.createOscillator();
+  const gain = audioCtx.createGain();
+  osc.connect(gain); gain.connect(audioCtx.destination);
+  osc.frequency.value = isAccent ? 1800 : 1000;
+  gain.gain.setValueAtTime(isAccent ? 0.6 : 0.35, time);
+  gain.gain.exponentialRampToValueAtTime(0.001, time + 0.05);
+  osc.start(time); osc.stop(time + 0.06);
+}
+
+function scheduler() {
+  const lookahead = 0.1;
+  while (nextBeatTime < audioCtx.currentTime + lookahead) {
+    const beat = currentBeat % beats;
+    scheduleBeep(nextBeatTime, beat === 0);
+    const delay = 60 / bpm;
+    // Flash UI approximately
+    const msUntil = (nextBeatTime - audioCtx.currentTime) * 1000;
+    const b = beat;
+    setTimeout(() => { if (running) flashBeat(b); }, Math.max(0, msUntil));
+    nextBeatTime += delay;
+    currentBeat++;
+  }
+}
+
+function startMetronome() {
+  if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  if (audioCtx.state === 'suspended') audioCtx.resume();
+  running = true;
+  currentBeat = 0;
+  nextBeatTime = audioCtx.currentTime + 0.05;
+  schedulerTimer = setInterval(scheduler, 25);
+  startBtn.textContent = '⏹ 정지';
+  startBtn.classList.add('running');
+}
+
+function stopMetronome() {
+  running = false;
+  clearInterval(schedulerTimer);
+  schedulerTimer = null;
+  document.querySelectorAll('.beat-dot').forEach(d => d.classList.remove('active'));
+  startBtn.textContent = '▶ 시작';
+  startBtn.classList.remove('running');
+}
+
+startBtn.addEventListener('click', () => { running ? stopMetronome() : startMetronome(); });
+
+bpmSlider.addEventListener('input', () => updateBpm(parseInt(bpmSlider.value)));
+
+document.getElementById('minus10').addEventListener('click', () => updateBpm(bpm - 10));
+document.getElementById('minus1').addEventListener('click', () => updateBpm(bpm - 1));
+document.getElementById('plus1').addEventListener('click', () => updateBpm(bpm + 1));
+document.getElementById('plus10').addEventListener('click', () => updateBpm(bpm + 10));
+
+document.getElementById('sigRow').addEventListener('click', e => {
+  if (e.target.classList.contains('sig-btn')) {
+    document.querySelectorAll('.sig-btn').forEach(b => b.classList.remove('active'));
+    e.target.classList.add('active');
+    buildBeats(parseInt(e.target.dataset.beats));
+    if (running) { stopMetronome(); startMetronome(); }
+  }
+});
+
+// Tap tempo
+document.getElementById('tapBtn').addEventListener('click', () => {
+  const now = performance.now();
+  tapTimes.push(now);
+  if (tapTimes.length > 8) tapTimes.shift();
+  if (tapTimes.length >= 2) {
+    const intervals = [];
+    for (let i = 1; i < tapTimes.length; i++) intervals.push(tapTimes[i] - tapTimes[i-1]);
+    const avg = intervals.reduce((a,b) => a+b, 0) / intervals.length;
+    updateBpm(Math.round(60000 / avg));
+  }
+  // Reset after 2 seconds of no tap
+  clearTimeout(window._tapReset);
+  window._tapReset = setTimeout(() => { tapTimes = []; }, 2000);
+});
+
+// Keyboard support: Space to start/stop
+document.addEventListener('keydown', e => {
+  if (e.code === 'Space' && e.target.tagName !== 'INPUT') {
+    e.preventDefault();
+    running ? stopMetronome() : startMetronome();
+  }
+});
+
+// Init
+buildBeats(4);
+updateBpm(120);
+</script>
+<script src="js/pwa-install.js"></script>
+</body>
+</html>
