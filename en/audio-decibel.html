@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9ZGENFSXWC"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-9ZGENFSXWC');
+</script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="naver-site-verification" content="7396a327607b884b9bef1283dfd3a5c6115a2b50">
+  <meta name="google-site-verification" content="tNM8tmr_6DFold03YSScWz4KEtu5Zo0Fsqc03u5Afms">
+  <title>Decibel Meter Online Free – Sound Level Noise Measurement dB | WooaAudio</title>
+  <meta name="description" content="Measure ambient noise in real-time decibels (dB) using your microphone. Shows current, peak, and average dB. Free, no install. Useful for noise level monitoring.">
+  <meta name="keywords" content="decibel meter online, sound level meter, dB meter, noise meter online, measure noise online free, decibel measurement, sound measurement online, noise level checker">
+  <link rel="canonical" href="https://wooaaudio.wooahouse.com/en/audio-decibel.html">
+  <link rel="alternate" hreflang="ko" href="https://wooaaudio.wooahouse.com/audio-decibel.html">
+  <link rel="alternate" hreflang="en" href="https://wooaaudio.wooahouse.com/en/audio-decibel.html">
+  <link rel="alternate" hreflang="x-default" href="https://wooaaudio.wooahouse.com/en/audio-decibel.html">
+  <link rel="alternate" hreflang="ko" href="https://wooaaudio.wooahouse.com/audio-decibel.html">
+  <link rel="alternate" hreflang="en" href="https://wooaaudio.wooahouse.com/en/audio-decibel.html">
+  <link rel="alternate" hreflang="x-default" href="https://wooaaudio.wooahouse.com/en/audio-decibel.html">
+  <meta property="og:title" content="Decibel Meter Online Free – Noise Level dB Measurement | WooaAudio">
+  <meta property="og:description" content="Measure ambient noise in real-time dB with your microphone. Shows current, peak and average. Free, no install.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://wooaaudio.wooahouse.com/en/audio-decibel.html">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:image" content="https://wooaaudio.wooahouse.com/og-image.png">
+  <link rel="manifest" href="../manifest.json">
+  <meta name="theme-color" content="#059669">
+  <link rel="stylesheet" href="../css/style.css">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6464921081676309" crossorigin="anonymous"></script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Decibel Meter",
+    "url": "https://wooaaudio.wooahouse.com/en/audio-decibel.html",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "Web",
+    "inLanguage": "en",
+    "isAccessibleForFree": true,
+    "offers": {"@type":"Offer","price":"0","priceCurrency":"USD"}
+  }
+  </script>
+  <style>
+    .lang-switcher { display:flex; align-items:center; gap:4px; }
+    .lang-switcher a { color:rgba(255,255,255,0.7); text-decoration:none; font-size:0.8rem; font-weight:600; padding:3px 8px; border-radius:12px; transition:background 0.15s; }
+    .lang-switcher a.active { color:white; background:rgba(255,255,255,0.25); }
+    .lang-switcher a:hover { color:white; background:rgba(255,255,255,0.18); }
+    .lang-switcher span { color:rgba(255,255,255,0.3); font-size:0.75rem; }
+
+    .db-wrap { background:#fff; border-radius:16px; padding:32px 24px; box-shadow:0 2px 16px rgba(0,0,0,0.07); max-width:500px; margin:0 auto; text-align:center; }
+    .db-main { font-size:5.5rem; font-weight:900; line-height:1; margin:8px 0 2px; transition:color .2s; }
+    .db-unit { font-size:1.2rem; color:#6b7280; margin-bottom:4px; }
+    .db-level-name { font-size:1rem; font-weight:600; margin-bottom:20px; min-height:24px; }
+    /* VU Meter bar */
+    .vu-track { background:#e5e7eb; border-radius:8px; height:20px; overflow:hidden; margin-bottom:20px; position:relative; }
+    .vu-fill { height:100%; border-radius:8px; width:0%; transition:width 0.08s linear; }
+    .vu-ticks { display:flex; justify-content:space-between; font-size:0.7rem; color:#9ca3af; margin-top:4px; margin-bottom:16px; padding:0 2px; }
+    /* Stats row */
+    .stats-row { display:flex; gap:12px; margin-bottom:20px; }
+    .stat-box { flex:1; background:#f8fafc; border:1px solid #e5e7eb; border-radius:10px; padding:12px 8px; }
+    .stat-label { font-size:0.75rem; color:#9ca3af; margin-bottom:4px; text-transform:uppercase; letter-spacing:.5px; }
+    .stat-val { font-size:1.3rem; font-weight:700; color:#374151; }
+    /* Level guide */
+    .level-guide { display:flex; flex-direction:column; gap:6px; margin-bottom:20px; }
+    .level-row { display:flex; align-items:center; gap:10px; font-size:0.82rem; }
+    .level-dot { width:12px; height:12px; border-radius:50%; flex-shrink:0; }
+    .level-text { color:#6b7280; }
+    .level-db { color:#374151; font-weight:600; min-width:70px; }
+    /* Buttons */
+    .btn-measure { display:block; width:100%; background:#059669; color:#fff; border:none; border-radius:10px; font-size:1.1rem; font-weight:700; padding:16px; cursor:pointer; transition:background .15s; font-family:inherit; margin-bottom:10px; }
+    .btn-measure:hover { background:#047857; }
+    .btn-measure.active { background:#dc2626; }
+    .btn-measure.active:hover { background:#b91c1c; }
+    .btn-reset-stats { background:#f3f4f6; border:1px solid #e5e7eb; color:#6b7280; border-radius:8px; padding:8px 16px; font-size:0.85rem; cursor:pointer; font-family:inherit; }
+    .btn-reset-stats:hover { background:#e5e7eb; }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a href="index.html" class="logo">WooaAudio</a>
+    <nav>
+      <a href="audio-convert.html">Convert</a>
+      <a href="audio-tts.html">TTS</a>
+      <a href="audio-decibel.html" style="color:#fff;background:rgba(255,255,255,0.2);">데시벨 측정</a>
+      <a href="audio-metronome.html">메트로놈</a>
+      <a href="index.html">All Tools ›</a>
+    </nav>
+    <div class="header-right">
+      <div class="lang-switcher">
+        <a href="audio-decibel.html" class="active">KO</a>
+        <span>|</span>
+        <a href="en/audio-decibel.html">EN</a>
+      </div>
+      <a href="../about.html" style="color:rgba(255,255,255,0.85);font-size:.85rem;text-decoration:none;margin-left:8px;">About</a>
+    </div>
+    <div class="header-right">
+      <div class="lang-switcher">
+        <a href="../audio-decibel.html">KO</a>
+        <span>|</span>
+        <a href="audio-decibel.html" class="active">EN</a>
+      </div>
+      <a href="../about.html" style="color:rgba(255,255,255,0.85); font-size:0.85rem; text-decoration:none; margin-left:8px;">About</a>
+    </div>
+  </div>
+</header>
+
+<div class="our-sites-bar">
+  <span class="our-sites-label">WooaHouse Services</span>
+  <div class="our-sites-links">
+    <a href="https://wooahouse.com/" target="_blank" rel="noopener">🔗 WooaHouse</a>
+    <a href="https://pdfkit.wooahouse.com/" target="_blank" rel="noopener">📄 WooaPDF</a>
+    <a href="https://imagekit.wooahouse.com/" target="_blank" rel="noopener">🖼️ WooaImage</a>
+    <a href="https://colorkit.wooahouse.com/" target="_blank" rel="noopener">🎨 WooaColor</a>
+    <a href="https://textkit.wooahouse.com/" target="_blank" rel="noopener">✏️ WooaText</a>
+    <a href="https://qrkit.wooahouse.com/" target="_blank" rel="noopener">📱 WooaQR</a>
+    <a href="https://calckit.wooahouse.com/" target="_blank" rel="noopener">🧮 WooaCalc</a>
+    <a href="https://fontkit.wooahouse.com/" target="_blank" rel="noopener">🔤 WooaFont</a>
+    <a href="https://mactools.wooahouse.com/" target="_blank" rel="noopener">🍎 WooaMac</a>
+    <a href="https://pctools.wooahouse.com/" target="_blank" rel="noopener">🖥️ WooaPC</a>
+    <a href="https://vskit.wooahouse.com/" target="_blank" rel="noopener">💻 WooaVS</a>
+    <a href="https://wooaaudio.wooahouse.com/en/" target="_blank" rel="noopener" class="active">🎵 WooaAudio</a>
+    <a href="https://wooaviewer.wooahouse.com/" target="_blank" rel="noopener">🔍 WooaViewer</a>
+    <a href="https://wooadev.wooahouse.com/" target="_blank" rel="noopener">🛠️ WooaDev</a>
+    <a href="https://wooaocr.wooahouse.com/" target="_blank" rel="noopener">🔍 WooaOCR</a>
+    <a href="https://wooasheet.wooahouse.com/" target="_blank" rel="noopener">📊 WooaSheet</a>
+  </div>
+</div>
+
+<div class="mobile-top-ad">
+  <ins class="adsbygoogle" style="display:block;width:100%;height:80px" data-ad-client="ca-pub-6464921081676309" data-ad-slot="7080296704" data-ad-format="auto" data-full-width-responsive="true"></ins>
+  <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+
+<div class="page-with-sidebar">
+<main class="tool-page">
+  <div class="breadcrumb">
+    <a href="index.html">Home</a><span>›</span><span>Decibel Meter</span>
+  </div>
+
+  <div class="tool-header">
+    <span class="tool-header-icon">📊</span>
+    <h1>Decibel Meter – Free Online Noise Measurement</h1>
+    <p>Measure ambient noise levels in real-time dB using your microphone. Displays current, peak, and average readings with a noise level guide.</p>
+  </div>
+
+  <div class="db-wrap">
+    <div class="db-main" id="dbMain" style="color:#059669;">—</div>
+    <div class="db-unit">dB</div>
+    <div class="db-level-name" id="levelName" style="color:#6b7280;">측정 대기 중</div>
+
+    <div class="vu-track">
+      <div class="vu-fill" id="vuFill" style="background:linear-gradient(to right,#059669,#84cc16);"></div>
+    </div>
+    <div class="vu-ticks">
+      <span>0</span><span>20</span><span>40</span><span>60</span><span>80</span><span>100+</span>
+    </div>
+
+    <div class="stats-row">
+      <div class="stat-box">
+        <div class="stat-label">최대</div>
+        <div class="stat-val" id="maxDb">—</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-label">평균</div>
+        <div class="stat-val" id="avgDb">—</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-label">최소</div>
+        <div class="stat-val" id="minDb">—</div>
+      </div>
+    </div>
+
+    <button class="btn-measure" id="measureBtn">🎙 측정 시작</button>
+    <button class="btn-reset-stats" id="resetBtn">통계 초기화</button>
+
+    <div style="margin-top:24px;text-align:left;">
+      <div style="font-size:0.82rem;color:#9ca3af;margin-bottom:10px;text-transform:uppercase;letter-spacing:.5px;">소음 레벨 기준표</div>
+      <div class="level-guide">
+        <div class="level-row"><div class="level-dot" style="background:#10b981;"></div><div class="level-db">~ 30 dB</div><div class="level-text">조용한 도서관, 속삭임</div></div>
+        <div class="level-row"><div class="level-dot" style="background:#84cc16;"></div><div class="level-db">30 ~ 50 dB</div><div class="level-text">조용한 사무실, 가정 실내</div></div>
+        <div class="level-row"><div class="level-dot" style="background:#f59e0b;"></div><div class="level-db">50 ~ 70 dB</div><div class="level-text">일반 대화, 사무실 소음</div></div>
+        <div class="level-row"><div class="level-dot" style="background:#f97316;"></div><div class="level-db">70 ~ 90 dB</div><div class="level-text">교통 소음, 진공청소기</div></div>
+        <div class="level-row"><div class="level-dot" style="background:#ef4444;"></div><div class="level-db">90 dB ~</div><div class="level-text">공사장, 콘서트 (청력 주의)</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cross-link-banner" style="max-width:800px;margin:2rem auto;padding:1rem 1.5rem;background:linear-gradient(135deg,#f0fdf4,#dcfce7);border-radius:12px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.8rem;">
+    <span style="font-size:0.95rem;color:#444;">Want to record the audio as well?</span>
+    <a href="../audio-record.html" target="_blank" rel="noopener" style="background:#059669;color:#fff;padding:0.5rem 1rem;border-radius:8px;text-decoration:none;font-size:0.9rem;white-space:nowrap;">🎙 Audio Recorder →</a>
+  </div>
+
+  <section style="max-width:800px;margin:3rem auto;padding:0 1rem;">
+    <h2 class="faq-title">Frequently Asked Questions</h2>
+    <div class="faq-list">
+      <div class="faq-item" style="margin-bottom:1.2rem;padding:1rem;background:#f8f9fa;border-radius:8px;">
+        <h3 style="font-size:1rem;font-weight:600;margin-bottom:0.5rem;">Q. Are the measurements accurate?</h3>
+        <p style="color:#555;margin:0;">Accuracy depends on microphone sensitivity, which varies by device. Use readings for relative comparison rather than absolute measurements. For precision, use a dedicated sound level meter.</p>
+      </div>
+      <div class="faq-item" style="margin-bottom:1.2rem;padding:1rem;background:#f8f9fa;border-radius:8px;">
+        <h3 style="font-size:1rem;font-weight:600;margin-bottom:0.5rem;">Q. Do I need to grant microphone permission?</h3>
+        <p style="color:#555;margin:0;">Yes. Click "Start Measuring" and allow microphone access when prompted. Audio data is never sent to a server.</p>
+      </div>
+      <div class="faq-item" style="padding:1rem;background:#f8f9fa;border-radius:8px;">
+        <h3 style="font-size:1rem;font-weight:600;margin-bottom:0.5rem;">Q. What are typical noise level guidelines?</h3>
+        <p style="color:#555;margin:0;">Below 30 dB is very quiet (library). 30–50 dB is a quiet office. 50–70 dB is normal conversation. 70–90 dB is traffic noise. Above 90 dB can cause hearing damage.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<aside class="tool-sidebar">
+  <div class="ad-card">
+    <ins class="adsbygoogle" style="display:block;width:100%;min-height:250px"
+      data-ad-client="ca-pub-6464921081676309" data-ad-slot="1419180025"
+      data-ad-format="auto" data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+  <div style="margin-top:16px;overflow:hidden;border-radius:14px;">    
+  </div>
+</aside>
+</div>
+
+<div class="features" style="margin-top:60px">
+  <div class="features-inner">
+    <div><div class="feature-icon">📊</div><div class="feature-title">실시간 측정</div><div class="feature-desc">마이크 입력을 실시간으로 분석해 현재·최대·평균 dB을 즉시 표시합니다.</div></div>
+    <div><div class="feature-icon">📋</div><div class="feature-title">기준표 제공</div><div class="feature-desc">조용한 공간부터 콘서트까지 소음 레벨 기준표를 함께 제공합니다.</div></div>
+    <div><div class="feature-icon">💸</div><div class="feature-title">Completely Free</div><div class="feature-desc">설치·회원가입 없이 즉시 사용 가능합니다.</div></div>
+    <div><div class="feature-icon">🔒</div><div class="feature-title">개인정보 안전</div><div class="feature-desc">마이크 오디오가 서버로 전송되지 않습니다. 브라우저 내에서만 처리됩니다.</div></div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <span class="logo-footer">WooaAudio</span>
+        <p>Free online audio toolkit. Convert, edit, and analyze audio safely in your browser.</p>
+      </div>
+      <div class="footer-links">
+        <h4>오디오 도구</h4>
+        <a href="audio-decibel.html">데시벨 측정기</a>
+        <a href="audio-tts.html">텍스트 음성 변환</a>
+        <a href="audio-tuner.html">악기 튜너</a>
+        <a href="audio-metronome.html">메트로놈</a>
+      </div>
+      <div class="footer-links">
+        <h4>WooaHouse Services</h4>
+        <a href="https://pdfkit.wooahouse.com/" target="_blank" rel="noopener">WooaPDF</a>
+        <a href="https://imagekit.wooahouse.com/" target="_blank" rel="noopener">WooaImage</a>
+        <a href="https://wooasheet.wooahouse.com/" target="_blank" rel="noopener">WooaSheet</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 WooaAudio. All rights reserved.</p>
+      <div class="footer-bottom-links">
+        <a href="../privacy.html">Privacy Policy</a>
+        <a href="../about.html">About</a>
+      </div>
+    </div>
+    
+  </div>
+</footer>
+
+<script>
+let audioCtx = null, analyser = null, stream = null, rafId = null;
+let measuring = false;
+let readings = [], maxDb = -Infinity, minDb = Infinity, sumDb = 0, countDb = 0;
+
+const LEVELS = [
+  [90,  Infinity, '#ef4444', '매우 시끄러움 (청력 주의)'],
+  [70,  90,       '#f97316', '시끄러움 (교통·기계 소음 수준)'],
+  [50,  70,       '#f59e0b', '보통 (일반 대화 수준)'],
+  [30,  50,       '#84cc16', '조용함 (사무실·가정 실내)'],
+  [-Infinity, 30, '#10b981', '매우 조용함 (도서관 수준)'],
+];
+
+function getLevelInfo(db) {
+  for (const [lo, hi, color, name] of LEVELS) {
+    if (db >= lo && db < hi) return { color, name };
+  }
+  return { color:'#059669', name:'측정 중' };
+}
+
+function loop() {
+  if (!analyser) return;
+  const buf = new Uint8Array(analyser.frequencyBinCount);
+  analyser.getByteFrequencyData(buf);
+  // RMS → dB
+  let sum = 0;
+  for (let i = 0; i < buf.length; i++) sum += buf[i] * buf[i];
+  const rms = Math.sqrt(sum / buf.length);
+  const db = rms > 0 ? Math.round(20 * Math.log10(rms / 255) + 100) : 0;
+  const clampedDb = Math.max(0, Math.min(120, db));
+
+  // Update stats
+  countDb++;
+  sumDb += clampedDb;
+  if (clampedDb > maxDb) maxDb = clampedDb;
+  if (clampedDb < minDb) minDb = clampedDb;
+
+  // UI
+  const { color, name } = getLevelInfo(clampedDb);
+  document.getElementById('dbMain').textContent = clampedDb;
+  document.getElementById('dbMain').style.color = color;
+  document.getElementById('levelName').textContent = name;
+  document.getElementById('levelName').style.color = color;
+
+  const pct = Math.min(100, (clampedDb / 100) * 100);
+  const vuFill = document.getElementById('vuFill');
+  vuFill.style.width = pct + '%';
+  if (clampedDb >= 90) vuFill.style.background = 'linear-gradient(to right,#f97316,#ef4444)';
+  else if (clampedDb >= 70) vuFill.style.background = 'linear-gradient(to right,#f59e0b,#f97316)';
+  else if (clampedDb >= 50) vuFill.style.background = 'linear-gradient(to right,#84cc16,#f59e0b)';
+  else vuFill.style.background = 'linear-gradient(to right,#059669,#84cc16)';
+
+  document.getElementById('maxDb').textContent = maxDb === -Infinity ? '—' : maxDb + ' dB';
+  document.getElementById('avgDb').textContent = countDb > 0 ? Math.round(sumDb / countDb) + ' dB' : '—';
+  document.getElementById('minDb').textContent = minDb === Infinity ? '—' : minDb + ' dB';
+
+  rafId = requestAnimationFrame(loop);
+}
+
+async function startMeasuring() {
+  try {
+    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    stream = await navigator.mediaDevices.getUserMedia({ audio: true, video: false });
+    analyser = audioCtx.createAnalyser();
+    analyser.fftSize = 256;
+    const src = audioCtx.createMediaStreamSource(stream);
+    src.connect(analyser);
+    measuring = true;
+    document.getElementById('measureBtn').textContent = '⏹ 측정 중지';
+    document.getElementById('measureBtn').classList.add('active');
+    loop();
+  } catch(e) {
+    alert('마이크 접근 권한이 필요합니다. 브라우저에서 마이크를 허용해주세요.');
+  }
+}
+
+function stopMeasuring() {
+  if (rafId) { cancelAnimationFrame(rafId); rafId = null; }
+  if (stream) { stream.getTracks().forEach(t => t.stop()); stream = null; }
+  if (audioCtx) { audioCtx.close(); audioCtx = null; }
+  analyser = null;
+  measuring = false;
+  document.getElementById('measureBtn').textContent = '🎙 측정 시작';
+  document.getElementById('measureBtn').classList.remove('active');
+  document.getElementById('dbMain').textContent = '—';
+  document.getElementById('dbMain').style.color = '#059669';
+  document.getElementById('levelName').textContent = '측정 완료';
+  document.getElementById('levelName').style.color = '#6b7280';
+  document.getElementById('vuFill').style.width = '0%';
+}
+
+function resetStats() {
+  maxDb = -Infinity; minDb = Infinity; sumDb = 0; countDb = 0;
+  document.getElementById('maxDb').textContent = '—';
+  document.getElementById('avgDb').textContent = '—';
+  document.getElementById('minDb').textContent = '—';
+}
+
+document.getElementById('measureBtn').addEventListener('click', () => {
+  measuring ? stopMeasuring() : startMeasuring();
+});
+document.getElementById('resetBtn').addEventListener('click', resetStats);
+</script>
+<script src="../js/pwa-install.js"></script>
+</body>
+</html>

@@ -61,13 +61,25 @@
       {"@type":"ListItem","position":12,"name":"페이드인·페이드아웃","url":"https://wooaaudio.wooahouse.com/audio-fade.html"},
       {"@type":"ListItem","position":13,"name":"피치 변경","url":"https://wooaaudio.wooahouse.com/audio-pitch.html"},
       {"@type":"ListItem","position":14,"name":"벨소리 만들기","url":"https://wooaaudio.wooahouse.com/audio-ringtone.html"},
-      {"@type":"ListItem","position":15,"name":"태그 편집기","url":"https://wooaaudio.wooahouse.com/audio-tag.html"}
+      {"@type":"ListItem","position":15,"name":"태그 편집기","url":"https://wooaaudio.wooahouse.com/audio-tag.html"},
+      {"@type":"ListItem","position":16,"name":"MR 만들기 (보컬 제거)","url":"https://wooaaudio.wooahouse.com/audio-mr.html"},
+      {"@type":"ListItem","position":17,"name":"온라인 메트로놈","url":"https://wooaaudio.wooahouse.com/audio-metronome.html"},
+      {"@type":"ListItem","position":18,"name":"악기 튜너","url":"https://wooaaudio.wooahouse.com/audio-tuner.html"},
+      {"@type":"ListItem","position":19,"name":"텍스트 음성 변환 (TTS)","url":"https://wooaaudio.wooahouse.com/audio-tts.html"},
+      {"@type":"ListItem","position":20,"name":"데시벨 측정기","url":"https://wooaaudio.wooahouse.com/audio-decibel.html"}
     ]
   }
   </script>
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6464921081676309" crossorigin="anonymous"></script>  <link rel="manifest" href="../manifest.json">
   <meta name="theme-color" content="#059669">
   <link rel="stylesheet" href="../css/style.css">
+  <style>
+    .lang-switcher { display:flex; align-items:center; gap:4px; }
+    .lang-switcher a { color:rgba(255,255,255,0.7); text-decoration:none; font-size:0.8rem; font-weight:600; padding:3px 8px; border-radius:12px; transition:background 0.15s; }
+    .lang-switcher a.active { color:white; background:rgba(255,255,255,0.25); }
+    .lang-switcher a:hover { color:white; background:rgba(255,255,255,0.18); }
+    .lang-switcher span { color:rgba(255,255,255,0.3); font-size:0.75rem; }
+  </style>
 </head>
 <body>
 
@@ -84,7 +96,12 @@
       <a href="index.html">All Tools ›</a>
     </nav>
     <div class="header-right">
-      <a href="../about.html" style="color:rgba(255,255,255,0.85);font-size:0.85rem;text-decoration:none;">About</a>
+      <div class="lang-switcher">
+        <a href="index.html" class="active">KO</a>
+        <span>|</span>
+        <a href="en/index.html">EN</a>
+      </div>
+      <a href="../about.html" style="color:rgba(255,255,255,0.85); font-size:0.85rem; text-decoration:none; margin-left:8px;">About</a>
     </div>
     <div class="header-right">
       <div class="lang-switcher">
@@ -225,6 +242,48 @@
         <span class="tool-icon">🏷️</span>
         <div class="tool-name">Tag Editor</div>
         <div class="tool-desc">Edit ID3 tags: title, artist, album art</div>
+      </a>
+      <a href="audio-decibel.html" class="tool-card">
+        <span class="new-badge">NEW</span><span class="free-badge">Free</span>
+        <span class="tool-icon">📊</span>
+        <div class="tool-name">데시벨 측정기</div>
+        <div class="tool-desc">마이크로 소음을 실시간 dB로 측정, 층간소음 확인</div>
+      </a>
+    </div>
+  </div>
+
+  <div class="category-block">
+    <div class="category-header">
+      <div class="category-dot" style="background:#8B5CF6"></div>
+      <div>
+        <span class="category-title">악기·연습</span>
+        <p class="category-desc">연주 연습과 MR 제작에 유용한 도구</p>
+      </div>
+    </div>
+    <div class="tools-grid">
+      <a href="audio-mr.html" class="tool-card">
+        <span class="new-badge">NEW</span><span class="free-badge">Free</span>
+        <span class="tool-icon">🎤</span>
+        <div class="tool-name">MR 만들기 (보컬 제거)</div>
+        <div class="tool-desc">MP3·WAV에서 보컬을 제거해 반주(MR) 추출</div>
+      </a>
+      <a href="audio-metronome.html" class="tool-card">
+        <span class="new-badge">NEW</span><span class="free-badge">Free</span>
+        <span class="tool-icon">🥁</span>
+        <div class="tool-name">메트로놈</div>
+        <div class="tool-desc">BPM·박자 설정, 탭 템포, 악기 연습용</div>
+      </a>
+      <a href="audio-tuner.html" class="tool-card">
+        <span class="new-badge">NEW</span><span class="free-badge">Free</span>
+        <span class="tool-icon">🎸</span>
+        <div class="tool-name">악기 튜너</div>
+        <div class="tool-desc">마이크로 음정 감지, 기타·베이스·바이올린 튜닝</div>
+      </a>
+      <a href="audio-tts.html" class="tool-card">
+        <span class="new-badge">NEW</span><span class="free-badge">Free</span>
+        <span class="tool-icon">🗣️</span>
+        <div class="tool-name">텍스트 음성 변환 (TTS)</div>
+        <div class="tool-desc">한국어·영어 텍스트를 음성으로 읽어주기</div>
       </a>
     </div>
   </div>

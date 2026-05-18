@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9ZGENFSXWC"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-9ZGENFSXWC');
+</script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="naver-site-verification" content="7396a327607b884b9bef1283dfd3a5c6115a2b50">
+  <meta name="google-site-verification" content="tNM8tmr_6DFold03YSScWz4KEtu5Zo0Fsqc03u5Afms">
+  <title>Text to Speech Free Online – TTS Korean English Voice Reader | WooaAudio</title>
+  <meta name="description" content="Convert text to speech for free. Supports Korean, English and many other languages. Adjust speed and pitch. No install — works in your browser with Web Speech API.">
+  <meta name="keywords" content="text to speech, TTS online free, text to speech Korean, text reader online, voice synthesis free, TTS free, read text aloud, speech synthesis online">
+  <link rel="canonical" href="https://wooaaudio.wooahouse.com/en/audio-tts.html">
+  <link rel="alternate" hreflang="ko" href="https://wooaaudio.wooahouse.com/audio-tts.html">
+  <link rel="alternate" hreflang="en" href="https://wooaaudio.wooahouse.com/en/audio-tts.html">
+  <link rel="alternate" hreflang="x-default" href="https://wooaaudio.wooahouse.com/en/audio-tts.html">
+  <link rel="alternate" hreflang="ko" href="https://wooaaudio.wooahouse.com/audio-tts.html">
+  <link rel="alternate" hreflang="en" href="https://wooaaudio.wooahouse.com/en/audio-tts.html">
+  <link rel="alternate" hreflang="x-default" href="https://wooaaudio.wooahouse.com/en/audio-tts.html">
+  <meta property="og:title" content="Text to Speech Free Online – TTS Voice Reader | WooaAudio">
+  <meta property="og:description" content="Convert text to speech. Supports Korean, English and more. Adjust speed and pitch. Free, no signup.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://wooaaudio.wooahouse.com/en/audio-tts.html">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:image" content="https://wooaaudio.wooahouse.com/og-image.png">
+  <link rel="manifest" href="../manifest.json">
+  <meta name="theme-color" content="#059669">
+  <link rel="stylesheet" href="../css/style.css">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6464921081676309" crossorigin="anonymous"></script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Text to Speech (TTS)",
+    "url": "https://wooaaudio.wooahouse.com/en/audio-tts.html",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "Web",
+    "inLanguage": "en",
+    "isAccessibleForFree": true,
+    "offers": {"@type":"Offer","price":"0","priceCurrency":"USD"}
+  }
+  </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Is Korean voice supported?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, Korean TTS voices available in your browser are used. Chrome and Edge support the most voices."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I save the speech as an MP3 file?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The Web Speech API does not directly support saving audio. Use the Audio Recorder tool alongside TTS, or use your system screen recording feature."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How many characters can I convert at once?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Up to 5,000 characters can be entered at a time."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Which browser is recommended?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Chrome or Edge is recommended for the widest language and voice support."
+      }
+    }
+  ]
+}
+</script>
+  <style>
+    .lang-switcher { display:flex; align-items:center; gap:4px; }
+    .lang-switcher a { color:rgba(255,255,255,0.7); text-decoration:none; font-size:0.8rem; font-weight:600; padding:3px 8px; border-radius:12px; transition:background 0.15s; }
+    .lang-switcher a.active { color:white; background:rgba(255,255,255,0.25); }
+    .lang-switcher a:hover { color:white; background:rgba(255,255,255,0.18); }
+    .lang-switcher span { color:rgba(255,255,255,0.3); font-size:0.75rem; }
+
+    .tts-wrap { background:#fff; border-radius:16px; padding:28px 24px; box-shadow:0 2px 16px rgba(0,0,0,0.07); max-width:600px; margin:0 auto; }
+    .tts-textarea { width:100%; min-height:160px; padding:14px; border:1.5px solid #e5e7eb; border-radius:10px; font-size:1rem; font-family:inherit; color:#374151; resize:vertical; outline:none; transition:border .15s; line-height:1.7; }
+    .tts-textarea:focus { border-color:#059669; }
+    .char-count { font-size:0.78rem; color:#9ca3af; text-align:right; margin-top:4px; margin-bottom:16px; }
+    .tts-options { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:16px; }
+    .opt-label { font-size:0.8rem; color:#6b7280; font-weight:600; margin-bottom:6px; }
+    .tts-select { width:100%; padding:9px 12px; border:1.5px solid #e5e7eb; border-radius:8px; font-size:0.92rem; font-family:inherit; color:#374151; background:#fff; outline:none; cursor:pointer; }
+    .tts-select:focus { border-color:#059669; }
+    .range-row { display:flex; align-items:center; gap:10px; }
+    .tts-range { flex:1; height:5px; -webkit-appearance:none; appearance:none; background:linear-gradient(to right, #059669 var(--pct,50%), #e5e7eb var(--pct,50%)); border-radius:3px; outline:none; cursor:pointer; }
+    .tts-range::-webkit-slider-thumb { -webkit-appearance:none; width:18px; height:18px; border-radius:50%; background:#059669; border:2px solid #fff; box-shadow:0 1px 4px rgba(5,150,105,0.4); cursor:pointer; }
+    .range-val { min-width:36px; text-align:right; font-size:0.85rem; color:#374151; font-weight:600; }
+    .ctrl-row { display:flex; gap:10px; }
+    .btn-play { flex:1; background:#059669; color:#fff; border:none; border-radius:10px; font-size:1.05rem; font-weight:700; padding:14px; cursor:pointer; transition:background .15s; font-family:inherit; }
+    .btn-play:hover { background:#047857; }
+    .btn-play:disabled { background:#9ca3af; cursor:not-allowed; }
+    .btn-stop { background:#fee2e2; color:#dc2626; border:none; border-radius:10px; font-size:1.05rem; font-weight:700; padding:14px 20px; cursor:pointer; transition:background .15s; font-family:inherit; }
+    .btn-stop:hover { background:#fecaca; }
+    .speaking-indicator { display:none; align-items:center; gap:8px; background:#f0fdf4; border:1px solid #bbf7d0; border-radius:8px; padding:10px 14px; margin-top:12px; font-size:0.9rem; color:#166534; }
+    .speaking-dot { width:10px; height:10px; border-radius:50%; background:#059669; animation:pulse 1s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.5;transform:scale(.8)} }
+    .no-support { background:#fef3c7; border:1px solid #fde68a; border-radius:10px; padding:12px 16px; font-size:0.88rem; color:#92400e; display:none; }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a href="index.html" class="logo">WooaAudio</a>
+    <nav>
+      <a href="audio-convert.html">Convert</a>
+      <a href="audio-mr.html">MR 만들기</a>
+      <a href="audio-tts.html" style="color:#fff;background:rgba(255,255,255,0.2);">TTS</a>
+      <a href="audio-decibel.html">데시벨 측정</a>
+      <a href="index.html">All Tools ›</a>
+    </nav>
+    <div class="header-right">
+      <div class="lang-switcher">
+        <a href="audio-tts.html" class="active">KO</a>
+        <span>|</span>
+        <a href="en/audio-tts.html">EN</a>
+      </div>
+      <a href="../about.html" style="color:rgba(255,255,255,0.85);font-size:.85rem;text-decoration:none;margin-left:8px;">About</a>
+    </div>
+    <div class="header-right">
+      <div class="lang-switcher">
+        <a href="../audio-tts.html">KO</a>
+        <span>|</span>
+        <a href="audio-tts.html" class="active">EN</a>
+      </div>
+      <a href="../about.html" style="color:rgba(255,255,255,0.85); font-size:0.85rem; text-decoration:none; margin-left:8px;">About</a>
+    </div>
+  </div>
+</header>
+
+<div class="our-sites-bar">
+  <span class="our-sites-label">WooaHouse Services</span>
+  <div class="our-sites-links">
+    <a href="https://wooahouse.com/" target="_blank" rel="noopener">🔗 WooaHouse</a>
+    <a href="https://pdfkit.wooahouse.com/" target="_blank" rel="noopener">📄 WooaPDF</a>
+    <a href="https://imagekit.wooahouse.com/" target="_blank" rel="noopener">🖼️ WooaImage</a>
+    <a href="https://colorkit.wooahouse.com/" target="_blank" rel="noopener">🎨 WooaColor</a>
+    <a href="https://textkit.wooahouse.com/" target="_blank" rel="noopener">✏️ WooaText</a>
+    <a href="https://qrkit.wooahouse.com/" target="_blank" rel="noopener">📱 WooaQR</a>
+    <a href="https://calckit.wooahouse.com/" target="_blank" rel="noopener">🧮 WooaCalc</a>
+    <a href="https://fontkit.wooahouse.com/" target="_blank" rel="noopener">🔤 WooaFont</a>
+    <a href="https://mactools.wooahouse.com/" target="_blank" rel="noopener">🍎 WooaMac</a>
+    <a href="https://pctools.wooahouse.com/" target="_blank" rel="noopener">🖥️ WooaPC</a>
+    <a href="https://vskit.wooahouse.com/" target="_blank" rel="noopener">💻 WooaVS</a>
+    <a href="https://wooaaudio.wooahouse.com/en/" target="_blank" rel="noopener" class="active">🎵 WooaAudio</a>
+    <a href="https://wooaviewer.wooahouse.com/" target="_blank" rel="noopener">🔍 WooaViewer</a>
+    <a href="https://wooadev.wooahouse.com/" target="_blank" rel="noopener">🛠️ WooaDev</a>
+    <a href="https://wooaocr.wooahouse.com/" target="_blank" rel="noopener">🔍 WooaOCR</a>
+    <a href="https://wooasheet.wooahouse.com/" target="_blank" rel="noopener">📊 WooaSheet</a>
+  </div>
+</div>
+
+<div class="mobile-top-ad">
+  <ins class="adsbygoogle" style="display:block;width:100%;height:80px" data-ad-client="ca-pub-6464921081676309" data-ad-slot="7080296704" data-ad-format="auto" data-full-width-responsive="true"></ins>
+  <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+
+<div class="page-with-sidebar">
+<main class="tool-page">
+  <div class="breadcrumb">
+    <a href="index.html">Home</a><span>›</span><span>Text to Speech</span>
+  </div>
+
+  <div class="tool-header">
+    <span class="tool-header-icon">🗣️</span>
+    <h1>Text to Speech – Free Online TTS</h1>
+    <p>Enter text and have it read aloud. Supports Korean, English and more. Adjust speed and pitch. All processing in your browser — no server upload.</p>
+  </div>
+
+  <div class="no-support" id="noSupport">
+    ⚠️ 이 브라우저는 Web Speech API를 지원하지 않습니다. Chrome, Edge, Safari 등 최신 브라우저를 사용해주세요.
+  </div>
+
+  <div class="tts-wrap" id="ttsWrap">
+    <textarea class="tts-textarea" id="textInput" placeholder="여기에 읽을 텍스트를 입력하세요...&#10;&#10;예시: 안녕하세요. WooaAudio의 텍스트 음성 변환 서비스입니다."></textarea>
+    <div class="char-count"><span id="charCount">0</span> / 5,000자</div>
+
+    <div class="tts-options">
+      <div>
+        <div class="opt-label">음성 선택</div>
+        <select class="tts-select" id="voiceSelect"></select>
+      </div>
+      <div>
+        <div class="opt-label">언어 필터</div>
+        <select class="tts-select" id="langFilter">
+          <option value="">전체 언어</option>
+          <option value="ko" selected>한국어</option>
+          <option value="en">영어</option>
+          <option value="ja">일본어</option>
+          <option value="zh">중국어</option>
+        </select>
+      </div>
+    </div>
+
+    <div style="margin-bottom:16px;">
+      <div class="opt-label">속도 <span id="rateLabel">1.0x</span></div>
+      <div class="range-row">
+        <span style="font-size:0.8rem;color:#9ca3af;">0.5x</span>
+        <input type="range" class="tts-range" id="rateRange" min="0.5" max="2" step="0.1" value="1">
+        <span style="font-size:0.8rem;color:#9ca3af;">2.0x</span>
+      </div>
+    </div>
+
+    <div style="margin-bottom:20px;">
+      <div class="opt-label">음높이 <span id="pitchLabel">1.0</span></div>
+      <div class="range-row">
+        <span style="font-size:0.8rem;color:#9ca3af;">0.5</span>
+        <input type="range" class="tts-range" id="pitchRange" min="0.5" max="2" step="0.1" value="1">
+        <span style="font-size:0.8rem;color:#9ca3af;">2.0</span>
+      </div>
+    </div>
+
+    <div class="ctrl-row">
+      <button class="btn-play" id="playBtn">▶ 읽기 시작</button>
+      <button class="btn-stop" id="stopBtn">⏹ 정지</button>
+    </div>
+
+    <div class="speaking-indicator" id="speakingIndicator">
+      <div class="speaking-dot"></div>
+      <span>음성 재생 중...</span>
+    </div>
+  </div>
+
+  <div class="cross-link-banner" style="max-width:800px;margin:2rem auto;padding:1rem 1.5rem;background:linear-gradient(135deg,#f0fdf4,#dcfce7);border-radius:12px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.8rem;">
+    <span style="font-size:0.95rem;color:#444;">Want to record audio directly from your microphone?</span>
+    <a href="../audio-record.html" target="_blank" rel="noopener" style="background:#059669;color:#fff;padding:0.5rem 1rem;border-radius:8px;text-decoration:none;font-size:0.9rem;white-space:nowrap;">🎙 Audio Recorder →</a>
+  </div>
+
+  <section style="max-width:800px;margin:3rem auto;padding:0 1rem;">
+    <h2 class="faq-title">Frequently Asked Questions</h2>
+    <div class="faq-list">
+      <div class="faq-item" style="margin-bottom:1.2rem;padding:1rem;background:#f8f9fa;border-radius:8px;">
+        <h3 style="font-size:1rem;font-weight:600;margin-bottom:0.5rem;">Q. Is Korean voice supported?</h3>
+        <p style="color:#555;margin:0;">Yes, Korean TTS voices available in your browser are used. Chrome and Edge support the most voices.</p>
+      </div>
+      <div class="faq-item" style="margin-bottom:1.2rem;padding:1rem;background:#f8f9fa;border-radius:8px;">
+        <h3 style="font-size:1rem;font-weight:600;margin-bottom:0.5rem;">Q. Can I save the speech as an MP3 file?</h3>
+        <p style="color:#555;margin:0;">The Web Speech API does not directly support saving audio. Use the Audio Recorder tool alongside TTS, or use your system screen recording feature.</p>
+      </div>
+      <div class="faq-item" style="margin-bottom:1.2rem;padding:1rem;background:#f8f9fa;border-radius:8px;">
+        <h3 style="font-size:1rem;font-weight:600;margin-bottom:0.5rem;">Q. How many characters can I convert at once?</h3>
+        <p style="color:#555;margin:0;">Up to 5,000 characters can be entered at a time.</p>
+      </div>
+      <div class="faq-item" style="padding:1rem;background:#f8f9fa;border-radius:8px;">
+        <h3 style="font-size:1rem;font-weight:600;margin-bottom:0.5rem;">Q. Which browser is recommended?</h3>
+        <p style="color:#555;margin:0;">Chrome or Edge is recommended for the widest language and voice support.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<aside class="tool-sidebar">
+  <div class="ad-card">
+    <ins class="adsbygoogle" style="display:block;width:100%;min-height:250px"
+      data-ad-client="ca-pub-6464921081676309" data-ad-slot="1419180025"
+      data-ad-format="auto" data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+  <div style="margin-top:16px;overflow:hidden;border-radius:14px;">    
+  </div>
+</aside>
+</div>
+
+<div class="features" style="margin-top:60px">
+  <div class="features-inner">
+    <div><div class="feature-icon">🗣️</div><div class="feature-title">다국어 지원</div><div class="feature-desc">한국어, 영어, 일본어, 중국어 등 브라우저가 지원하는 모든 언어를 읽을 수 있습니다.</div></div>
+    <div><div class="feature-icon">🎚️</div><div class="feature-title">속도·음높이 조절</div><div class="feature-desc">읽기 속도와 음높이를 자유롭게 조절할 수 있습니다.</div></div>
+    <div><div class="feature-icon">💸</div><div class="feature-title">Completely Free</div><div class="feature-desc">설치·회원가입 없이 즉시 사용 가능합니다.</div></div>
+    <div><div class="feature-icon">🔒</div><div class="feature-title">개인정보 안전</div><div class="feature-desc">텍스트가 서버로 전송되지 않습니다. 브라우저 내에서만 처리됩니다.</div></div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <span class="logo-footer">WooaAudio</span>
+        <p>Free online audio toolkit. Convert, edit, and analyze audio safely in your browser.</p>
+      </div>
+      <div class="footer-links">
+        <h4>오디오 도구</h4>
+        <a href="audio-tts.html">텍스트 음성 변환</a>
+        <a href="audio-record.html">오디오 녹음</a>
+        <a href="audio-mr.html">MR 만들기</a>
+        <a href="audio-decibel.html">데시벨 측정기</a>
+      </div>
+      <div class="footer-links">
+        <h4>WooaHouse Services</h4>
+        <a href="https://pdfkit.wooahouse.com/" target="_blank" rel="noopener">WooaPDF</a>
+        <a href="https://textkit.wooahouse.com/" target="_blank" rel="noopener">WooaText</a>
+        <a href="https://wooasheet.wooahouse.com/" target="_blank" rel="noopener">WooaSheet</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 WooaAudio. All rights reserved.</p>
+      <div class="footer-bottom-links">
+        <a href="../privacy.html">Privacy Policy</a>
+        <a href="../about.html">About</a>
+      </div>
+    </div>
+    
+  </div>
+</footer>
+
+<script>
+if (!('speechSynthesis' in window)) {
+  document.getElementById('noSupport').style.display = 'block';
+  document.getElementById('ttsWrap').style.display = 'none';
+}
+
+let voices = [], speaking = false;
+
+function loadVoices() {
+  voices = speechSynthesis.getVoices();
+  populateVoices();
+}
+
+function populateVoices() {
+  const lang = document.getElementById('langFilter').value;
+  const sel = document.getElementById('voiceSelect');
+  const prev = sel.value;
+  sel.innerHTML = '';
+  const filtered = lang ? voices.filter(v => v.lang.startsWith(lang)) : voices;
+  if (filtered.length === 0) {
+    sel.innerHTML = '<option value="">사용 가능한 음성 없음</option>';
+    return;
+  }
+  filtered.forEach((v, i) => {
+    const opt = document.createElement('option');
+    opt.value = voices.indexOf(v);
+    opt.textContent = `${v.name} (${v.lang})`;
+    if (v.default || v.lang.startsWith('ko')) opt.selected = true;
+    sel.appendChild(opt);
+  });
+  // Try to restore selection
+  if (prev && sel.querySelector(`option[value="${prev}"]`)) sel.value = prev;
+}
+
+speechSynthesis.addEventListener('voiceschanged', loadVoices);
+loadVoices();
+setTimeout(loadVoices, 500); // Safari fallback
+
+// Char count
+const textInput = document.getElementById('textInput');
+textInput.addEventListener('input', () => {
+  const len = Math.min(textInput.value.length, 5000);
+  document.getElementById('charCount').textContent = textInput.value.length;
+  if (textInput.value.length > 5000) textInput.value = textInput.value.slice(0, 5000);
+});
+
+// Range sliders
+function updateRange(id, labelId, suffix) {
+  const r = document.getElementById(id);
+  r.addEventListener('input', () => {
+    document.getElementById(labelId).textContent = r.value + suffix;
+    const pct = ((r.value - r.min) / (r.max - r.min) * 100).toFixed(1);
+    r.style.setProperty('--pct', pct + '%');
+  });
+}
+updateRange('rateRange', 'rateLabel', 'x');
+updateRange('pitchRange', 'pitchLabel', '');
+
+document.getElementById('langFilter').addEventListener('change', populateVoices);
+
+document.getElementById('playBtn').addEventListener('click', () => {
+  const text = textInput.value.trim();
+  if (!text) { alert('텍스트를 입력해주세요.'); return; }
+  speechSynthesis.cancel();
+  const utter = new SpeechSynthesisUtterance(text);
+  const voiceIdx = parseInt(document.getElementById('voiceSelect').value);
+  if (!isNaN(voiceIdx) && voices[voiceIdx]) utter.voice = voices[voiceIdx];
+  utter.rate = parseFloat(document.getElementById('rateRange').value);
+  utter.pitch = parseFloat(document.getElementById('pitchRange').value);
+  utter.lang = document.getElementById('langFilter').value || 'ko-KR';
+  utter.onstart = () => {
+    speaking = true;
+    document.getElementById('speakingIndicator').style.display = 'flex';
+    document.getElementById('playBtn').disabled = true;
+  };
+  utter.onend = utter.onerror = () => {
+    speaking = false;
+    document.getElementById('speakingIndicator').style.display = 'none';
+    document.getElementById('playBtn').disabled = false;
+  };
+  speechSynthesis.speak(utter);
+  // Chrome fix: keep alive
+  window._ttsKeepalive = setInterval(() => {
+    if (!speechSynthesis.speaking) { clearInterval(window._ttsKeepalive); return; }
+    speechSynthesis.pause();
+    speechSynthesis.resume();
+  }, 10000);
+});
+
+document.getElementById('stopBtn').addEventListener('click', () => {
+  speechSynthesis.cancel();
+  clearInterval(window._ttsKeepalive);
+  speaking = false;
+  document.getElementById('speakingIndicator').style.display = 'none';
+  document.getElementById('playBtn').disabled = false;
+});
+</script>
+<script src="../js/pwa-install.js"></script>
+</body>
+</html>
