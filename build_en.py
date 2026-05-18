@@ -979,21 +979,31 @@ def build_page(filename, meta):
         if 'lang-switcher' not in html:
             html = html.replace('</style>', LANG_SWITCHER_CSS + '</style>', 1)
 
-    # ── 헤더에 언어 선택기 삽입 ──
-    html = re.sub(
-        r'(\s*</div>\s*</header>)',
-        f'\n    <div class="header-right">\n'
+    # ── 헤더에 언어 선택기 삽입 (기존 header-right 교체 or 없으면 추가) ──
+    en_header_right = (
+        f'    <div class="header-right">\n'
         f'      <div class="lang-switcher">\n'
         f'        <a href="../{filename}">KO</a>\n'
         f'        <span>|</span>\n'
         f'        <a href="{filename}" class="active">EN</a>\n'
         f'      </div>\n'
         f'      <a href="../about.html" style="color:rgba(255,255,255,0.85); font-size:0.85rem; text-decoration:none; margin-left:8px;">About</a>\n'
-        f'    </div>\n'
-        f'  </div>\n'
-        f'</header>',
-        html, count=1
+        f'    </div>'
     )
+    if 'class="header-right"' in html:
+        # 기존 header-right 블록 전체를 교체
+        html = re.sub(
+            r'<div class="header-right">.*?</div>',
+            en_header_right,
+            html, count=1, flags=re.DOTALL
+        )
+    else:
+        # header-right 없으면 </header> 직전에 삽입
+        html = re.sub(
+            r'(\s*</div>\s*</header>)',
+            f'\n{en_header_right}\n  </div>\n</header>',
+            html, count=1
+        )
 
     # ── 쿠팡 광고 제거 ──
     # head의 g.js 제거
