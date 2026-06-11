@@ -168,6 +168,14 @@
   <div id="errorMsg" class="alert alert-error" style="display:none"></div>
 
   <div class="result-panel" id="resultPanel" style="display:none">
+    <div style="text-align:center;margin:0 auto 16px;max-width:728px;padding:0 8px">
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-6464921081676309"
+           data-ad-slot="9432796175"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+    </div>
     <div class="result-header">
       <span class="result-icon">✅</span>
       <div>
@@ -358,6 +366,27 @@
       document.getElementById('resultSubtitle').textContent = `페이드인 ${fadeIn}초, 페이드아웃 ${fadeOut}초 적용`;
       document.getElementById('resultPanel').style.display = 'block';
       document.getElementById('resultPanel').scrollIntoView({ behavior: 'smooth' });
+      // Download button countdown (dot animation)
+      const dlBtn = document.getElementById('downloadBtn');
+      if (dlBtn) {
+        const origText = dlBtn.textContent;
+        const origHref = dlBtn.getAttribute('href');
+        dlBtn.removeAttribute('href');
+        dlBtn.style.pointerEvents = 'none';
+        dlBtn.style.opacity = '0.85';
+        dlBtn.style.cursor = 'not-allowed';
+        const dots = ['⏳ Preparing download', '⏳ Preparing download.', '⏳ Preparing download..', '⏳ Preparing download...'];
+        let dotIdx = 0;
+        const dotTimer = setInterval(() => { dotIdx = (dotIdx + 1) % dots.length; dlBtn.textContent = dots[dotIdx]; }, 400);
+        setTimeout(() => {
+          clearInterval(dotTimer);
+          dlBtn.textContent = origText;
+          if (origHref) dlBtn.setAttribute('href', origHref);
+          dlBtn.style.pointerEvents = '';
+          dlBtn.style.opacity = '';
+          dlBtn.style.cursor = '';
+        }, 6000);
+      }
     } catch(e) {
       console.error(e);
       hideProgress();

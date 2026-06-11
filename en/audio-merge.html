@@ -375,7 +375,7 @@ async function mergeAudio() {
     ins.className = 'adsbygoogle';
     ins.style.cssText = 'display:block';
     ins.setAttribute('data-ad-client', 'ca-pub-6464921081676309');
-    ins.setAttribute('data-ad-slot', '1419180025');
+    ins.setAttribute('data-ad-slot', '9432796175');
     ins.setAttribute('data-ad-format', 'auto');
     ins.setAttribute('data-full-width-responsive', 'true');
     processingAd.appendChild(ins);
@@ -436,7 +436,7 @@ function renderResult(r) {
     ins.className = 'adsbygoogle';
     ins.style.cssText = 'display:block';
     ins.setAttribute('data-ad-client', 'ca-pub-6464921081676309');
-    ins.setAttribute('data-ad-slot', '1419180025');
+    ins.setAttribute('data-ad-slot', '9432796175');
     ins.setAttribute('data-ad-format', 'auto');
     ins.setAttribute('data-full-width-responsive', 'true');
     resultAd.appendChild(ins);
@@ -444,6 +444,27 @@ function renderResult(r) {
     resultAd.dataset.adLoaded = '1';
   }
   rp.scrollIntoView({ behavior: 'smooth' });
+      // Download button countdown (dot animation)
+      const dlBtn = document.getElementById('downloadBtn');
+      if (dlBtn) {
+        const origText = dlBtn.textContent;
+        const origHref = dlBtn.getAttribute('href');
+        dlBtn.removeAttribute('href');
+        dlBtn.style.pointerEvents = 'none';
+        dlBtn.style.opacity = '0.85';
+        dlBtn.style.cursor = 'not-allowed';
+        const dots = ['⏳ Preparing download', '⏳ Preparing download.', '⏳ Preparing download..', '⏳ Preparing download...'];
+        let dotIdx = 0;
+        const dotTimer = setInterval(() => { dotIdx = (dotIdx + 1) % dots.length; dlBtn.textContent = dots[dotIdx]; }, 400);
+        setTimeout(() => {
+          clearInterval(dotTimer);
+          dlBtn.textContent = origText;
+          if (origHref) dlBtn.setAttribute('href', origHref);
+          dlBtn.style.pointerEvents = '';
+          dlBtn.style.opacity = '';
+          dlBtn.style.cursor = '';
+        }, 6000);
+      }
 }
 
 function resetAll() {
