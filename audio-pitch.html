@@ -96,6 +96,46 @@
     .lang-switcher a:hover { color:white; background:rgba(255,255,255,0.18); }
     .lang-switcher span { color:rgba(255,255,255,0.3); font-size:0.75rem; }
   </style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "반음(semitone)이란 무엇인가요?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "반음은 음악에서 가장 작은 음정 단위입니다. +1 반음은 피치를 반음 높이고, -1 반음은 낮춥니다. +12 반음은 1 옥타브 높이는 것과 같습니다."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "왜 피치를 바꾸면 파일 길이도 바뀌나요?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "이 도구는 재생 속도(playbackRate)를 변경해 피치를 조절합니다. 속도가 빨라지면 파일이 짧아지고 피치가 높아지며, 반대도 마찬가지입니다. 속도 변화 없이 피치만 바꾸려면 더 복잡한 알고리즘(Phase Vocoder)이 필요합니다."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "출력 파일 형식은 무엇인가요?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "WAV(16bit PCM) 형식으로 다운로드됩니다. 다른 형식이 필요하다면 오디오 포맷 변환 도구를 이용하세요."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "파일이 서버에 저장되나요?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "아니요. 모든 처리는 브라우저 안에서만 이루어지며 파일은 서버로 전송되지 않습니다. 개인정보와 민감한 데이터가 외부로 유출될 걱정이 없으며, 기업 보안 환경에서도 안심하고 사용할 수 있습니다."
+      }
+    }
+  ]
+}
+</script>
 </head>
 <body>
 

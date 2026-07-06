@@ -75,6 +75,46 @@
     .lang-switcher a:hover { color:white; background:rgba(255,255,255,0.18); }
     .lang-switcher span { color:rgba(255,255,255,0.3); font-size:0.75rem; }
   </style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "페이드인·페이드아웃이란 무엇인가요?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "페이드인은 오디오가 조용하게 시작해서 점점 커지는 효과, 페이드아웃은 반대로 끝에서 점점 작아지다 사라지는 효과입니다. 음악, 팟캐스트, 영상 배경음에 많이 사용됩니다."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "출력 파일 형식은 무엇인가요?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Web Audio API로 처리 후 WAV(16bit PCM) 형식으로 다운로드됩니다. 별도 포맷 변환이 필요하다면 오디오 포맷 변환 도구를 이용하세요."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "페이드 시간을 0으로 설정하면 어떻게 되나요?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "해당 방향의 페이드 효과가 적용되지 않습니다. 예를 들어 페이드인을 0으로 하면 페이드아웃만 적용됩니다."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "파일이 서버에 저장되나요?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "아니요. 모든 처리는 브라우저 안에서만 이루어지며 파일은 서버로 전송되지 않습니다. 개인정보와 민감한 데이터가 외부로 유출될 걱정이 없으며, 기업 보안 환경에서도 안심하고 사용할 수 있습니다."
+      }
+    }
+  ]
+}
+</script>
 </head>
 <body>
 

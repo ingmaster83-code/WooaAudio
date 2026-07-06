@@ -57,6 +57,46 @@
     .lang-switcher a:hover { color:white; background:rgba(255,255,255,0.18); }
     .lang-switcher span { color:rgba(255,255,255,0.3); font-size:0.75rem; }
   </style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "어떤 포맷을 지원하나요?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "MP3, WAV, OGG, FLAC, AAC, M4A, OPUS, AIFF 등 주요 오디오 포맷을 입력으로 받을 수 있습니다."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "현재 위치 버튼은 무엇인가요?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "오디오를 재생하다가 원하는 지점에서 '현재 위치' 버튼을 누르면 그 시간이 시작/끝 시간에 자동으로 입력됩니다."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "처음 자르기 시 시간이 걸리는 이유는?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "브라우저에서 오디오 처리를 위해 FFmpeg 엔진(약 30MB)을 최초 1회 다운로드합니다. 이후에는 캐시되어 빠르게 실행됩니다."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "파일이 서버에 저장되나요?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "아니요. 모든 처리는 브라우저 안에서만 이루어지며 파일은 서버로 전송되지 않습니다. 개인정보와 민감한 데이터가 외부로 유출될 걱정이 없으며, 기업 보안 환경에서도 안심하고 사용할 수 있습니다."
+      }
+    }
+  ]
+}
+</script>
 </head>
 <body>
 

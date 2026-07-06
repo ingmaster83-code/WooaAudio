@@ -58,6 +58,54 @@
     .lang-switcher a:hover { color:white; background:rgba(255,255,255,0.18); }
     .lang-switcher span { color:rgba(255,255,255,0.3); font-size:0.75rem; }
   </style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "강의 녹음 파일을 배속으로 변환할 수 있나요?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "네. MP3·WAV 등 강의 녹음 파일을 업로드하면 1.5×~2.0× 배속으로 즉시 변환해 다운로드할 수 있습니다. 피치 보존 옵션을 켜면 목소리 톤이 유지되어 훨씬 자연스럽게 들립니다."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "피치(음높이)도 같이 변하나요?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "아니요. FFmpeg의 atempo 필터를 사용해 피치는 그대로 유지하면서 재생 속도만 변경합니다. 0.5×~2.0× 범위에서 자연스럽게 동작합니다."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "팟캐스트·유튜브 다운로드 파일도 배속 변환이 되나요?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "네. MP3·WAV·FLAC·M4A 등 파일 형식이라면 출처에 상관없이 배속 변환이 가능합니다. 유튜브에서 다운로드한 MP3 파일도 동일하게 처리됩니다."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "왜 0.5×~2.0× 범위로 제한되나요?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "atempo 필터가 피치 품질을 보장하는 구간입니다. 이 범위를 벗어나면 음질 저하가 발생할 수 있어 제한했습니다."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "파일이 서버에 저장되나요?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "아니요. 모든 처리는 브라우저 안에서만 이루어지며 파일은 서버로 전송되지 않습니다. 개인정보와 민감한 데이터가 외부로 유출될 걱정이 없으며, 기업 보안 환경에서도 안심하고 사용할 수 있습니다."
+      }
+    }
+  ]
+}
+</script>
 </head>
 <body>
 
