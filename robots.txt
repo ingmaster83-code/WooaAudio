@@ -2,3 +2,5 @@
 Allow: /
 
 Sitemap: https://wooaaudio.wooahouse.com/sitemap.xml
+
+#DaumWebMasterTool:a9d95ff08fd391a577221ff0cd7f45510113e1e26f75acdbf240281325a3bd83:5OHFs/qHHlfCvAas17iLzw==
