@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9ZGENFSXWC"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-9ZGENFSXWC');
+</script>
+  <meta charset="UTF-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="google-site-verification" content="tNM8tmr_6DFold03YSScWz4KEtu5Zo0Fsqc03u5Afms">
+  <title>Audio Equalizer — Free Online 5-Band EQ | WooaAudio</title>
+  <meta name="description" content="Shape your sound with 5 independent frequency bands from 60Hz to 12kHz, preview it live, and save a new file. Nothing leaves your browser.">
+  <meta name="keywords" content="audio equalizer,online eq,bass boost,treble boost,sound equalizer,mp3 equalizer,5 band eq,audio tone control">
+  <link rel="canonical" href="https://wooaaudio.wooahouse.com/en/audio-equalizer.html">
+  <link rel="alternate" hreflang="ko" href="https://wooaaudio.wooahouse.com/audio-equalizer.html">
+  <link rel="alternate" hreflang="en" href="https://wooaaudio.wooahouse.com/en/audio-equalizer.html">
+  <link rel="alternate" hreflang="x-default" href="https://wooaaudio.wooahouse.com/en/audio-equalizer.html">
+  <meta property="og:title" content="Audio Equalizer — Free Online 5-Band EQ | WooaAudio">
+  <meta property="og:description" content="Shape your sound with 5 independent frequency bands from 60Hz to 12kHz, preview it live, and save a new file.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://wooaaudio.wooahouse.com/en/audio-equalizer.html">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:image" content="https://wooaaudio.wooahouse.com/og-image.png">
+  <meta property="og:site_name" content="WooaAudio">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Audio Equalizer — Free Online 5-Band EQ | WooaAudio">
+  <meta name="twitter:description" content="Shape your sound with 5 independent frequency bands from 60Hz to 12kHz, preview it live, and save a new file.">
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#059669">
+  <link rel="stylesheet" href="../css/style.css">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6464921081676309" crossorigin="anonymous"></script>
+<script src="../js/ad-dev-placeholder.js"></script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Audio Equalizer",
+    "url": "https://wooaaudio.wooahouse.com/en/audio-equalizer.html",
+    "applicationCategory": "MultimediaApplication",
+    "operatingSystem": "Web",
+    "inLanguage": "en",
+    "isAccessibleForFree": true,
+    "offers": {"@type":"Offer","price":"0","priceCurrency":"USD"}
+  }
+  </script>
+  <style>
+    .eq-panel { display:flex; justify-content:space-around; align-items:flex-end; gap:8px; padding:20px 10px 8px; background:#f8f9fa; border-radius:12px; margin-bottom:14px; }
+    .eq-band { display:flex; flex-direction:column; align-items:center; gap:8px; flex:1; }
+    .eq-gain-val { font-size:0.8rem; font-weight:700; color:#059669; min-height:1.2em; }
+    .eq-slider-vert { writing-mode: vertical-lr; direction: rtl; width:8px; height:140px; accent-color:#059669; }
+    .eq-freq-label { font-size:0.72rem; color:#6b7280; text-align:center; }
+    .eq-presets { display:flex; gap:6px; flex-wrap:wrap; margin-bottom:14px; }
+    .eq-preset-btn { padding:6px 14px; border:1.5px solid #e5e7eb; border-radius:20px; background:white; font-size:0.8rem; font-weight:600; cursor:pointer; color:#374151; transition:all .15s; }
+    .eq-preset-btn:hover { border-color:#059669; color:#059669; }
+    .eq-preset-btn.active { background:#059669; color:white; border-color:#059669; }
+    @media (max-width: 480px) { .eq-slider-vert { height:100px; } .eq-freq-label { font-size:0.64rem; } }
+    .lang-switcher { display:flex; align-items:center; gap:4px; }
+    .lang-switcher a { color:rgba(255,255,255,0.7); text-decoration:none; font-size:0.8rem; font-weight:600; padding:3px 8px; border-radius:12px; transition:background 0.15s; }
+    .lang-switcher a.active { color:white; background:rgba(255,255,255,0.25); }
+    .lang-switcher a:hover { color:white; background:rgba(255,255,255,0.18); }
+    .lang-switcher span { color:rgba(255,255,255,0.3); font-size:0.75rem; }
+  </style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type":"Question","name":"How many bands can I adjust?","acceptedAnswer":{"@type":"Answer","text":"Five independent bands — 60Hz, 250Hz, 1kHz, 4kHz, and 12kHz — each adjustable from -20dB to +20dB."}},
+    {"@type":"Question","name":"How do the presets work?","acceptedAnswer":{"@type":"Answer","text":"Click a preset like Bass Boost, Vocal Boost, or Treble Boost to set the sliders automatically, then fine-tune them by hand if you like."}},
+    {"@type":"Question","name":"Is my file uploaded to a server?","acceptedAnswer":{"@type":"Answer","text":"No. All processing happens locally in your browser and nothing is sent to a server."}}
+  ]
+}
+</script>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a href="index.html" class="logo">WooaAudio</a>
+    <nav>
+      <a href="audio-convert.html">Convert</a>
+      <a href="audio-cut.html">Cut Audio</a>
+      <a href="audio-merge.html">Merge Audio</a>
+      <a href="audio-volume.html">Volume</a>
+      <a href="index.html">All Tools ›</a>
+    </nav>
+      <div class="header-right">
+      <div class="lang-switcher">
+        <a href="../audio-equalizer.html">KO</a>
+        <span>|</span>
+        <a href="audio-equalizer.html" class="active">EN</a>
+      </div>
+      <a href="about.html" style="color:rgba(255,255,255,0.85); font-size:0.85rem; text-decoration:none; margin-left:8px;">About</a>
+    </div>
+  </div>
+</header>
+
+<script src="../js/wooa-sites-bar.js"></script>
+
+<div class="mobile-top-ad">
+  <ins class="adsbygoogle" style="display:block;width:100%;height:80px" data-ad-client="ca-pub-6464921081676309" data-ad-slot="7080296704" data-ad-format="auto" data-full-width-responsive="true"></ins>
+  <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+
+<div class="page-with-sidebar">
+<main class="tool-page">
+  <div class="breadcrumb">
+    <a href="index.html">Home</a>
+    <span>›</span>
+    <span>Equalizer</span>
+  </div>
+
+  <div class="tool-header">
+    <span class="tool-header-icon">🎚️</span>
+    <h1>Audio Equalizer – Free Online</h1>
+    <p>Adjust 5 frequency bands to shape the bass, mids, and treble exactly how you want. All processing happens in your browser.</p>
+  </div>
+
+  <div class="drop-zone" id="dropZone">
+    <span class="drop-zone-icon">📂</span>
+    <h3>Drop your audio file here</h3>
+    <p>MP3, WAV, OGG, FLAC, AAC, M4A supported</p>
+    <label for="fileInput" class="btn-select">Select Audio File</label>
+    <input type="file" id="fileInput" accept="audio/*" style="display:none">
+  </div>
+
+  <div id="playerPanel" style="display:none;margin:16px 0;background:#f8f9fa;border-radius:12px;padding:16px;">
+    <div style="font-weight:600;margin-bottom:10px;color:#374151;">🎵 <span id="playerFileName"></span></div>
+    <audio id="audioPlayer" controls style="width:100%;border-radius:8px;"></audio>
+    <div style="margin-top:8px;font-size:0.85rem;color:#6b7280;">Duration: <span id="totalDuration">-</span></div>
+  </div>
+
+  <div id="optionsPanel" class="options-panel" style="display:none">
+    <div class="options-title">Equalizer Settings</div>
+
+    <div class="eq-presets" id="eqPresets">
+      <button class="eq-preset-btn active" data-preset="flat">Flat</button>
+      <button class="eq-preset-btn" data-preset="bass">Bass Boost</button>
+      <button class="eq-preset-btn" data-preset="vocal">Vocal Boost</button>
+      <button class="eq-preset-btn" data-preset="treble">Treble Boost</button>
+      <button class="eq-preset-btn" data-preset="vshape">V-Shape</button>
+    </div>
+
+    <div class="eq-panel" id="eqPanel"></div>
+
+    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:12px;">
+      <button class="btn-convert" id="previewBtn" style="flex:1;min-width:140px;">▶️ Preview</button>
+      <button class="btn-convert" id="processBtn" style="flex:1;min-width:140px;background:#059669;">⬇️ Process & Download</button>
+    </div>
+  </div>
+
+  <div class="progress-wrap" id="progressWrap" style="display:none">
+    <div class="progress-label">
+      <span id="progressText">Processing...</span>
+      <span id="progressPct">0%</span>
+    </div>
+    <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+  </div>
+
+  <div id="errorMsg" class="alert alert-error" style="display:none"></div>
+
+  <div class="result-panel" id="resultPanel" style="display:none">
+    <div class="result-header">
+      <span class="result-icon">✅</span>
+      <div>
+        <div class="result-title">Equalizer Applied!</div>
+        <div class="result-subtitle" id="resultSubtitle"></div>
+      </div>
+    </div>
+    <div style="margin:12px 0;">
+      <audio id="resultAudio" controls style="width:100%;border-radius:8px;"></audio>
+    </div>
+    <div id="downloadList"></div>
+    <div style="margin-top:16px">
+      <button class="btn-reset" id="resetBtn">Process Another File</button>
+    </div>
+  </div>
+
+    <div class="related-tools">
+  <h2>Tools you might also like</h2>
+  <div class="related-grid">
+    <a href="audio-pitch.html" class="related-card"><span class="related-icon">🎵</span><span>Pitch Changer</span></a>
+    <a href="audio-volume.html" class="related-card"><span class="related-icon">🔊</span><span>Volume</span></a>
+    <a href="audio-reverse.html" class="related-card"><span class="related-icon">⏪</span><span>Reverse Audio</span></a>
+    <a href="audio-vocal.html" class="related-card"><span class="related-icon">🎤</span><span>Vocal Remover</span></a>
+  </div>
+</div>
+<div class="wooa-orig-anchor"></div>
+<div class="tips-panel"><h3>💡 Tips</h3><ul><li>Boost the low bands for a fuller, warmer sound; boost the high bands for extra clarity.</li><li>If vocals feel buried, try raising the 1kHz–4kHz range.</li><li>Start from a preset, then fine-tune with the sliders.</li></ul></div>
+<div class="faq-section"><h2>Frequently Asked Questions</h2><details><summary>How many bands can I adjust?</summary><p>Five independent bands — 60Hz, 250Hz, 1kHz, 4kHz, and 12kHz — each adjustable from -20dB to +20dB.</p></details><details><summary>How do the presets work?</summary><p>Click a preset like Bass Boost, Vocal Boost, or Treble Boost to set the sliders automatically, then fine-tune them by hand if you like.</p></details><details><summary>Is my file uploaded to a server?</summary><p>No. All processing happens locally in your browser and nothing is sent to a server.</p></details></div>
+
+</main>
+
+<aside class="tool-sidebar"></aside>
+</div>
+
+<div class="features" style="margin-top:60px">
+  <div class="features-inner">
+    <div><div class="feature-icon">🔒</div><div class="feature-title">100% Safe</div><div class="feature-desc">Your file is never uploaded. All processing happens right in your browser.</div></div>
+    <div><div class="feature-icon">⚡</div><div class="feature-title">Fast</div><div class="feature-desc">No upload wait — everything runs locally so repeat edits are quick.</div></div>
+    <div><div class="feature-icon">💸</div><div class="feature-title">Free</div><div class="feature-desc">No sign-up needed to use the core audio tools.</div></div>
+    <div><div class="feature-icon">📱</div><div class="feature-title">Works Everywhere</div><div class="feature-desc">Responsive design that works on desktop, tablet, and phone.</div></div>
+  </div>
+</div>
+
+<footer class="footer"></footer>
+
+<script>
+(function() {
+  const BANDS = [
+    { freq: 60,    label: '60Hz',  type: 'lowshelf' },
+    { freq: 250,   label: '250Hz', type: 'peaking' },
+    { freq: 1000,  label: '1kHz',  type: 'peaking' },
+    { freq: 4000,  label: '4kHz',  type: 'peaking' },
+    { freq: 12000, label: '12kHz', type: 'highshelf' }
+  ];
+  const PRESETS = {
+    flat:   [0, 0, 0, 0, 0],
+    bass:   [8, 5, 0, -2, -2],
+    vocal:  [-3, 0, 5, 6, 0],
+    treble: [-2, -2, 0, 4, 8],
+    vshape: [7, 2, -4, 2, 7]
+  };
+
+  const dropZone = document.getElementById('dropZone');
+  const fileInput = document.getElementById('fileInput');
+  const previewBtn = document.getElementById('previewBtn');
+  const processBtn = document.getElementById('processBtn');
+  const resetBtn = document.getElementById('resetBtn');
+  const eqPanel = document.getElementById('eqPanel');
+
+  let selectedFile = null;
+  let audioCtx = null;
+  let originalBuffer = null;
+  let previewSource = null;
+  let previewFilters = null;
+  let gains = PRESETS.flat.slice();
+
+  BANDS.forEach((band, i) => {
+    const wrap = document.createElement('div');
+    wrap.className = 'eq-band';
+    wrap.innerHTML = `
+      <div class="eq-gain-val" id="eqVal${i}">0dB</div>
+      <input type="range" class="eq-slider-vert" id="eqSlider${i}" min="-20" max="20" step="1" value="0">
+      <div class="eq-freq-label">${band.label}</div>
+    `;
+    eqPanel.appendChild(wrap);
+    const slider = wrap.querySelector(`#eqSlider${i}`);
+    slider.addEventListener('input', () => {
+      gains[i] = parseInt(slider.value);
+      document.getElementById(`eqVal${i}`).textContent = (gains[i] >= 0 ? '+' : '') + gains[i] + 'dB';
+      updateLivePreviewGains();
+      setActivePreset(null);
+    });
+  });
+
+  function setSliders(gainArr) {
+    gains = gainArr.slice();
+    BANDS.forEach((band, i) => {
+      document.getElementById(`eqSlider${i}`).value = gains[i];
+      document.getElementById(`eqVal${i}`).textContent = (gains[i] >= 0 ? '+' : '') + gains[i] + 'dB';
+    });
+    updateLivePreviewGains();
+  }
+
+  function setActivePreset(name) {
+    document.querySelectorAll('.eq-preset-btn').forEach(b => b.classList.toggle('active', b.dataset.preset === name));
+  }
+
+  document.getElementById('eqPresets').addEventListener('click', e => {
+    if (!e.target.classList.contains('eq-preset-btn')) return;
+    const name = e.target.dataset.preset;
+    setSliders(PRESETS[name]);
+    setActivePreset(name);
+  });
+
+  dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('drag-over'); });
+  dropZone.addEventListener('dragleave', () => dropZone.classList.remove('drag-over'));
+  dropZone.addEventListener('drop', e => { e.preventDefault(); dropZone.classList.remove('drag-over'); if (e.dataTransfer.files[0]) setFile(e.dataTransfer.files[0]); });
+  dropZone.addEventListener('click', e => { if (e.target.tagName !== 'LABEL') fileInput.click(); });
+  fileInput.addEventListener('change', e => { if (e.target.files[0]) setFile(e.target.files[0]); });
+
+  async function setFile(file) {
+    selectedFile = file;
+    stopPreview();
+    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    showProgress();
+    updateProgress(10, 'Reading file...');
+    try {
+      const ab = await file.arrayBuffer();
+      updateProgress(50, 'Decoding audio...');
+      originalBuffer = await audioCtx.decodeAudioData(ab);
+      updateProgress(100, 'Ready');
+      setTimeout(() => hideProgress(), 400);
+
+      document.getElementById('playerFileName').textContent = file.name;
+      const player = document.getElementById('audioPlayer');
+      player.src = URL.createObjectURL(file);
+      player.onloadedmetadata = () => {
+        document.getElementById('totalDuration').textContent = formatTime(player.duration);
+      };
+      document.getElementById('playerPanel').style.display = 'block';
+      document.getElementById('optionsPanel').style.display = 'block';
+      document.getElementById('resultPanel').style.display = 'none';
+      setSliders(PRESETS.flat);
+      setActivePreset('flat');
+      hideError();
+    } catch(e) {
+      hideProgress();
+      showError('Could not read the file. Please make sure it is a valid audio file.');
+    }
+  }
+
+  function buildFilterChain(ctx) {
+    const filters = BANDS.map((band, i) => {
+      const f = ctx.createBiquadFilter();
+      f.type = band.type;
+      f.frequency.value = band.freq;
+      if (band.type === 'peaking') f.Q.value = 1;
+      f.gain.value = gains[i];
+      return f;
+    });
+    for (let i = 0; i < filters.length - 1; i++) filters[i].connect(filters[i+1]);
+    return filters;
+  }
+
+  function updateLivePreviewGains() {
+    if (!previewFilters) return;
+    previewFilters.forEach((f, i) => { f.gain.value = gains[i]; });
+  }
+
+  function stopPreview() {
+    if (previewSource) { try { previewSource.stop(); } catch(e) {} }
+    previewSource = null; previewFilters = null;
+    previewBtn.textContent = '▶️ Preview';
+  }
+
+  previewBtn.addEventListener('click', () => {
+    if (!originalBuffer || !audioCtx) return;
+    if (previewSource) { stopPreview(); return; }
+    const source = audioCtx.createBufferSource();
+    source.buffer = originalBuffer;
+    const filters = buildFilterChain(audioCtx);
+    source.connect(filters[0]);
+    filters[filters.length - 1].connect(audioCtx.destination);
+    source.start(0);
+    previewSource = source;
+    previewFilters = filters;
+    previewBtn.textContent = '⏹️ Stop Preview';
+    source.onended = () => { previewSource = null; previewFilters = null; previewBtn.textContent = '▶️ Preview'; };
+  });
+
+  processBtn.addEventListener('click', async () => {
+    if (!originalBuffer) return;
+    stopPreview();
+    processBtn.disabled = true;
+    previewBtn.disabled = true;
+    showProgress();
+    updateProgress(20, 'Applying equalizer...');
+    hideError();
+    document.getElementById('resultPanel').style.display = 'none';
+
+    try {
+      const rendered = await applyEq(originalBuffer);
+      updateProgress(80, 'Encoding WAV...');
+      const wavAb = audioBufferToWav(rendered);
+      const wavBlob = new Blob([wavAb], { type: 'audio/wav' });
+      const url = URL.createObjectURL(wavBlob);
+      updateProgress(100, 'Done!');
+      setTimeout(() => hideProgress(), 400);
+
+      document.getElementById('resultAudio').src = url;
+      const baseName = selectedFile.name.replace(/\.[^.]+$/, '');
+      const outName = `${baseName}_eq.wav`;
+
+      const list = document.getElementById('downloadList');
+      list.innerHTML = '';
+      const item = document.createElement('div');
+      item.className = 'file-item';
+      item.innerHTML = `<span class="file-item-icon">✅</span><div class="file-item-info"><div class="file-item-name"></div><div class="file-item-size">${formatSize(wavBlob.size)}</div></div><a class="btn-download" id="downloadBtn" style="padding:8px 16px;font-size:0.85rem">Download</a>`;
+      item.querySelector('.file-item-name').textContent = outName;
+      const link = item.querySelector('a');
+      link.href = url; link.download = outName;
+      list.appendChild(item);
+
+      document.getElementById('resultSubtitle').textContent = `${BANDS.map((b,i)=>b.label+':'+(gains[i]>=0?'+':'')+gains[i]+'dB').join(' / ')}`;
+      document.getElementById('resultPanel').style.display = 'block';
+      document.getElementById('resultPanel').scrollIntoView({ behavior: 'smooth' });
+      const dlBtn = document.getElementById('downloadBtn');
+      if (dlBtn) {
+        const origText = dlBtn.textContent;
+        const origHref = dlBtn.getAttribute('href');
+        dlBtn.removeAttribute('href');
+        dlBtn.style.pointerEvents = 'none';
+        dlBtn.style.opacity = '0.85';
+        dlBtn.style.cursor = 'not-allowed';
+        const dots = ['⏳ Preparing download', '⏳ Preparing download.', '⏳ Preparing download..', '⏳ Preparing download...'];
+        let dotIdx = 0;
+        const dotTimer = setInterval(() => { dotIdx = (dotIdx + 1) % dots.length; dlBtn.textContent = dots[dotIdx]; }, 400);
+        setTimeout(() => {
+          clearInterval(dotTimer);
+          dlBtn.textContent = origText;
+          if (origHref) dlBtn.setAttribute('href', origHref);
+          dlBtn.style.pointerEvents = '';
+          dlBtn.style.opacity = '';
+          dlBtn.style.cursor = '';
+        }, 6000);
+      }
+    } catch(e) {
+      console.error(e);
+      hideProgress();
+      showError('Processing failed. (' + e.message + ')');
+    } finally {
+      processBtn.disabled = false;
+      previewBtn.disabled = false;
+    }
+  });
+
+  async function applyEq(buffer) {
+    const offlineCtx = new OfflineAudioContext(buffer.numberOfChannels, buffer.length, buffer.sampleRate);
+    const source = offlineCtx.createBufferSource();
+    source.buffer = buffer;
+    const filters = buildFilterChain(offlineCtx);
+    source.connect(filters[0]);
+    filters[filters.length - 1].connect(offlineCtx.destination);
+    source.start(0);
+    updateProgress(50, 'Rendering...');
+    return await offlineCtx.startRendering();
+  }
+
+  resetBtn.addEventListener('click', () => {
+    stopPreview();
+    selectedFile = null; originalBuffer = null; fileInput.value = '';
+    document.getElementById('playerPanel').style.display = 'none';
+    document.getElementById('optionsPanel').style.display = 'none';
+    document.getElementById('resultPanel').style.display = 'none';
+    hideError(); hideProgress();
+  });
+
+  function audioBufferToWav(buffer) {
+    const numChannels = buffer.numberOfChannels;
+    const sampleRate = buffer.sampleRate;
+    const numFrames = buffer.length;
+    const bytesPerSample = 2;
+    const blockAlign = numChannels * bytesPerSample;
+    const byteRate = sampleRate * blockAlign;
+    const dataSize = numFrames * blockAlign;
+    const ab = new ArrayBuffer(44 + dataSize);
+    const view = new DataView(ab);
+    function writeString(v, off, str) { for (let i = 0; i < str.length; i++) v.setUint8(off + i, str.charCodeAt(i)); }
+    writeString(view, 0, 'RIFF');
+    view.setUint32(4, 36 + dataSize, true);
+    writeString(view, 8, 'WAVE');
+    writeString(view, 12, 'fmt ');
+    view.setUint32(16, 16, true);
+    view.setUint16(20, 1, true);
+    view.setUint16(22, numChannels, true);
+    view.setUint32(24, sampleRate, true);
+    view.setUint32(28, byteRate, true);
+    view.setUint16(32, blockAlign, true);
+    view.setUint16(34, bytesPerSample * 8, true);
+    writeString(view, 36, 'data');
+    view.setUint32(40, dataSize, true);
+    let offset = 44;
+    for (let i = 0; i < numFrames; i++) {
+      for (let ch = 0; ch < numChannels; ch++) {
+        const sample = Math.max(-1, Math.min(1, buffer.getChannelData(ch)[i]));
+        view.setInt16(offset, sample * 0x7FFF, true);
+        offset += 2;
+      }
+    }
+    return ab;
+  }
+
+  function showProgress() { document.getElementById('progressWrap').style.display = 'block'; }
+  function hideProgress() { document.getElementById('progressWrap').style.display = 'none'; }
+  function updateProgress(pct, text) {
+    const p = Math.max(0, Math.min(100, pct));
+    document.getElementById('progressFill').style.width = p + '%';
+    document.getElementById('progressPct').textContent = p + '%';
+    document.getElementById('progressText').textContent = text;
+  }
+  function showError(msg) { const el = document.getElementById('errorMsg'); el.textContent = msg; el.style.display = 'block'; }
+  function hideError() { document.getElementById('errorMsg').style.display = 'none'; }
+  function formatSize(b) {
+    if (b < 1024) return b + ' B';
+    if (b < 1048576) return (b/1024).toFixed(1) + ' KB';
+    return (b/1048576).toFixed(1) + ' MB';
+  }
+  function formatTime(s) {
+    if (isNaN(s)) return '-';
+    const m = Math.floor(s / 60), sec = Math.floor(s % 60);
+    return `${m}:${sec.toString().padStart(2,'0')}`;
+  }
+})();
+</script>
+<script src="../js/wooahouse-originals-tool-en.js"></script>
+<script src="../js/pwa-install.js"></script>
+<script src="../js/wooa-sidebar-en.js"></script>
+<script src="../js/wooa-footer-en.js"></script>
+</body>
+</html>
